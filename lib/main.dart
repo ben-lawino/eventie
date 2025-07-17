@@ -1,4 +1,5 @@
 import 'package:eventie/customer/navigation.dart';
+import 'package:eventie/widgets/card.dart';
 import 'package:flutter/material.dart';
 
 import 'common/theme/app_theme.dart';
