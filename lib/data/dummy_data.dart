@@ -41,7 +41,7 @@ final List<EventModel> dummyEvents = [
     date: DateTime.parse('2025-11-15T10:00:00Z'),
     location: 'Sarit Expo Centre, Nairobi',
     imageUrl:
-    'https://via.placeholder.com/150/0000FF/808080 ?Text=PAKAINFO.com',
+    'https://picsum.photos/300/200?random=1',
     category: 'Tech',
     organizerId: 'organizer456',
     isFeatured: false,
@@ -72,7 +72,7 @@ final List<EventModel> dummyEvents = [
     date: DateTime.parse('2025-10-07T19:00:00Z'),
     location: 'Kenyatta University Amphitheatre',
     imageUrl:
-    'https://via.placeholder.com/150/FF0000/FFFFFF?Text=yttags.com',
+    'https://picsum.photos/300/200?random=1',
     category: 'Concert',
     organizerId: 'organizer789',
     isFeatured: true,
