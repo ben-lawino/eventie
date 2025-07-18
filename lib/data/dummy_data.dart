@@ -10,7 +10,7 @@ final List<EventModel> dummyEvents = [
     date: DateTime.parse('2025-12-24T18:00:00Z'),
     location: 'KICC Grounds, Nairobi',
     imageUrl:
-    'https://images.unsplash.com/photo-1547045662-6ce7c1f2ed6c?fit=crop&w=800',
+    'https://picsum.photos/300/200?random=1',
     category: 'Festival',
     organizerId: 'organizer123',
     isFeatured: true,
@@ -41,7 +41,7 @@ final List<EventModel> dummyEvents = [
     date: DateTime.parse('2025-11-15T10:00:00Z'),
     location: 'Sarit Expo Centre, Nairobi',
     imageUrl:
-    'https://images.unsplash.com/photo-1551836022-d5d88e9218df?fit=crop&w=800',
+    'https://via.placeholder.com/150/0000FF/808080 ?Text=PAKAINFO.com',
     category: 'Tech',
     organizerId: 'organizer456',
     isFeatured: false,
@@ -72,7 +72,7 @@ final List<EventModel> dummyEvents = [
     date: DateTime.parse('2025-10-07T19:00:00Z'),
     location: 'Kenyatta University Amphitheatre',
     imageUrl:
-    'https://images.unsplash.com/photo-1515169067865-5387a1e2555e?fit=crop&w=800',
+    'https://via.placeholder.com/150/FF0000/FFFFFF?Text=yttags.com',
     category: 'Concert',
     organizerId: 'organizer789',
     isFeatured: true,
