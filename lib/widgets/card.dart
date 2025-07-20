@@ -36,13 +36,13 @@ class EventCard extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(30)),
                 child: Image.network(
                   imageUrl,
-                  height: 200,
+                  height: 250,
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
               ),
             ),
-            SizedBox(height: 6),
+            //SizedBox(height: 6),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
@@ -69,7 +69,7 @@ class EventCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
+                  //const SizedBox(height: 8),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [

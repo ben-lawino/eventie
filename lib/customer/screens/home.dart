@@ -56,7 +56,7 @@ class HomePage extends StatelessWidget {
                               child: Center(
                                 child: IconButton(
                                   onPressed: () {},
-                                  icon: Icon(Icons.notifications_none_outlined, size: 24),
+                                  icon: Image.asset('assets/icons/notification.png', scale: 2.5,),
                                 ),
                               ),
                             ),
