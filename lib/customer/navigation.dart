@@ -15,7 +15,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
   int _currentIndex = 0;
 
   final List _screens = [
-    HomePage(),
+    HomePage(categories: [],),
     FavoritePage(),
     TicketPage(),
     FavoritePage(),

@@ -16,6 +16,7 @@ final ThemeData appLightTheme = ThemeData(
     onSecondary: AppColors.background,
     onSurface: AppColors.textPrimary,
     brightness: Brightness.light,
+    primaryContainer: Colors.white
   ),
   textTheme: appTextTheme,
   appBarTheme: AppBarTheme(
@@ -30,15 +31,16 @@ final ThemeData appLightTheme = ThemeData(
 final ThemeData appDarkTheme = ThemeData(
   brightness: Brightness.dark,
   primaryColor: AppColors.primary,
-  scaffoldBackgroundColor: const Color(0xFF121212),
+  scaffoldBackgroundColor: const Color(0xFF111827),
   colorScheme: ColorScheme.fromSeed(
     seedColor: AppColors.primary,
     primary: AppColors.primary,
     secondary: AppColors.badge,
-    surface: const Color(0xFF121212),
+    surface: const Color(0xFF111827),
     onPrimary: Colors.white,
     onSecondary: Colors.white,
     onSurface: Colors.white,
+    primaryContainer: AppColors.cardDark,
     brightness: Brightness.dark,
   ),
   textTheme: appTextTheme.apply(

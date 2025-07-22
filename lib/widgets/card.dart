@@ -25,7 +25,7 @@ class EventCard extends StatelessWidget {
       onTap: onTap,
       child: Card(
         elevation: 4,
-        color: AppColors.softGray,
+        color: Theme.of(context).colorScheme.surface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
