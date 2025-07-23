@@ -1,9 +1,11 @@
 import 'package:eventie/common/constants/colors.dart';
 import 'package:eventie/widgets/filter_button.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../../data/dummy_data.dart';
 import '../../data/models/category_model.dart';
 import '../../widgets/featured_list.dart';
+import '../../widgets/grid_card.dart';
 
 class HomePage extends StatelessWidget {
   final List<CategoryModel> categories;
@@ -173,6 +175,8 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
               ),
+              SizedBox(height: 12),
+              //filter
               SizedBox(
                 height: 50,
                 child: ListView.separated(
@@ -190,6 +194,31 @@ class HomePage extends StatelessWidget {
                       const SizedBox(width: 8),
                 ),
               ),
+              GridView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(), // or ScrollPhysics() if inside scroll view
+                itemCount: dummyEvents.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                  childAspectRatio: 0.6, // Tweak this to control height vs width
+                ),
+                itemBuilder: (context, index) {
+                  final event = dummyEvents[index];
+                  final formattedDate = DateFormat('EEE, MMM d, HH:mm').format(event.date);
+
+                  return GridCard(
+                    imageUrl: event.imageUrl,
+                    title: event.title,
+                    date: formattedDate,
+                    location: event.location,
+                    onFavorite: () {},
+                  );
+                },
+              ),
+
             ],
           ),
         ),

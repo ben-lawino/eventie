@@ -12,24 +12,27 @@ class EventsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 380,
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          itemCount: dummyEvents.length,
-          itemBuilder: (context, index) {
-            final event = dummyEvents[index];
-            final formattedDate = DateFormat('EEE, MMM d, HH:mm').format(event.date);
+      child: ListView.separated(
+        separatorBuilder: (context, index) => const SizedBox(width: 12),
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        itemCount: dummyEvents.length,
+        itemBuilder: (context, index) {
+          final event = dummyEvents[index];
+          final formattedDate = DateFormat(
+            'EEE, MMM d, HH:mm',
+          ).format(event.date);
 
-            return SizedBox(
-              width: 300,
-              child: EventCard(
-                imageUrl: event.imageUrl,
-                title: event.title,
-                date: formattedDate,
-                location: event.location,
-              ),
-            );
-          },
+          return SizedBox(
+            width: 300,
+            child: EventCard(
+              imageUrl: event.imageUrl,
+              title: event.title,
+              date: formattedDate,
+              location: event.location,
+            ),
+          );
+        },
       ),
     );
   }
