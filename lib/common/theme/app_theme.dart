@@ -16,7 +16,7 @@ final ThemeData appLightTheme = ThemeData(
     onSecondary: AppColors.background,
     onSurface: AppColors.textPrimary,
     brightness: Brightness.light,
-    primaryContainer: Colors.white
+    primaryContainer: AppColors.softGray
   ),
   textTheme: appTextTheme,
   appBarTheme: AppBarTheme(

@@ -1,6 +1,7 @@
 import 'package:eventie/customer/screens/favorite.dart';
 import 'package:eventie/customer/screens/home.dart';
 import 'package:eventie/customer/screens/ticket.dart';
+import 'package:eventie/data/categories.dart';
 import 'package:flutter/material.dart';
 
 
@@ -15,7 +16,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
   int _currentIndex = 0;
 
   final List _screens = [
-    HomePage(categories: [],),
+    HomePage(categories: eventCategories,),
     FavoritePage(),
     TicketPage(),
     FavoritePage(),

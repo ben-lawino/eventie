@@ -42,7 +42,7 @@ class EventCard extends StatelessWidget {
                 ),
               ),
             ),
-            //SizedBox(height: 6),
+            SizedBox(height: 4),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
@@ -50,7 +50,7 @@ class EventCard extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),

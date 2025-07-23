@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../common/constants/colors.dart';
+
 class FilterButton extends StatelessWidget {
   final String label;
   final IconData icon;
@@ -11,23 +13,20 @@ class FilterButton extends StatelessWidget {
     required this.label,
     required this.icon,
     this.isSelected = false,
-    this.selectedColor = Colors.blue,
+    this.selectedColor = AppColors.primary,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      //margin: const EdgeInsets.only(right: 12),
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+   padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+
       decoration: BoxDecoration(
-        color: isSelected ? selectedColor : Colors.transparent,
-        border: Border.all(
-          color: isSelected ? selectedColor : Theme.of(context).colorScheme.primary,
-          width: 1.5,
-        ),
-        borderRadius: BorderRadius.circular(20),
+        color: isSelected ? selectedColor : Theme.of(context).colorScheme.primaryContainer,
+        borderRadius: BorderRadius.circular(24),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
             icon,
