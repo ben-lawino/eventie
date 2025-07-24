@@ -6,7 +6,17 @@ class FavoritePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.greenAccent,
+      appBar: AppBar(
+        leading: Image.asset('assets/icons/applogo.png'),
+        title: Text('Favorites',style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.search),
+          ),
+        ],
+        //centerTitle: true,
+      ),
     );
   }
 }

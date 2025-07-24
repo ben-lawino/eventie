@@ -17,68 +17,65 @@ class HomePage extends StatelessWidget {
     int selectedIndex = 0;
 
     return Scaffold(
+      appBar: AppBar(
+        leading: Padding(
+          padding: EdgeInsets.only(left: 18.0),
+          child: CircleAvatar(
+            radius: 24,
+            backgroundImage: AssetImage('assets/images/hacker.png'),
+          ),
+        ),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Good Morning',
+              style: Theme.of(
+                context,
+              ).textTheme.labelMedium!.copyWith(color: Colors.grey),
+            ),
+            Text(
+              'Ben lawin',
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 18),
+            child: Container(
+              height: 40,
+              width: 40,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: Colors.grey),
+              ),
+              child: Center(
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Image.asset(
+                    'assets/icons/notification.png',
+                    scale: 2.5,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 18),
+                padding: EdgeInsets.all(18),
                 child: Column(
                   children: [
                     Column(
                       children: [
-                        /// Top Row with Avatar, Greeting, and Notification
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              radius: 24,
-                              backgroundImage: AssetImage(
-                                'assets/images/hacker.png',
-                              ),
-                            ),
-                            SizedBox(width: 12),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Good Morning',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelMedium!
-                                      .copyWith(color: Colors.grey),
-                                ),
-                                Text(
-                                  'Ben lawin',
-                                  style: Theme.of(context).textTheme.bodyMedium!
-                                      .copyWith(fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                            Spacer(),
-                            Container(
-                              height: 40,
-                              width: 40,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(color: Colors.grey),
-                              ),
-                              child: Center(
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: Image.asset(
-                                    'assets/icons/notification.png',
-                                    scale: 2.5,
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.onSurface,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 18),
-
                         /// Search Bar
                         TextField(
                           decoration: InputDecoration(
@@ -195,19 +192,26 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               GridView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 18,
+                  vertical: 12,
+                ),
                 shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(), // or ScrollPhysics() if inside scroll view
+                physics: const NeverScrollableScrollPhysics(),
+                // or ScrollPhysics() if inside scroll view
                 itemCount: dummyEvents.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 12,
                   mainAxisSpacing: 12,
-                  childAspectRatio: 0.7, // Tweak this to control height vs width
+                  childAspectRatio:
+                      0.7, // Tweak this to control height vs width
                 ),
                 itemBuilder: (context, index) {
                   final event = dummyEvents[index];
-                  final formattedDate = DateFormat('EEE, MMM d, HH:mm').format(event.date);
+                  final formattedDate = DateFormat(
+                    'EEE, MMM d, HH:mm',
+                  ).format(event.date);
 
                   return GridCard(
                     imageUrl: event.imageUrl,
@@ -218,7 +222,6 @@ class HomePage extends StatelessWidget {
                   );
                 },
               ),
-
             ],
           ),
         ),
