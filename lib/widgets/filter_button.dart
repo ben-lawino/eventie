@@ -28,10 +28,14 @@ class FilterButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            icon,
-            color: isSelected ? selectedColor : Colors.black54,
-            size: 18,
+          CircleAvatar(
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            radius: 12,
+            child: Icon(
+              icon,
+              color: isSelected ? selectedColor : Colors.white,
+              size: 18,
+            ),
           ),
           const SizedBox(width: 6),
           Text(

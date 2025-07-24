@@ -55,7 +55,7 @@ class GridCard extends StatelessWidget {
                     style: Theme.of(context).textTheme.titleSmall!.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
-                    maxLines: 2,
+                    maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 6),
@@ -79,7 +79,6 @@ class GridCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 4),
 
                   // Location Row
                   Row(

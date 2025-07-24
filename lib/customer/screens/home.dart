@@ -203,7 +203,7 @@ class HomePage extends StatelessWidget {
                   crossAxisCount: 2,
                   crossAxisSpacing: 12,
                   mainAxisSpacing: 12,
-                  childAspectRatio: 0.6, // Tweak this to control height vs width
+                  childAspectRatio: 0.7, // Tweak this to control height vs width
                 ),
                 itemBuilder: (context, index) {
                   final event = dummyEvents[index];
