@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../customer/screens/details.dart';
 import '../data/models/event_model.dart';
 import 'card.dart';
 
@@ -26,6 +27,14 @@ class EventsList extends StatelessWidget {
           return SizedBox(
             width: 300,
             child: EventCard(
+              onTap:  () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => DetailsScreen(event: event),
+                  ),
+                );
+              },
               imageUrl: event.imageUrl,
               title: event.title,
               date: formattedDate,

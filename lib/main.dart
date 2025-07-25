@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         theme: AppTheme.light,
         darkTheme: AppTheme.dark,
         themeMode: ThemeMode.system,
-      home: DetailsScreen(event: dummyEvents[0]),
+      home: NavigationMenu()
     );
   }
 }

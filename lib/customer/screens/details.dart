@@ -13,7 +13,9 @@ class DetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.surface),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18),
         child: Column(
@@ -75,10 +77,11 @@ class DetailsScreen extends StatelessWidget {
                         SizedBox(width: 6),
                         Text(
                           event.location,
-                          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
+                          style: Theme.of(context).textTheme.bodySmall!
+                              .copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
                         ),
                         SizedBox(width: 12),
                         Icon(
@@ -89,10 +92,11 @@ class DetailsScreen extends StatelessWidget {
                         SizedBox(width: 6),
                         Text(
                           DateFormat('EEE, MMM d • HH:mm').format(event.date),
-                          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
+                          style: Theme.of(context).textTheme.bodySmall!
+                              .copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
                         ),
                       ],
                     ),
@@ -114,7 +118,7 @@ class DetailsScreen extends StatelessWidget {
                       text: 'Buy Tickets',
                       width: double.infinity,
                       height: 50,
-                    )
+                    ),
                   ],
                 ),
               ),

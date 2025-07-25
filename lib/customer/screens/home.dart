@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
               width: 40,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(color: Colors.grey),
+                border: Border.all(color: Colors.grey[500]!),
               ),
               child: Center(
                 child: IconButton(
@@ -89,15 +89,15 @@ class HomePage extends StatelessWidget {
                                   color: Colors.grey[500],
                                   fontSize: 14,
                                 ),
-                            prefixIcon: Icon(
-                              Icons.search,
+                            prefixIcon: Image.asset(
+                              'assets/icons/search.png',
+                              scale: 25,
                               color: Colors.grey[500],
-                              size: 20,
                             ),
-                            suffixIcon: Icon(
-                              Icons.filter_list_outlined,
-                              color: Colors.grey[500],
-                              size: 20,
+                            suffixIcon: Image.asset(
+                              'assets/icons/filter.png',
+                              scale: 25,
+                              color: Theme.of(context).colorScheme.primary,
                             ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),

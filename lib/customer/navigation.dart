@@ -1,5 +1,6 @@
 import 'package:eventie/customer/screens/favorite.dart';
 import 'package:eventie/customer/screens/home.dart';
+import 'package:eventie/customer/screens/profile.dart';
 import 'package:eventie/customer/screens/ticket.dart';
 import 'package:eventie/data/categories.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
     HomePage(categories: eventCategories,),
     FavoritePage(),
     TicketPage(),
-    FavoritePage(),
+    ProfilePage(),
   ];
 
   @override
