@@ -1,9 +1,11 @@
 import 'package:eventie/customer/navigation.dart';
+import 'package:eventie/customer/screens/details.dart';
 import 'package:eventie/widgets/card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'common/theme/app_theme.dart';
+import 'data/dummy_data.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
         theme: AppTheme.light,
         darkTheme: AppTheme.dark,
         themeMode: ThemeMode.system,
-      home: NavigationMenu(),
+      home: DetailsScreen(event: dummyEvents[0]),
     );
   }
 }

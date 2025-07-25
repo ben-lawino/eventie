@@ -25,6 +25,7 @@ class EventCard extends StatelessWidget {
       onTap: onTap,
       child: Card(
         elevation: 4,
+        //shadowColor: Colors.grey[300],
         color: Theme.of(context).colorScheme.surface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         child: Column(
