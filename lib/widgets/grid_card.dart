@@ -9,20 +9,20 @@ class GridCard extends StatelessWidget {
   final VoidCallback? onFavorite;
 
   const GridCard({
-    Key? key,
+    super.key,
     required this.imageUrl,
     required this.title,
     required this.date,
     required this.location,
     this.onFavorite,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){},
       child: Card(
-        elevation: 3,
+        elevation: 4,
         clipBehavior: Clip.antiAlias,
         color: Theme.of(context).colorScheme.surface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

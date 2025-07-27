@@ -13,7 +13,7 @@ class FavoritePage extends StatelessWidget {
         centerTitle: true,
         leading: Image.asset('assets/icons/applogo.png'),
         title: Text(
-          'Tickets',
+          'Favorites',
           style: Theme.of(
             context,
           ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),

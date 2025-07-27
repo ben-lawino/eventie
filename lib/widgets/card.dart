@@ -10,14 +10,14 @@ class EventCard extends StatelessWidget {
   final VoidCallback? onFavorite;
 
   const EventCard({
-    Key? key,
+    super.key,
     required this.imageUrl,
     required this.title,
     required this.date,
     required this.location,
     this.onTap,
     this.onFavorite,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class EventCard extends StatelessWidget {
       onTap: onTap,
       child: Card(
         elevation: 4,
-        //shadowColor: Colors.grey[300],
+
         color: Theme.of(context).colorScheme.surface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         child: Column(

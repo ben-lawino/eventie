@@ -12,7 +12,7 @@ class BookingCard extends StatelessWidget {
   final bool isBooked;
 
   const BookingCard({
-    Key? key,
+    super.key,
     required this.imageUrl,
     required this.title,
     required this.date,
@@ -20,31 +20,32 @@ class BookingCard extends StatelessWidget {
     this.onCancelBooking,
     this.onViewTicket,
     this.isBooked = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 2,
+      elevation: 4,
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       color: Theme.of(context).colorScheme.surface,
-      child: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        child: Column(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Image.network(
-                      imageUrl,
-                      height: 100,
-                      width: 100,
-                      fit: BoxFit.cover,
-                    ),
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.network(
+                    imageUrl,
+                    height: 100,
+                    width: 100,
+                    fit: BoxFit.cover,
                   ),
-                Spacer(),
+                ),
+                SizedBox(width: 16),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,58 +53,97 @@ class BookingCard extends StatelessWidget {
                       // Title
                       Text(
                         title,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.titleMedium!
+                            .copyWith(fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(height: 6), // slightly more space for better visual balance
+                      const SizedBox(height: 10),
 
                       // Date
                       Text(
                         date,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.textSecondary,
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 4), // give more room above location
+                      const SizedBox(height: 10),
 
                       // Location with icon
                       Row(
-                        crossAxisAlignment: CrossAxisAlignment.center, // ensure vertical alignment
                         children: [
                           const Icon(
                             Icons.location_on,
-                            size: 14, // slightly larger for better visibility
-                            color: AppColors.textSecondary,
+                            size: 14,
+                            color: AppColors.primary,
                           ),
-                          const SizedBox(width: 4), // consistent spacing
+                          SizedBox(width: 4),
                           Expanded(
                             child: Text(
                               location,
-                              style: const TextStyle(
-                                fontSize: 12,
+                              style: Theme.of(context).textTheme.bodySmall!
+                                  .copyWith(
+                                fontWeight: FontWeight.w600,
                                 color: AppColors.textSecondary,
                               ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],
                       ),
                     ],
                   ),
-                )
-              ]
+                ),
+              ],
             ),
-          )
-        ]
-      )
+            SizedBox(height: 6),
+            Divider(
+              color: Colors.grey[400],
+              thickness: 1,
+              height: 20,
+              //indent: 16,
+              //endIndent: 16,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: onCancelBooking,
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(color: AppColors.primary),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      minimumSize: const Size(0, 32),
+                    ),
+                    child: Text(
+                        'Cancel Booking',
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(color: AppColors.primary,)
+                    ),
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: onViewTicket,
+                    style:  ButtonStyle(
+                      minimumSize: WidgetStateProperty.all(const Size(0, 34)),
+                      backgroundColor: WidgetStateProperty.all(AppColors.primary),
+                      foregroundColor: WidgetStateProperty.all(Colors.white),
+                      shape: WidgetStateProperty.all(
+                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                      ),
+                    ),
+                    child: Text(
+                        'View E-Ticket',
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Colors.white)
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }

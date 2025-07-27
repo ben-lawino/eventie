@@ -106,7 +106,7 @@ class HomePage extends StatelessWidget {
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                               borderSide: BorderSide(
-                                color: Colors.blue,
+                                color: Theme.of(context).colorScheme.primary,
                                 width: 2,
                               ),
                             ),
