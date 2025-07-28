@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../common/constants/colors.dart';
 
-class BookingCard extends StatelessWidget {
+class CompletedCard extends StatelessWidget {
   final String imageUrl;
   final String title;
   final String date;
@@ -11,7 +11,7 @@ class BookingCard extends StatelessWidget {
   final VoidCallback? onViewTicket;
   final bool isBooked;
 
-  const BookingCard({
+  const CompletedCard({
     super.key,
     required this.imageUrl,
     required this.title,
@@ -55,7 +55,7 @@ class BookingCard extends StatelessWidget {
                         title,
                         style: Theme.of(context).textTheme.titleMedium!
                             .copyWith(fontWeight: FontWeight.bold,
-                        fontSize: 18),
+                            fontSize: 18),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -66,9 +66,9 @@ class BookingCard extends StatelessWidget {
                       Text(
                         date,
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          color: Theme.of(context).colorScheme.primary,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14
+                            color: Theme.of(context).colorScheme.primary,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -86,38 +86,38 @@ class BookingCard extends StatelessWidget {
                                 ),
                                 SizedBox(width: 4),
                                 Text(
-                                    location,
-                                    style: Theme.of(context).textTheme.bodySmall!
-                                        .copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.textSecondary,
-                                    ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
+                                  location,
+                                  style: Theme.of(context).textTheme.bodySmall!
+                                      .copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.textSecondary,
                                   ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ],
                             ),
                           ),
                           Container(
-                              height: 20,
-                              width: 50,
-                              decoration: BoxDecoration(
+                            height: 20,
+                            width: 70,
+                            decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(6),
                                 border: Border.all(
-                                  color: AppColors.primary
+                                    color: Colors.green
                                 )
-                              ),
-                              child:Center(
-                                child: Text(
-                                    'Paid',
-                                    style: Theme.of(context).textTheme.labelSmall!
-                                        .copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.primary,
-                                      fontSize: 11
-                                    ),),
-                              ),
-                              ),
+                            ),
+                            child:Center(
+                              child: Text(
+                                'Completed',
+                                style: Theme.of(context).textTheme.labelSmall!
+                                    .copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.green,
+                                  fontSize: 8
+                                ),),
+                            ),
+                          ),
                         ],
                       ),
                     ],
@@ -145,7 +145,7 @@ class BookingCard extends StatelessWidget {
                       minimumSize: const Size(0, 32),
                     ),
                     child: Text(
-                        'Cancel Booking',
+                        'Rate Event',
                         style: Theme.of(context).textTheme.labelLarge!.copyWith(color: AppColors.primary,fontWeight: FontWeight.w700)
                     ),
                   ),
