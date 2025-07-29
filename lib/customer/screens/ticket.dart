@@ -3,13 +3,11 @@ import 'package:eventie/customer/screens/tab_screens/completed.dart';
 import 'package:eventie/customer/screens/tab_screens/upcoming.dart';
 import 'package:flutter/material.dart';
 
-
 class TicketPage extends StatelessWidget {
   const TicketPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     return DefaultTabController(
       initialIndex: 0,
       length: 3,
@@ -41,16 +39,8 @@ class TicketPage extends StatelessWidget {
             ],
           ),
         ),
-        body: TabBarView(
-          children: [
-            Upcoming(),
-            Completed(),
-            Cancelled(),
-          ],
-        ),
+        body: TabBarView(children: [Upcoming(), Completed(), Cancelled()]),
       ),
     );
   }
 }
-
-

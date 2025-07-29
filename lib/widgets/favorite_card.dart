@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
+
 import '../common/constants/colors.dart';
 
-class CancelledCard extends StatelessWidget {
+class FavoriteCard extends StatelessWidget {
   final String imageUrl;
   final String title;
   final String date;
   final String location;
-  final VoidCallback? onCancelBooking;
   final bool isBooked;
 
-  const CancelledCard({
+  const FavoriteCard({
     super.key,
     required this.imageUrl,
     required this.title,
     required this.date,
     required this.location,
-    this.onCancelBooking,
     this.isBooked = true,
   });
 
@@ -37,8 +36,8 @@ class CancelledCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(24),
                   child: Image.network(
                     imageUrl,
-                    height: 100,
-                    width: 100,
+                    height: 120,
+                    width: 120,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -95,25 +94,11 @@ class CancelledCard extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Container(
-                            height: 20,
-                            width: 70,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6),
-                                border: Border.all(
-                                    color: Colors.red
-                                )
-                            ),
-                            child:Center(
-                              child: Text(
-                                'Cancelled',
-                                style: Theme.of(context).textTheme.labelSmall!
-                                    .copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.red,
-                                    fontSize: 8
-                                ),),
-                            ),
+                          IconButton(
+                            onPressed: (){},
+                            icon: const Icon(Icons.favorite_rounded, size: 20, color: AppColors.primary),
+                            padding: EdgeInsets.zero,
+                            constraints: const BoxConstraints(),
                           ),
                         ],
                       ),

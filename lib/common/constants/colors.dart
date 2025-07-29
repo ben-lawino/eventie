@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   static const Color primary = Color(0xFF6E29D8);
-  static const Color deepViolet = Color(0XFF38137E);
+  static const Color deepViolet = Color(0xFF38137E);
   static const Color badge = Color(0xFFFF4D4F);
 
   static const Color softGray = Color(0xFFE4E3E6);

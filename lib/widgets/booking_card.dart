@@ -146,7 +146,7 @@ class BookingCard extends StatelessWidget {
                     ),
                     child: Text(
                         'Cancel Booking',
-                        style: Theme.of(context).textTheme.labelLarge!.copyWith(color: AppColors.primary,fontWeight: FontWeight.w700)
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(color: AppColors.primary,fontWeight: FontWeight.w600)
                     ),
                   ),
                 ),
@@ -164,7 +164,7 @@ class BookingCard extends StatelessWidget {
                     ),
                     child: Text(
                         'View E-Ticket',
-                        style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Colors.white,fontWeight: FontWeight.w700)
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Colors.white,fontWeight: FontWeight.w600)
                     ),
                   ),
                 ),

@@ -1,4 +1,6 @@
+import 'package:eventie/widgets/favorite_card.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../data/dummy_data.dart';
 import '../../widgets/booking_card.dart';
@@ -8,6 +10,9 @@ class FavoritePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final event = dummyEvents[0];
+    final formattedDate = DateFormat('EEE, MMM d, HH:mm').format(event.date);
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -26,6 +31,16 @@ class FavoritePage extends StatelessWidget {
               scale: 25,
               color: Colors.grey[700],
             ),
+          ),
+        ],
+      ),
+      body: ListView(
+        children: [
+          FavoriteCard(
+            imageUrl: event.imageUrl,
+            title: event.title,
+            date: formattedDate,
+            location: event.location,
           ),
         ],
       ),

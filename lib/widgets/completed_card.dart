@@ -7,7 +7,7 @@ class CompletedCard extends StatelessWidget {
   final String title;
   final String date;
   final String location;
-  final VoidCallback? onCancelBooking;
+  final VoidCallback? onRateEvent;
   final VoidCallback? onViewTicket;
   final bool isBooked;
 
@@ -17,7 +17,7 @@ class CompletedCard extends StatelessWidget {
     required this.title,
     required this.date,
     required this.location,
-    this.onCancelBooking,
+    this.onRateEvent,
     this.onViewTicket,
     this.isBooked = true,
   });
@@ -54,8 +54,10 @@ class CompletedCard extends StatelessWidget {
                       Text(
                         title,
                         style: Theme.of(context).textTheme.titleMedium!
-                            .copyWith(fontWeight: FontWeight.bold,
-                            fontSize: 18),
+                            .copyWith(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -66,9 +68,9 @@ class CompletedCard extends StatelessWidget {
                       Text(
                         date,
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            color: Theme.of(context).colorScheme.primary,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -89,9 +91,9 @@ class CompletedCard extends StatelessWidget {
                                   location,
                                   style: Theme.of(context).textTheme.bodySmall!
                                       .copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.textSecondary,
-                                  ),
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColors.textSecondary,
+                                      ),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -102,20 +104,19 @@ class CompletedCard extends StatelessWidget {
                             height: 20,
                             width: 70,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6),
-                                border: Border.all(
-                                    color: Colors.green
-                                )
+                              borderRadius: BorderRadius.circular(6),
+                              border: Border.all(color: Colors.green),
                             ),
-                            child:Center(
+                            child: Center(
                               child: Text(
                                 'Completed',
                                 style: Theme.of(context).textTheme.labelSmall!
                                     .copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.green,
-                                  fontSize: 8
-                                ),),
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.green,
+                                      fontSize: 8,
+                                    ),
+                              ),
                             ),
                           ),
                         ],
@@ -126,16 +127,12 @@ class CompletedCard extends StatelessWidget {
               ],
             ),
             SizedBox(height: 6),
-            Divider(
-              color: Colors.grey[400],
-              thickness: 1,
-              height: 20,
-            ),
+            Divider(color: Colors.grey[400], thickness: 1, height: 20),
             Row(
               children: [
                 Expanded(
                   child: OutlinedButton(
-                    onPressed: onCancelBooking,
+                    onPressed: onRateEvent,
                     style: OutlinedButton.styleFrom(
                       side: BorderSide(color: AppColors.primary),
                       shape: RoundedRectangleBorder(
@@ -145,8 +142,11 @@ class CompletedCard extends StatelessWidget {
                       minimumSize: const Size(0, 32),
                     ),
                     child: Text(
-                        'Rate Event',
-                        style: Theme.of(context).textTheme.labelLarge!.copyWith(color: AppColors.primary,fontWeight: FontWeight.w700)
+                      'Rate Event',
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
@@ -154,22 +154,29 @@ class CompletedCard extends StatelessWidget {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: onViewTicket,
-                    style:  ButtonStyle(
+                    style: ButtonStyle(
                       minimumSize: WidgetStateProperty.all(const Size(0, 34)),
-                      backgroundColor: WidgetStateProperty.all(AppColors.primary),
+                      backgroundColor: WidgetStateProperty.all(
+                        AppColors.primary,
+                      ),
                       foregroundColor: WidgetStateProperty.all(Colors.white),
                       shape: WidgetStateProperty.all(
-                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                       ),
                     ),
                     child: Text(
-                        'View E-Ticket',
-                        style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Colors.white,fontWeight: FontWeight.w700)
+                      'View E-Ticket',
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),
