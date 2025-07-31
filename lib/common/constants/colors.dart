@@ -6,7 +6,7 @@ class AppColors {
   static const Color badge = Color(0xFFFF4D4F);
 
   static const Color softGray = Color(0xFFE4E3E6);
-  static const Color background = Color(0xFFF8E7F6);
+  static const Color background = Color(0xFFFFFFFF);
 
   static const Color textPrimary = Color(0xFF1F2937);
   static const Color textSecondary = Color(0xFF9797A2);
