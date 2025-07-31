@@ -26,6 +26,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       bottomNavigationBar: NavigationBar(
         height: 80,
         elevation: 0,
@@ -34,7 +35,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
         onDestinationSelected: (index) => setState(() => _currentIndex = index),
         destinations: [
           NavigationDestination(
-            icon: Image.asset('assets/icons/home_outlined.png',height: 24,width: 24,color: Color(0xff757575)),
+            icon: Image.asset('assets/icons/home_outlined.png',height: 24,width: 24,color: Color(0xff757575),),
             selectedIcon:Image.asset('assets/icons/home_filled.png',height: 24,width: 24,color :Theme.of(context).colorScheme.primary,),
             label: 'Home',
           ),

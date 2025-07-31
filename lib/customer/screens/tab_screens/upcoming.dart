@@ -1,4 +1,4 @@
-import 'package:eventie/customer/screens/mini_screens/cancel_event.dart';
+import 'package:eventie/widgets/cancel_event.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
