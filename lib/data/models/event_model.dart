@@ -10,7 +10,7 @@ class EventModel {
   final String imageUrl;
   final String category;
   final String organizerId;
-  final List<TicketModel> tickets; // 👈 Here it integrates
+  final List<TicketModel> tickets; //  Here it integrates
   final bool isFeatured;
 
   EventModel({

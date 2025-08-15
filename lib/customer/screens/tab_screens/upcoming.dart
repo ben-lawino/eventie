@@ -16,6 +16,7 @@ class _UpcomingState extends State<Upcoming> {
   void _openCancelEventOverlay() {
     showModalBottomSheet(
       useSafeArea: true,
+      isDismissible: false,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(36)),
       ),

@@ -19,10 +19,11 @@ class FilterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-   padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
-
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        color: isSelected ? selectedColor : Theme.of(context).colorScheme.primaryContainer,
+        color: isSelected
+            ? selectedColor
+            : Theme.of(context).colorScheme.primaryContainer,
         borderRadius: BorderRadius.circular(24),
       ),
       child: Row(
@@ -41,7 +42,9 @@ class FilterButton extends StatelessWidget {
           Text(
             label,
             style: TextStyle(
-              color: isSelected ? selectedColor : Theme.of(context).colorScheme.primary,
+              color: isSelected
+                  ? selectedColor
+                  : Theme.of(context).colorScheme.primary,
               fontWeight: FontWeight.bold,
             ),
           ),

@@ -50,7 +50,9 @@ class _CancelEventState extends State<CancelEvent> {
             children: [
               Button(
                 width: 180,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
                 color: Theme.of(context).colorScheme.primaryContainer,
                 text: 'No, Don\'t cancel',
                 textColor: Theme.of(context).colorScheme.primary,

@@ -32,6 +32,7 @@ class CompletedCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Row(
               //crossAxisAlignment: CrossAxisAlignment.start,
