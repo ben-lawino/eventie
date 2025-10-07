@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int selectedIndex = 0;
+    //int selectedIndex = 0;
 
     return Scaffold(
       appBar: AppBar(
@@ -174,23 +174,23 @@ class HomePage extends StatelessWidget {
               ),
               SizedBox(height: 12),
               //filter
-              SizedBox(
-                height: 50,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  itemCount: categories.length,
-                  itemBuilder: (context, index) {
-                    final category = categories[index];
-                    return FilterButton(
-                      label: category.name,
-                      icon: category.icon,
-                    );
-                  },
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(width: 8),
-                ),
-              ),
+            SizedBox(
+              height: 50,
+              child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    itemCount: categories.length,
+                    itemBuilder: (context, index) {
+                      final category = categories[index];
+                      return FilterButton(
+                        label: category.name,
+                        icon: category.icon,
+                      );
+                    },
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(width: 8),
+                  ),
+            ),
               GridView.builder(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 18,

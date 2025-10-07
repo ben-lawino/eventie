@@ -13,9 +13,7 @@ class DetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-      ),
+      appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.surface),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18),
         child: Column(
@@ -90,13 +88,19 @@ class DetailsScreen extends StatelessWidget {
                           color: Theme.of(context).colorScheme.primary,
                         ),
                         SizedBox(width: 6),
-                        Text(
-                          DateFormat('EEE, MMM d • HH:mm').format(event.date),
-                          style: Theme.of(context).textTheme.bodySmall!
-                              .copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
+                        Expanded(
+                          child: FittedBox(
+                            //fit: BoxFit.scaleDown,
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              DateFormat('EEE, MMM d • HH:mm').format(event.date),
+                              style: Theme.of(context).textTheme.bodySmall!
+                                  .copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context).colorScheme.primary,
+                                  ),
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -110,6 +114,8 @@ class DetailsScreen extends StatelessWidget {
                     SizedBox(height: 6),
                     Text(
                       event.description,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     SizedBox(height: 14),
