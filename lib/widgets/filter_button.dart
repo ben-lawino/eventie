@@ -1,51 +1,54 @@
 import 'package:flutter/material.dart';
-
 import '../common/constants/colors.dart';
 
 class FilterButton extends StatelessWidget {
   final String label;
   final IconData icon;
   final bool isSelected;
-  final Color selectedColor;
+  final VoidCallback? onTap;
 
   const FilterButton({
     super.key,
     required this.label,
     required this.icon,
     this.isSelected = false,
-    this.selectedColor = AppColors.primary,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        color: isSelected
-            ? selectedColor
-            : Theme.of(context).colorScheme.primaryContainer,
-        borderRadius: BorderRadius.circular(24),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
         children: [
-          CircleAvatar(
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            radius: 12,
+          Container(
+            height: 64,
+            width: 64,
+            decoration: BoxDecoration(
+              color: isSelected
+                  ? AppColors.primary.withOpacity(0.15)
+                  : Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: isSelected ? AppColors.primary : Colors.transparent,
+                width: 2,
+              ),
+            ),
             child: Icon(
               icon,
-              color: isSelected ? selectedColor : Colors.white,
-              size: 18,
+              size: 30,
+              color: isSelected ? AppColors.primary : Colors.grey.shade600,
             ),
           ),
-          const SizedBox(width: 6),
+          const SizedBox(height: 6),
           Text(
             label,
             style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
               color: isSelected
-                  ? selectedColor
-                  : Theme.of(context).colorScheme.primary,
-              fontWeight: FontWeight.bold,
+                  ? AppColors.primary
+                  : Theme.of(context).colorScheme.onSurfaceVariant,
             ),
           ),
         ],

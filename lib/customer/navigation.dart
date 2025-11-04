@@ -17,85 +17,83 @@ class _NavigationMenuState extends State<NavigationMenu> {
 
   final List _screens = [
     HomePage(categories: eventCategories),
-    FavoritePage(),
-    TicketPage(),
-    ProfilePage(),
+    const FavoritePage(),
+    const TicketPage(),
+    const ProfilePage(),
   ];
 
   @override
   Widget build(BuildContext context) {
+    final primaryColor = Theme.of(context).colorScheme.primary;
+
     return Scaffold(
+      extendBody: true,
       backgroundColor: Theme.of(context).colorScheme.surface,
-      bottomNavigationBar: NavigationBar(
-        height: 80,
-        elevation: 0,
-        indicatorColor: Colors.transparent,
-        selectedIndex: _currentIndex,
-        onDestinationSelected: (index) => setState(() => _currentIndex = index),
-        destinations: [
-          NavigationDestination(
-            icon: Image.asset(
-              'assets/icons/home_outlined.png',
-              height: 24,
-              width: 24,
-              color: Color(0xff757575),
-            ),
-            selectedIcon: Image.asset(
-              'assets/icons/home_filled.png',
-              height: 24,
-              width: 24,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            icon: Image.asset(
-              'assets/icons/heart_outlined.png',
-              height: 24,
-              width: 24,
-              color: Color(0xff757575),
-            ),
-            selectedIcon: Image.asset(
-              'assets/icons/heart_filled.png',
-              height: 24,
-              width: 24,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            label: 'Favorites',
-          ),
-          NavigationDestination(
-            icon: Image.asset(
-              'assets/icons/ticket_outlined.png',
-              height: 24,
-              width: 24,
-              color: Color(0xff757575),
-            ),
-            selectedIcon: Image.asset(
-              'assets/icons/ticket_filled.png',
-              height: 24,
-              width: 24,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            label: 'Tickets',
-          ),
-          NavigationDestination(
-            icon: Image.asset(
-              'assets/icons/user_outlined.png',
-              height: 24,
-              width: 24,
-              color: Color(0xff757575),
-            ),
-            selectedIcon: Image.asset(
-              'assets/icons/user_filled.png',
-              height: 24,
-              width: 24,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            label: 'Profile',
-          ),
-        ],
-      ),
       body: _screens[_currentIndex],
+
+      // 💠 Custom Floating Bottom Navigation Bar
+      bottomNavigationBar: Container(
+          height: 90,
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primaryContainer,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(36),
+              topRight: Radius.circular(26),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 15,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _buildNavItem(Icons.home_rounded, "Home", 0, primaryColor),
+              _buildNavItem(Icons.favorite_rounded, "Favorites", 1, primaryColor),
+              _buildNavItem(Icons.confirmation_number_rounded, "Tickets", 2, primaryColor),
+              _buildNavItem(Icons.person_rounded, "Profile", 3, primaryColor),
+            ],
+          ),
+        ),
+    );
+  }
+
+  Widget _buildNavItem(IconData icon, String label, int index, Color primaryColor) {
+    final bool isSelected = _currentIndex == index;
+
+    return GestureDetector(
+      onTap: () => setState(() => _currentIndex = index),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 250),
+        curve: Curves.easeInOut,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected ? primaryColor.withOpacity(0.15) : Colors.transparent,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              size: 24,
+              color: isSelected ? primaryColor : Colors.grey.shade600,
+            ),
+            if (isSelected) ...[
+              const SizedBox(width: 6),
+              Text(
+                label,
+                style: TextStyle(
+                  color: primaryColor,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
     );
   }
 }

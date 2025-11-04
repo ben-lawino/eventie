@@ -10,7 +10,7 @@ final List<EventModel> dummyEvents = [
     date: DateTime.parse('2025-12-24T18:00:00Z'),
     location: 'KICC Grounds, Nairobi',
     imageUrl:
-    'https://picsum.photos/300/200?random=1',
+    'https://images.unsplash.com/photo-1678646142794-253fdd20fa05?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9vZCUyMGZlc3RpdmFsfGVufDB8fDB8fHww&fm=jpg&q=60&w=3000',
     category: 'Festival',
     organizerId: 'organizer123',
     isFeatured: true,
@@ -41,7 +41,7 @@ final List<EventModel> dummyEvents = [
     date: DateTime.parse('2025-11-15T10:00:00Z'),
     location: 'Sarit Expo Centre, Nairobi',
     imageUrl:
-    'https://picsum.photos/300/200?random=1',
+    'https://images.stockcake.com/public/c/3/4/c349a7f9-4b10-48f2-ace4-7b081d341ad3_large/tech-expo-event-stockcake.jpg',
     category: 'Tech',
     organizerId: 'organizer456',
     isFeatured: false,
@@ -72,7 +72,7 @@ final List<EventModel> dummyEvents = [
     date: DateTime.parse('2025-10-07T19:00:00Z'),
     location: 'Kenyatta University Amphitheatre',
     imageUrl:
-    'https://picsum.photos/300/200?random=1',
+    'https://plus.unsplash.com/premium_photo-1661377118520-287ec60a32f3?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8d29yc2hpcHxlbnwwfHwwfHx8MA%3D%3D&fm=jpg&q=60&w=3000',
     category: 'Concert',
     organizerId: 'organizer789',
     isFeatured: true,

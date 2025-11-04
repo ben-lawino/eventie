@@ -1,8 +1,12 @@
+import 'package:eventie/data/dummy_data.dart';
 import 'package:flutter/material.dart';
 import '../common/constants/colors.dart';
+import '../customer/screens/details.dart';
+import '../data/models/event_model.dart';
 
 class GridCard extends StatelessWidget {
   final String imageUrl;
+  final EventModel event;
   final String title;
   final String date;
   final String location;
@@ -10,6 +14,7 @@ class GridCard extends StatelessWidget {
 
   const GridCard({
     super.key,
+    required this.event,
     required this.imageUrl,
     required this.title,
     required this.date,
@@ -20,7 +25,15 @@ class GridCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){},
+      onTap: () {
+        //final selectedEvent = dummyEvents.firstWhere((e) => e.id == dummyEvents[0].id);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => DetailsScreen(event: event),
+          ),
+        );
+      },
       child: Card(
         elevation: 4,
         clipBehavior: Clip.antiAlias,
