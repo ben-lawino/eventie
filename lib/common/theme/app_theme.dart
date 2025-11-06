@@ -2,7 +2,7 @@ import 'package:eventie/common/theme/text_theme.dart';
 import 'package:flutter/material.dart';
 import '../constants/colors.dart';
 
-// Light Theme
+/// Light Theme
 final ThemeData appLightTheme = ThemeData(
   brightness: Brightness.light,
   primaryColor: AppColors.primary,
@@ -12,22 +12,28 @@ final ThemeData appLightTheme = ThemeData(
     primary: AppColors.primary,
     secondary: AppColors.badge,
     surface: AppColors.background,
-    onPrimary: AppColors.background,
-    onSecondary: AppColors.background,
+    onPrimary: Colors.white,
+    onSecondary: Colors.white,
     onSurface: AppColors.textPrimary,
     brightness: Brightness.light,
-    primaryContainer: AppColors.softGray
+    primaryContainer: AppColors.softGray,
   ),
-  textTheme: appTextTheme,
+  textTheme: appTextTheme.apply(
+    bodyColor: AppColors.textPrimary,
+    displayColor: AppColors.textPrimary,
+  ),
   appBarTheme: AppBarTheme(
     backgroundColor: AppColors.background,
     elevation: 0,
-    titleTextStyle: appTextTheme.displaySmall,
+    titleTextStyle: appTextTheme.displaySmall?.copyWith(
+      color: AppColors.textPrimary,
+      fontWeight: FontWeight.w600,
+    ),
     iconTheme: const IconThemeData(color: AppColors.textPrimary),
   ),
 );
 
-// Dark Theme
+/// Dark Theme
 final ThemeData appDarkTheme = ThemeData(
   brightness: Brightness.dark,
   primaryColor: AppColors.primary,
@@ -55,13 +61,8 @@ final ThemeData appDarkTheme = ThemeData(
   ),
 );
 
-// Accessing them as AppTheme.light / AppTheme.dark
+/// Access via AppTheme.light / AppTheme.dark
 class AppTheme {
   static ThemeData light = appLightTheme;
   static ThemeData dark = appDarkTheme;
 }
-
-
-
-
-
