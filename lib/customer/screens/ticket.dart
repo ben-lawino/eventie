@@ -32,6 +32,9 @@ class TicketPage extends StatelessWidget {
             ),
           ],
           bottom: TabBar(
+            padding: EdgeInsets.symmetric(horizontal: 18),
+            indicatorWeight: 3.5,
+            indicatorSize: TabBarIndicatorSize.tab,
             tabs: [
               Tab(child: Text('Upcoming')),
               Tab(child: Text('Completed')),

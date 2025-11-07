@@ -1,3 +1,4 @@
+import 'package:eventie/customer/screens/mini_screens/book_event.dart';
 import 'package:eventie/data/models/event_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -120,7 +121,12 @@ class DetailsScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 14),
                     Button(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => BookEvent()),
+                        );
+                      },
                       text: 'Buy Tickets',
                       width: double.infinity,
                       height: 50,
