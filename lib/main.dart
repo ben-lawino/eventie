@@ -1,5 +1,6 @@
 import 'package:eventie/customer/navigation.dart';
 import 'package:eventie/customer/screens/details.dart';
+import 'package:eventie/customer/screens/mini_screens/review_summary.dart';
 import 'package:eventie/widgets/card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

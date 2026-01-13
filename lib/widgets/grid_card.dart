@@ -38,6 +38,7 @@ class GridCard extends StatelessWidget {
         elevation: 4,
         clipBehavior: Clip.antiAlias,
         color: Theme.of(context).colorScheme.surface,
+        shadowColor: Colors.black.withOpacity(0.45),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -45,18 +46,18 @@ class GridCard extends StatelessWidget {
           children: [
             // Event image
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(24)),
                 child: Image.network(
                   imageUrl,
-                  height: 140,
+                  height: 120,
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
               ),
             ),
-            SizedBox(height: 4,),
+            SizedBox(height: 6,),
             // Content
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),

@@ -25,17 +25,17 @@ class EventCard extends StatelessWidget {
       onTap: onTap,
       child: Card(
         elevation: 4,
-
         color: Theme.of(context).colorScheme.surface,
+        shadowColor: Colors.black.withOpacity(0.45),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(0.0),
               child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(30)),
+                borderRadius: const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
                 child: Image.network(
                   imageUrl,
                   height: 250,

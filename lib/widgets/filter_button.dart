@@ -37,7 +37,7 @@ class FilterButton extends StatelessWidget {
             child: Icon(
               icon,
               size: 30,
-              color: isSelected ? AppColors.primary : Colors.grey.shade600,
+              color: isSelected ?  Colors.white: AppColors.primary,
             ),
           ),
           const SizedBox(height: 6),
@@ -45,7 +45,7 @@ class FilterButton extends StatelessWidget {
             label,
             style: TextStyle(
               fontSize: 13,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.bold,
               color: isSelected
                   ? AppColors.primary
                   : Theme.of(context).colorScheme.onSurfaceVariant,

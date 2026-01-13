@@ -17,7 +17,7 @@ class _BookEventScreenState extends State<BookEventDetail> {
   final TextEditingController _phoneController = TextEditingController();
 
   String _selectedGender = 'Male';
-  String _selectedCountryCode = '+1';
+  String _selectedCountryCode = '+254';
   bool _acceptTerms = true;
 
   @override

@@ -1,3 +1,4 @@
+import 'package:eventie/customer/screens/mini_screens/review_summary.dart';
 import 'package:eventie/widgets/button.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,6 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         title: Text(
           'Payments',
           style: Theme.of(
@@ -128,7 +128,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => PaymentMethodScreen(),
+                      builder: (context) => ReviewSummary(),
                     ),
                   );
                 },

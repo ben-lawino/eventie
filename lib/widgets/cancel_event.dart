@@ -12,8 +12,10 @@ class CancelEvent extends StatefulWidget {
 }
 
 class _CancelEventState extends State<CancelEvent> {
+
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: EdgeInsets.all(18.0),
       child: Column(
@@ -55,7 +57,7 @@ class _CancelEventState extends State<CancelEvent> {
                 },
                 color: Theme.of(context).colorScheme.primaryContainer,
                 text: 'No, Don\'t cancel',
-                textColor: Theme.of(context).colorScheme.primary,
+                textColor: AppColors.badge,
               ),
               Button(
                 width: 180,

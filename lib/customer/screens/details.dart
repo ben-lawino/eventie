@@ -32,9 +32,10 @@ class DetailsScreen extends StatelessWidget {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey,
-                    blurRadius: 5,
-                    offset: const Offset(3, 3),
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 20,
+                    offset: Offset(0, 10),
+                    spreadRadius: 0,
                   ),
                 ],
               ),
@@ -48,9 +49,10 @@ class DetailsScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey,
-                    blurRadius: 5,
-                    offset: const Offset(3, 3),
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 20,
+                    offset: Offset(0, 10),
+                    spreadRadius: 0,
                   ),
                 ],
               ),
@@ -94,11 +96,15 @@ class DetailsScreen extends StatelessWidget {
                             //fit: BoxFit.scaleDown,
                             child: Text(
                               overflow: TextOverflow.ellipsis,
-                              DateFormat('EEE, MMM d • HH:mm').format(event.date),
+                              DateFormat(
+                                'EEE, MMM d • HH:mm',
+                              ).format(event.date),
                               style: Theme.of(context).textTheme.bodySmall!
                                   .copyWith(
                                     fontWeight: FontWeight.bold,
-                                    color: Theme.of(context).colorScheme.primary,
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.primary,
                                   ),
                             ),
                           ),
