@@ -88,31 +88,31 @@ class CompletedCard extends StatelessWidget {
                       // Location with icon
                       Row(
                         children: [
+                          const Icon(
+                            Icons.location_on,
+                            size: 15,
+                            color: AppColors.primary,
+                          ),
+                          const SizedBox(width: 4),
+
                           Expanded(
-                            child: Row(
-                              children: [
-                                const Icon(
-                                  Icons.location_on,
-                                  size: 15,
-                                  color: AppColors.primary,
-                                ),
-                                SizedBox(width: 4),
-                                Text(
-                                  location,
-                                  style: Theme.of(context).textTheme.bodySmall!
-                                      .copyWith(
-                                        fontWeight: FontWeight.w600,
-                                        color: AppColors.textSecondary,
-                                      ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
+                            child: Text(
+                              location,
+                              style: Theme.of(context).textTheme.bodySmall!
+                                  .copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.textSecondary,
+                                  ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
+
+                          const SizedBox(width: 8),
+
                           Container(
                             height: 20,
-                            width: 70,
+                            padding: const EdgeInsets.symmetric(horizontal: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(6),
                               border: Border.all(color: Colors.green),

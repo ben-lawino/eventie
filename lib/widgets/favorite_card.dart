@@ -40,7 +40,6 @@ class FavoriteCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Row(
-              //crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(16),
@@ -60,8 +59,10 @@ class FavoriteCard extends StatelessWidget {
                       Text(
                         title,
                         style: Theme.of(context).textTheme.titleMedium!
-                            .copyWith(fontWeight: FontWeight.bold,
-                            fontSize: 18),
+                            .copyWith(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -72,9 +73,9 @@ class FavoriteCard extends StatelessWidget {
                       Text(
                         date,
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            color: Theme.of(context).colorScheme.primary,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -82,31 +83,33 @@ class FavoriteCard extends StatelessWidget {
                       // Location with icon
                       Row(
                         children: [
+                          const Icon(
+                            Icons.location_on,
+                            size: 15,
+                            color: AppColors.primary,
+                          ),
+                          const SizedBox(width: 4),
+
                           Expanded(
-                            child: Row(
-                              children: [
-                                const Icon(
-                                  Icons.location_on,
-                                  size: 15,
-                                  color: AppColors.primary,
-                                ),
-                                SizedBox(width: 4),
-                                Text(
-                                  location,
-                                  style: Theme.of(context).textTheme.bodySmall!
-                                      .copyWith(
+                            child: Text(
+                              location,
+                              style: Theme.of(context).textTheme.bodySmall!
+                                  .copyWith(
                                     fontWeight: FontWeight.w600,
                                     color: AppColors.textSecondary,
                                   ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
+
                           IconButton(
-                            onPressed: (){},
-                            icon: const Icon(Icons.favorite_rounded, size: 20, color: AppColors.primary),
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.favorite_rounded,
+                              size: 20,
+                              color: AppColors.primary,
+                            ),
                             padding: EdgeInsets.zero,
                             constraints: const BoxConstraints(),
                           ),

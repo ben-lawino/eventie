@@ -19,7 +19,7 @@ class SmallEventList extends StatelessWidget {
           crossAxisCount: 2,
           crossAxisSpacing: 12,
           mainAxisSpacing: 12,
-          childAspectRatio: 0.8, // Adjust this to control card height
+          childAspectRatio: 0.75, // control card height
         ),
         itemCount: dummyEvents.length,
         itemBuilder: (context, index) {

@@ -61,8 +61,10 @@ class CancelledCard extends StatelessWidget {
                       Text(
                         title,
                         style: Theme.of(context).textTheme.titleMedium!
-                            .copyWith(fontWeight: FontWeight.bold,
-                            fontSize: 18),
+                            .copyWith(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -73,9 +75,9 @@ class CancelledCard extends StatelessWidget {
                       Text(
                         date,
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            color: Theme.of(context).colorScheme.primary,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -83,46 +85,45 @@ class CancelledCard extends StatelessWidget {
                       // Location with icon
                       Row(
                         children: [
+                          const Icon(
+                            Icons.location_on,
+                            size: 15,
+                            color: AppColors.primary,
+                          ),
+                          const SizedBox(width: 4),
+
                           Expanded(
-                            child: Row(
-                              children: [
-                                const Icon(
-                                  Icons.location_on,
-                                  size: 15,
-                                  color: AppColors.primary,
-                                ),
-                                SizedBox(width: 4),
-                                Text(
-                                  location,
-                                  style: Theme.of(context).textTheme.bodySmall!
-                                      .copyWith(
+                            child: Text(
+                              location,
+                              style: Theme.of(context).textTheme.bodySmall!
+                                  .copyWith(
                                     fontWeight: FontWeight.w600,
                                     color: AppColors.textSecondary,
                                   ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
+
+                          const SizedBox(width: 8),
+
                           Container(
                             height: 20,
-                            width: 70,
+                            padding: const EdgeInsets.symmetric(horizontal: 6),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6),
-                                border: Border.all(
-                                    color: Colors.red
-                                )
+                              borderRadius: BorderRadius.circular(6),
+                              border: Border.all(color: Colors.red),
                             ),
-                            child:Center(
+                            child: Center(
                               child: Text(
                                 'Cancelled',
                                 style: Theme.of(context).textTheme.labelSmall!
                                     .copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.red,
-                                    fontSize: 8
-                                ),),
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.red,
+                                      fontSize: 8,
+                                    ),
+                              ),
                             ),
                           ),
                         ],

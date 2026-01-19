@@ -32,9 +32,7 @@ class EventCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(0.0),
-              child: ClipRRect(
+            ClipRRect(
                 borderRadius: const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
                 child: Image.network(
                   imageUrl,
@@ -43,7 +41,6 @@ class EventCard extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-            ),
             SizedBox(height: 4),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -71,7 +68,6 @@ class EventCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  //const SizedBox(height: 8),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [

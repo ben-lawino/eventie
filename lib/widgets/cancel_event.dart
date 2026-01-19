@@ -12,66 +12,72 @@ class CancelEvent extends StatefulWidget {
 }
 
 class _CancelEventState extends State<CancelEvent> {
-
   @override
   Widget build(BuildContext context) {
-
-    return Padding(
-      padding: EdgeInsets.all(18.0),
-      child: Column(
-        children: [
-          Text(
-            'Cancel Booking',
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 10),
-          Divider(color: Colors.grey[400], thickness: 1, height: 20),
-          SizedBox(height: 10),
-          Text(
-            'Are you sure you want to cancel \n this event?',
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 24),
-          Text(
-            'Only 90% of funds will be refunded \n according to our policy',
-            textAlign: TextAlign.center,
-            style: Theme.of(
-              context,
-            ).textTheme.labelLarge!.copyWith(color: AppColors.textSecondary),
-          ),
-          SizedBox(height: 24),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(18.0),
+          child: Column(
             children: [
-              Button(
-                width: 180,
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                color: Theme.of(context).colorScheme.primaryContainer,
-                text: 'No, Don\'t cancel',
-                textColor: AppColors.badge,
+              Text(
+                'Cancel Booking',
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              Button(
-                width: 180,
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => CancelReason()),
-                  );
-                },
-                text: 'Yes, Cancel',
+              SizedBox(height: 10),
+              Divider(color: Colors.grey[400], thickness: 1, height: 20),
+              SizedBox(height: 10),
+              Text(
+                'Are you sure you want to cancel \n this event?',
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 24),
+              Text(
+                'Only 90% of funds will be refunded \n according to our policy',
+                textAlign: TextAlign.center,
+                style: Theme.of(
+                  context,
+                ).textTheme.labelLarge!.copyWith(color: AppColors.textSecondary),
+              ),
+              SizedBox(height: 24),
+              Row(
+                children: [
+                  Expanded(
+                    child: Button(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                      text: "No, Don’t cancel",
+                      textColor: AppColors.badge,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Button(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const CancelReason(),
+                          ),
+                        );
+                      },
+                      text: "Yes, Cancel",
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }
