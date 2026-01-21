@@ -2,6 +2,7 @@ import 'package:eventie/customer/navigation.dart';
 import 'package:eventie/customer/screens/details.dart';
 import 'package:eventie/customer/screens/mini_screens/review_summary.dart';
 import 'package:eventie/widgets/card.dart';
+import 'package:eventie/widgets/onboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         theme: AppTheme.light,
         darkTheme: AppTheme.dark,
         themeMode: ThemeMode.system,
-      home: NavigationMenu()
+      home: OnboardingScreen()
     );
   }
 }
