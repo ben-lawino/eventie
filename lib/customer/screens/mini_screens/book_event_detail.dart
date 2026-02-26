@@ -1,7 +1,6 @@
 import 'package:eventie/customer/screens/mini_screens/payment_method.dart';
 import 'package:eventie/widgets/button.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class BookEventDetail extends StatefulWidget {
   const BookEventDetail({super.key});

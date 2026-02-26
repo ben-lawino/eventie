@@ -2,8 +2,6 @@ import 'package:eventie/customer/screens/mini_screens/review_summary.dart';
 import 'package:eventie/widgets/button.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter/material.dart';
-
 import '../../../common/constants/colors.dart';
 
 class PaymentMethodScreen extends StatefulWidget {
@@ -127,9 +125,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => ReviewSummary(),
-                    ),
+                    MaterialPageRoute(builder: (context) => ReviewSummary()),
                   );
                 },
                 text: 'Continue',

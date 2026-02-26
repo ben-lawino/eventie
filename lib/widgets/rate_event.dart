@@ -2,8 +2,6 @@ import 'package:eventie/customer/screens/mini_screens/cancel_reason.dart';
 import 'package:eventie/widgets/button.dart';
 import 'package:flutter/material.dart';
 
-import '../common/constants/colors.dart';
-
 class RateEvent extends StatefulWidget {
   const RateEvent({super.key});
 

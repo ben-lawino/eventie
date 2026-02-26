@@ -1,4 +1,3 @@
-import 'package:eventie/data/dummy_data.dart';
 import 'package:flutter/material.dart';
 import '../common/constants/colors.dart';
 import '../customer/screens/details.dart';

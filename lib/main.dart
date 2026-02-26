@@ -1,19 +1,16 @@
-import 'package:eventie/customer/navigation.dart';
-import 'package:eventie/customer/screens/details.dart';
-import 'package:eventie/customer/screens/mini_screens/review_summary.dart';
-import 'package:eventie/widgets/card.dart';
+import 'package:eventie/customer/screens/mini_screens/explore.dart';
 import 'package:eventie/widgets/onboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'common/theme/app_theme.dart';
-import 'data/dummy_data.dart';
 
 void main() {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent, // or match Scaffold background
-    statusBarIconBrightness: Brightness.dark, // adjust to your design
-  ));
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent, // or match Scaffold background
+      statusBarIconBrightness: Brightness.dark, // adjust to your design
+    ),
+  );
   runApp(const MyApp());
 }
 
@@ -27,11 +24,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
 
       title: 'Eventie',
-        theme: AppTheme.light,
-        darkTheme: AppTheme.dark,
-        themeMode: ThemeMode.system,
-      home: OnboardingScreen()
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+      themeMode: ThemeMode.system,
+      home: OnboardingScreen(),
     );
   }
 }
-

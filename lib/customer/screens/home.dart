@@ -1,4 +1,4 @@
-import 'package:eventie/common/constants/colors.dart';
+import 'package:eventie/customer/screens/mini_screens/explore.dart';
 import 'package:eventie/widgets/filter_button.dart';
 import 'package:flutter/material.dart';
 import '../../data/dummy_data.dart';
@@ -146,11 +146,22 @@ class HomePage extends StatelessWidget {
                         fontSize: 20,
                       ),
                     ),
-                    Text(
-                      'See All',
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontWeight: FontWeight.w600,
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                ExplorePage(categories: categories),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'See All',
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ],

@@ -1,3 +1,4 @@
+import 'package:eventie/customer/navigation.dart';
 import 'package:eventie/widgets/button.dart';
 import 'package:flutter/material.dart';
 
@@ -43,7 +44,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                   OnboardingPage(
                     image: 'assets/images/onboardingthree.png',
-                    title: 'manage your event finances,',
+                    title: 'Manage your event finances,',
                     subtitle: 'All on your phone',
                     description:
                         'Secure bookings and payments in just a few taps.',
@@ -51,10 +52,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ],
               ),
             ),
-        
+
             // Bottom section
             Container(
-              height: height * 0.25,
+              height: height * 0.15,
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -78,11 +79,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ),
                     ),
                   ),
-        
+
                   // Button
                   Button(
                     height: 50,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NavigationMenu(),
+                        ),
+                      );
+                    },
                     text: 'Get Started',
                     width: double.infinity,
                   ),

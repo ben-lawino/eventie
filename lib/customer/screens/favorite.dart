@@ -1,9 +1,7 @@
 import 'package:eventie/widgets/favorite_card.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import '../../data/dummy_data.dart';
-import '../../widgets/booking_card.dart';
 
 class FavoritePage extends StatelessWidget {
   const FavoritePage({super.key});
