@@ -1,6 +1,9 @@
+import 'package:eventie/customer/navigation.dart';
+import 'package:eventie/customer/screens/home.dart';
 import 'package:eventie/customer/screens/tab_screens/cancelled.dart';
 import 'package:eventie/customer/screens/tab_screens/completed.dart';
 import 'package:eventie/customer/screens/tab_screens/upcoming.dart';
+import 'package:eventie/data/categories.dart';
 import 'package:flutter/material.dart';
 
 class TicketPage extends StatelessWidget {
@@ -14,7 +17,15 @@ class TicketPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          leading: Image.asset('assets/icons/applogo.png'),
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => NavigationMenu()),
+              );
+            },
+            child: Image.asset('assets/icons/applogo.png'),
+          ),
           title: Text(
             'Tickets',
             style: Theme.of(

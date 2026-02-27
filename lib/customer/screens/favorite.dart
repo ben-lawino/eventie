@@ -1,3 +1,6 @@
+import 'package:eventie/customer/navigation.dart';
+import 'package:eventie/customer/screens/home.dart';
+import 'package:eventie/data/categories.dart';
 import 'package:eventie/widgets/favorite_card.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -14,7 +17,15 @@ class FavoritePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        leading: Image.asset('assets/icons/applogo.png'),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => NavigationMenu()),
+            );
+          },
+          child: Image.asset('assets/icons/applogo.png'),
+        ),
         title: Text(
           'Favorites',
           style: Theme.of(

@@ -1,4 +1,4 @@
-import 'package:eventie/customer/screens/mini_screens/explore.dart';
+import 'package:eventie/customer/navigation.dart';
 import 'package:eventie/widgets/onboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

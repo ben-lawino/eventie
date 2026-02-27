@@ -1,4 +1,6 @@
 import 'package:eventie/customer/screens/mini_screens/explore.dart';
+import 'package:eventie/customer/screens/mini_screens/notification.dart';
+import 'package:eventie/customer/screens/mini_screens/popular.dart';
 import 'package:eventie/widgets/filter_button.dart';
 import 'package:flutter/material.dart';
 import '../../data/dummy_data.dart';
@@ -43,7 +45,12 @@ class HomePage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 18),
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => NotificationPage()),
+                );
+              },
               icon: Image.asset(
                 'assets/icons/notification.png',
                 width: 25,
@@ -120,11 +127,21 @@ class HomePage extends StatelessWidget {
                         fontSize: 20,
                       ),
                     ),
-                    Text(
-                      'See All',
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontWeight: FontWeight.w600,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PopularEventsPAge(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'See All',
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ],
