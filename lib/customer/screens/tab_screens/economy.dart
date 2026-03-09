@@ -3,8 +3,27 @@ import 'package:flutter/material.dart';
 import '../../../widgets/button.dart';
 import '../mini_screens/book_event_detail.dart';
 
-class Economy extends StatelessWidget {
+class Economy extends StatefulWidget {
   const Economy({super.key});
+
+  @override
+  State<Economy> createState() => _EconomyState();
+}
+
+class _EconomyState extends State<Economy> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  void _decrementCounter() {
+    setState(() {
+      _counter--;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,39 +45,45 @@ class Economy extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  height: 45,
-                  width: 45,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey, width: 1.2),
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  child: Image.asset(
-                    'assets/icons/minus.png',
-                    scale: 30,
-                    color: Theme.of(context).colorScheme.primary,
+                GestureDetector(
+                  onTap: _decrementCounter,
+                  child: Container(
+                    height: 45,
+                    width: 45,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey, width: 1.2),
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    child: Image.asset(
+                      'assets/icons/minus.png',
+                      scale: 30,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
                 ),
                 SizedBox(width: 30),
                 Text(
-                  '1',
+                 '$_counter',
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 SizedBox(width: 30),
-                Container(
-                  height: 45,
-                  width: 45,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey, width: 1.2),
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  child: Image.asset(
-                    'assets/icons/add.png',
-                    scale: 30,
-                    color: Theme.of(context).colorScheme.primary,
+                GestureDetector(
+                  onTap: _incrementCounter,
+                  child: Container(
+                    height: 45,
+                    width: 45,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey, width: 1.2),
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    child: Image.asset(
+                      'assets/icons/add.png',
+                      scale: 30,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
                 ),
               ],

@@ -1,4 +1,5 @@
 import 'package:eventie/customer/navigation.dart';
+import 'package:eventie/organizer/bottom_nav.dart';
 import 'package:eventie/widgets/onboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: ThemeMode.system,
-      home: OnboardingScreen(),
+      home: BottomNav(),
     );
   }
 }
