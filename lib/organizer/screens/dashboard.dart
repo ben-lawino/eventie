@@ -57,33 +57,106 @@ class DashboardScreen extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(18.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  height: 100,
-                  width: width*0.43,
+                  padding: EdgeInsets.all(14),
+                  height: 80,
+                  width: width * 0.44,
                   decoration: BoxDecoration(
                     color: primaryColor.withOpacity(0.15),
-                    borderRadius: BorderRadius.circular(18)
+                    borderRadius: BorderRadius.circular(18),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Total Events',
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        '12',
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: primaryColor,
+                          fontSize: 25
+                        ),
+                        textAlign: TextAlign.start,
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(
-                  width: 10,
-                ),
+                SizedBox(width: 10),
                 Container(
-                  height: 100,
-                  width: width*0.43,
+                  padding: EdgeInsets.all(14),
+                  height: 80,
+                  width: width * 0.44,
                   decoration: BoxDecoration(
-                      color: primaryColor.withOpacity(0.15),
-                      borderRadius: BorderRadius.circular(18)
+                    color: primaryColor.withOpacity(0.15),
+                    borderRadius: BorderRadius.circular(18),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Tickets Sold',
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        '1667',
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: primaryColor,
+                            fontSize: 25
+                        ),
+                        textAlign: TextAlign.start,
+                      ),
+                    ],
                   ),
                 ),
               ],
-            )
+            ),
+            SizedBox(height: 10,),
+            Container(
+              padding: EdgeInsets.all(20),
+              height: 100,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: primaryColor.withOpacity(0.15),
+                borderRadius: BorderRadius.circular(18),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Revenue',
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'Ksh 230,000',
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: primaryColor,
+                        fontSize: 25
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                  SizedBox(height: 10)
+                ],
+              ),
+            ),
           ],
         ),
       ),
