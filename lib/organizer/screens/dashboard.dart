@@ -56,80 +56,51 @@ class DashboardScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Padding(
+      body:Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: EdgeInsets.all(14),
-                  height: 80,
-                  width: width * 0.44,
-                  decoration: BoxDecoration(
-                    color: primaryColor.withOpacity(0.15),
-                    borderRadius: BorderRadius.circular(18),
+            SizedBox(
+              height: 200,
+              child: GridView.count(
+                crossAxisCount: 2,
+                shrinkWrap: true,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                physics: NeverScrollableScrollPhysics(),
+                childAspectRatio: 2,
+                children: [
+                  dashboardItem(
+                    context: context,
+                    title: "Total Events",
+                    value: "12",
+                    color: primaryColor,
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Total Events',
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        '12',
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: primaryColor,
-                          fontSize: 25
-                        ),
-                        textAlign: TextAlign.start,
-                      ),
-                    ],
+                  dashboardItem(
+                    context: context,
+                    title: "Tickets Sold",
+                    value: "1667",
+                    color: primaryColor,
                   ),
-                ),
-                SizedBox(width: 10),
-                Container(
-                  padding: EdgeInsets.all(14),
-                  height: 80,
-                  width: width * 0.44,
-                  decoration: BoxDecoration(
-                    color: primaryColor.withOpacity(0.15),
-                    borderRadius: BorderRadius.circular(18),
+                  dashboardItem(
+                    context: context,
+                    title: "Approved",
+                    value: "5",
+                    color: primaryColor,
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Tickets Sold',
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        '1667',
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: primaryColor,
-                            fontSize: 25
-                        ),
-                        textAlign: TextAlign.start,
-                      ),
-                    ],
+                  dashboardItem(
+                    context: context,
+                    title: "Completed",
+                    value: "1",
+                    color: primaryColor,
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-            SizedBox(height: 10,),
+
+            // Revenue container
             Container(
-              padding: EdgeInsets.all(20),
-              height: 100,
+              padding: const EdgeInsets.all(20),
               width: double.infinity,
               decoration: BoxDecoration(
                 color: primaryColor.withOpacity(0.15),
@@ -147,19 +118,181 @@ class DashboardScreen extends StatelessWidget {
                   Text(
                     'Ksh 230,000',
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: primaryColor,
-                        fontSize: 25
+                      fontWeight: FontWeight.bold,
+                      color: primaryColor,
+                      fontSize: 25,
                     ),
-                    textAlign: TextAlign.start,
                   ),
-                  SizedBox(height: 10)
+                ],
+              ),
+            ),
+
+            const Divider(),
+
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Recent Activity',
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+
+            Expanded(
+              child: ListView(
+                children: [
+                  ListTile(
+                    dense: true,
+                    visualDensity: VisualDensity.compact,
+                    leading: Container(
+                      height: 25,
+                      width: 25,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.primary.withOpacity(0.15),
+                      ),
+                      child: Center(
+                        child: Image.asset(
+                          'assets/icons/activity.png',
+                          scale: 30,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ),
+                    title: Text(
+                      '20 new tickets sold',
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    dense: true,
+                    visualDensity: VisualDensity.compact,
+                    leading: Container(
+                      height: 25,
+                      width: 25,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.primary.withOpacity(0.15),
+                      ),
+                      child: Center(
+                        child: Image.asset(
+                          'assets/icons/activity.png',
+                          scale: 30,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ),
+                    title: Text(
+                      'Events approved',
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    dense: true,
+                    visualDensity: VisualDensity.compact,
+                    leading: Container(
+                      height: 25,
+                      width: 25,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.primary.withOpacity(0.15),
+                      ),
+                      child: Center(
+                        child: Image.asset(
+                          'assets/icons/activity.png',
+                          scale: 30,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ),
+                    title: Text(
+                      'Payout of Ksh 5,000 processed',
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    dense: true,
+                    visualDensity: VisualDensity.compact,
+                    leading: Container(
+                      height: 25,
+                      width: 25,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.primary.withOpacity(0.15),
+                      ),
+                      child: Center(
+                        child: Image.asset(
+                          'assets/icons/activity.png',
+                          scale: 30,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ),
+                    title: Text(
+                      'Payout of Ksh 5,000 processed',
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
           ],
         ),
-      ),
+      )
     );
   }
+}
+
+
+Widget dashboardItem({
+  required BuildContext context,
+  required String title,
+  required String value,
+  required Color color,
+}) {
+  return Container(
+    padding: const EdgeInsets.all(14),
+    decoration: BoxDecoration(
+      color: color.withOpacity(0.15),
+      borderRadius: BorderRadius.circular(18),
+    ),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: Theme.of(context).textTheme.bodySmall!.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Text(
+          value,
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(
+            fontWeight: FontWeight.bold,
+            color: color,
+            fontSize: 25,
+          ),
+        ),
+      ],
+    ),
+  );
 }
