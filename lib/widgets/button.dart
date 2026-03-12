@@ -28,13 +28,14 @@ class Button extends StatelessWidget {
           backgroundColor: color ?? Theme.of(context).colorScheme.primary,
           minimumSize: const Size(150, 50), // width, height
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24),
+            borderRadius: BorderRadius.circular(16),
           ),
         ),
         onPressed: onPressed,
         child: Text(
           text,
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            fontSize: 16,
             color: textColor ?? Colors.white,
             fontWeight: FontWeight.bold,
           ),
