@@ -79,19 +79,9 @@ class ProfileScreen extends StatelessWidget {
             ),
             Divider(color: Colors.grey[400], thickness: 1, height: 20),
             ListTile(
-              leading: Image.asset('assets/icons/mail.png', scale: 24),
+              leading: Image.asset('assets/icons/user_outlined.png', scale: 24),
               title: Text(
-                'lawinwes@gmail.com',
-                style: Theme.of(
-                  context,
-                ).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w500),
-              ),
-              trailing: Image.asset('assets/icons/arrowright.png', scale: 24),
-            ),
-            ListTile(
-              leading: Image.asset('assets/icons/telephone.png', scale: 24),
-              title: Text(
-                '+254706666768',
+                'Profile',
                 style: Theme.of(
                   context,
                 ).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w500),
@@ -109,15 +99,16 @@ class ProfileScreen extends StatelessWidget {
               trailing: Image.asset('assets/icons/arrowright.png', scale: 24),
             ),
             ListTile(
-              leading: Image.asset('assets/icons/language.png', scale: 24),
+              leading: Image.asset('assets/icons/security.png', scale: 24),
               title: Text(
-                'Language',
+                'Security',
                 style: Theme.of(
                   context,
                 ).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w500),
               ),
               trailing: Image.asset('assets/icons/arrowright.png', scale: 24),
             ),
+            Divider(color: Colors.grey[400], thickness: 1, height: 20),
             SwitchListTile(
               value: false,
               onChanged: (value) {},
@@ -150,6 +141,16 @@ class ProfileScreen extends StatelessWidget {
               trailing: Image.asset('assets/icons/arrowright.png', scale: 24),
             ),
             ListTile(
+              leading: Image.asset('assets/icons/friends.png', scale: 24),
+              title: Text(
+                'Invite Friends',
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              trailing: Image.asset('assets/icons/arrowright.png', scale: 24),
+            ),
+            ListTile(
               leading: Image.asset('assets/icons/star.png', scale: 24),
               title: Text(
                 'Rate us',
@@ -159,6 +160,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               trailing: Image.asset('assets/icons/arrowright.png', scale: 24),
             ),
+            Divider(color: Colors.grey[400], thickness: 1, height: 20),
             ListTile(
               leading: Image.asset(
                 'assets/icons/exit.png',
