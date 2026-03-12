@@ -58,17 +58,18 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
+                        horizontal: 6,
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
                         color: Colors.green,
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(6),
                       ),
                       child: Text(
                         'verified organizer',
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        style: Theme.of(context).textTheme.labelSmall!.copyWith(
                           color: Colors.white,
+                          fontSize: 9,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

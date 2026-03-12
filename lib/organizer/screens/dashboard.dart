@@ -74,25 +74,22 @@ class DashboardScreen extends StatelessWidget {
                     context: context,
                     title: "Total Events",
                     value: "12",
-                    color: primaryColor,
                   ),
                   dashboardItem(
                     context: context,
                     title: "Tickets Sold",
                     value: "1667",
-                    color: primaryColor,
                   ),
                   dashboardItem(
                     context: context,
                     title: "Approved",
                     value: "5",
-                    color: primaryColor,
                   ),
                   dashboardItem(
                     context: context,
                     title: "Completed",
                     value: "1",
-                    color: primaryColor,
+
                   ),
                 ],
               ),
@@ -103,8 +100,16 @@ class DashboardScreen extends StatelessWidget {
               padding: const EdgeInsets.all(20),
               width: double.infinity,
               decoration: BoxDecoration(
-                color: primaryColor.withOpacity(0.15),
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(18),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 20,
+                    offset: Offset(0, 10),
+                    spreadRadius: 0,
+                  ),
+                ],
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -266,13 +271,21 @@ Widget dashboardItem({
   required BuildContext context,
   required String title,
   required String value,
-  required Color color,
+  Color? color,
 }) {
   return Container(
     padding: const EdgeInsets.all(14),
     decoration: BoxDecoration(
-      color: color.withOpacity(0.15),
+      color: Colors.white,
       borderRadius: BorderRadius.circular(18),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.1),
+          blurRadius: 20,
+          offset: Offset(0, 10),
+          spreadRadius: 0,
+        ),
+      ],
     ),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.end,
@@ -288,7 +301,7 @@ Widget dashboardItem({
           value,
           style: Theme.of(context).textTheme.titleLarge!.copyWith(
             fontWeight: FontWeight.bold,
-            color: color,
+            color: Theme.of(context).colorScheme.primary,
             fontSize: 25,
           ),
         ),
