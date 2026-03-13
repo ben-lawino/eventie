@@ -1,5 +1,6 @@
 import 'package:eventie/organizer/bottom_nav.dart';
 import 'package:eventie/widgets/button.dart';
+import 'package:eventie/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -10,25 +11,7 @@ class ProfileScreen extends StatelessWidget {
     final primaryColor = Theme.of(context).colorScheme.primary;
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => BottomNav()),
-            );
-          },
-          icon: Icon(Icons.arrow_back_rounded),
-          color: Colors.grey[700],
-        ),
-        title: Text(
-          'Profile',
-          style: Theme.of(
-            context,
-          ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
-        ),
-      ),
+      appBar: CustomAppBar(title: 'Profile',backDestination: BottomNav()),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18.0),
         child: Column(

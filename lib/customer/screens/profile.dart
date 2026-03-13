@@ -1,6 +1,7 @@
 import 'package:eventie/customer/navigation.dart';
 import 'package:eventie/customer/screens/home.dart';
 import 'package:eventie/data/categories.dart';
+import 'package:eventie/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -11,25 +12,7 @@ class ProfilePage extends StatelessWidget {
     final primaryColor = Theme.of(context).colorScheme.primary;
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => NavigationMenu()),
-            );
-          },
-          icon: Icon(Icons.arrow_back_rounded),
-          color: Colors.grey[700],
-        ),
-        title: Text(
-          'Profile',
-          style: Theme.of(
-            context,
-          ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
-        ),
-      ),
+      appBar: CustomAppBar(title: 'Profile', backDestination: NavigationMenu()),
       body: ListView(
         children: [
           Column(
@@ -39,11 +22,13 @@ class ProfilePage extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 60,
-                      backgroundImage: AssetImage('assets/images/hacker.png'),
+                      backgroundImage: AssetImage(
+                        'assets/images/profilepic.png',
+                      ),
                     ),
                     SizedBox(height: 16),
                     Text(
-                      'Ben Lawin',
+                      'Ben lawin',
                       style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         fontWeight: FontWeight.bold,
                         fontSize: 28,

@@ -1,6 +1,7 @@
 import 'package:eventie/customer/navigation.dart';
 import 'package:eventie/customer/screens/home.dart';
 import 'package:eventie/data/categories.dart';
+import 'package:eventie/widgets/custom_app_bar.dart';
 import 'package:eventie/widgets/favorite_card.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -15,34 +16,7 @@ class FavoritePage extends StatelessWidget {
     final formattedDate = DateFormat('EEE, MMM d, HH:mm').format(event.date);
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => NavigationMenu()),
-            );
-          },
-          child: Image.asset('assets/icons/applogo.png'),
-        ),
-        title: Text(
-          'Favorites',
-          style: Theme.of(
-            context,
-          ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Image.asset(
-              'assets/icons/search.png',
-              scale: 25,
-              color: Colors.grey[700],
-            ),
-          ),
-        ],
-      ),
+      appBar: CustomAppBar(title: 'Favorites',backDestination: NavigationMenu(),),
       body: ListView(
         children: [
           FavoriteCard(
