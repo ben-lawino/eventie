@@ -56,7 +56,7 @@ class DashboardScreen extends StatelessWidget {
           ),
         ],
       ),
-      body:Padding(
+      body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
@@ -89,7 +89,6 @@ class DashboardScreen extends StatelessWidget {
                     context: context,
                     title: "Completed",
                     value: "1",
-
                   ),
                 ],
               ),
@@ -255,17 +254,16 @@ class DashboardScreen extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
           ],
         ),
-      )
+      ),
     );
   }
 }
-
 
 Widget dashboardItem({
   required BuildContext context,
@@ -293,9 +291,9 @@ Widget dashboardItem({
       children: [
         Text(
           title,
-          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(
+            context,
+          ).textTheme.bodySmall!.copyWith(fontWeight: FontWeight.bold),
         ),
         Text(
           value,
