@@ -1,3 +1,4 @@
+import 'package:eventie/widgets/button.dart';
 import 'package:eventie/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
@@ -30,24 +31,25 @@ class CreateEventScreen extends StatelessWidget {
           ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
         ),
       ),
-      body: ListView(
-        children: [SafeArea(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.all(18.0),
             child: Column(
               children: [
                 CustomTextField(label: 'Title'),
-                SizedBox(height: 12),
+                SizedBox(height: 18),
                 CustomTextField(label: 'Date'),
-                SizedBox(height: 12),
+                SizedBox(height: 18),
                 CustomTextField(label: 'Time'),
-                SizedBox(height: 12),
+                SizedBox(height: 18),
                 CustomTextField(label: 'Location'),
-                SizedBox(height: 12),
+                SizedBox(height: 18),
                 CustomTextField(label: 'Category'),
-                SizedBox(height: 12),
-                CustomTextField(label: 'Description'),
-                SizedBox(height: 12),
+                SizedBox(height: 18),
+                CustomTextField(label: 'Description', maxLines: 3),
+                SizedBox(height: 18),
                 Container(
                   padding: const EdgeInsets.all(14),
                   width: double.infinity,
@@ -89,16 +91,15 @@ class CreateEventScreen extends StatelessWidget {
                           children: [
                             Text(
                               'Regular',
-                              style: Theme.of(
-                                context,
-                              ).textTheme.labelMedium,
+                              style: Theme.of(context).textTheme.labelMedium,
                             ),
                             Text(
                               'ksh.500',
-                              style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: primaryColor,
-                              ),
+                              style: Theme.of(context).textTheme.labelLarge!
+                                  .copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: primaryColor,
+                                  ),
                             ),
                           ],
                         ),
@@ -126,16 +127,15 @@ class CreateEventScreen extends StatelessWidget {
                           children: [
                             Text(
                               'VIP',
-                              style: Theme.of(
-                                context,
-                              ).textTheme.labelMedium,
+                              style: Theme.of(context).textTheme.labelMedium,
                             ),
                             Text(
                               'ksh.1500',
-                              style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: primaryColor,
-                              ),
+                              style: Theme.of(context).textTheme.labelLarge!
+                                  .copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: primaryColor,
+                                  ),
                             ),
                           ],
                         ),
@@ -163,27 +163,51 @@ class CreateEventScreen extends StatelessWidget {
                           children: [
                             Text(
                               'VVIP',
-                              style: Theme.of(
-                                context,
-                              ).textTheme.labelMedium,
+                              style: Theme.of(context).textTheme.labelMedium,
                             ),
                             Text(
                               'ksh.2000',
-                              style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: primaryColor,
-                              ),
+                              style: Theme.of(context).textTheme.labelLarge!
+                                  .copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: primaryColor,
+                                  ),
                             ),
                           ],
                         ),
                       ),
                     ],
                   ),
-                )
+                ),
+                SizedBox(height: 18),
+                Container(
+                  height: 50,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Colors.grey),
+                  ),
+                  child: const Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.image_outlined),
+                        SizedBox(height: 10),
+                        Text("Upload Event Posters"),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 18),
+                Button(
+                  width: double.infinity,
+                  onPressed: () {},
+                  text: 'Submit for Approval',
+                ),
               ],
             ),
           ),
-        ),]
+        ),
       ),
     );
   }

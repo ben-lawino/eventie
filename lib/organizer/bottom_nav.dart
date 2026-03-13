@@ -5,6 +5,7 @@ import 'package:eventie/customer/screens/ticket.dart';
 import 'package:eventie/data/categories.dart';
 import 'package:eventie/organizer/screens/dashboard.dart';
 import 'package:eventie/organizer/screens/events.dart';
+import 'package:eventie/organizer/screens/mini/create_event.dart';
 import 'package:eventie/organizer/screens/profile.dart';
 import 'package:eventie/organizer/screens/scanner.dart';
 import 'package:eventie/organizer/screens/wallet.dart';
@@ -25,7 +26,7 @@ class _BottomNavState extends State<BottomNav> {
     ScannerScreen(),
     EventsScreen(),
     WalletScreen(),
-    ProfileScreen()
+    ProfileScreen(),
   ];
 
   @override
@@ -38,7 +39,12 @@ class _BottomNavState extends State<BottomNav> {
       body: _screens[_currentIndex],
 
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CreateEventScreen()),
+          );
+        },
         elevation: 4,
         shape: const CircleBorder(),
         child: const Icon(Icons.add),
@@ -65,11 +71,41 @@ class _BottomNavState extends State<BottomNav> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _buildNavItem(Icons.home_rounded, Icons.home_outlined ,"Dashboard", 0, primaryColor),
-            _buildNavItem(Icons.scanner_rounded,Icons.scanner_outlined ,"Scan", 1, primaryColor),
-            _buildNavItem(Icons.event_rounded, Icons.event_outlined,"Events", 2, primaryColor),
-            _buildNavItem(Icons.wallet_rounded, Icons.wallet_outlined,"Wallet", 3, primaryColor),
-            _buildNavItem(Icons.person_rounded, Icons.person_outline_rounded,"Profile", 4, primaryColor),
+            _buildNavItem(
+              Icons.home_rounded,
+              Icons.home_outlined,
+              "Dashboard",
+              0,
+              primaryColor,
+            ),
+            _buildNavItem(
+              Icons.scanner_rounded,
+              Icons.scanner_outlined,
+              "Scan",
+              1,
+              primaryColor,
+            ),
+            _buildNavItem(
+              Icons.event_rounded,
+              Icons.event_outlined,
+              "Events",
+              2,
+              primaryColor,
+            ),
+            _buildNavItem(
+              Icons.wallet_rounded,
+              Icons.wallet_outlined,
+              "Wallet",
+              3,
+              primaryColor,
+            ),
+            _buildNavItem(
+              Icons.person_rounded,
+              Icons.person_outline_rounded,
+              "Profile",
+              4,
+              primaryColor,
+            ),
           ],
         ),
       ),
@@ -77,10 +113,12 @@ class _BottomNavState extends State<BottomNav> {
   }
 
   Widget _buildNavItem(
-      IconData icon,
-      IconData outlinedIcon,
-      String label, int index,
-      Color primaryColor) {
+    IconData icon,
+    IconData outlinedIcon,
+    String label,
+    int index,
+    Color primaryColor,
+  ) {
     final bool isSelected = _currentIndex == index;
     return GestureDetector(
       onTap: () => setState(() => _currentIndex = index),
@@ -89,7 +127,9 @@ class _BottomNavState extends State<BottomNav> {
         curve: Curves.easeInOut,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? primaryColor.withOpacity(0.15) : Colors.transparent,
+          color: isSelected
+              ? primaryColor.withOpacity(0.15)
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Row(
