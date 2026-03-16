@@ -1,4 +1,5 @@
 import 'package:eventie/common/login/sign_up.dart';
+import 'package:eventie/common/login/signin.dart';
 import 'package:eventie/customer/navigation.dart';
 import 'package:eventie/organizer/bottom_nav.dart';
 import 'package:eventie/organizer/screens/mini/create_event.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: ThemeMode.system,
-      home: SignUpScreen(),
+      home:SignUpScreen(),
     );
   }
 }

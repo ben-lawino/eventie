@@ -1,17 +1,16 @@
-import 'package:eventie/widgets/custom_app_bar.dart';
-import 'package:eventie/widgets/login_text_field.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/button.dart';
+import '../../widgets/login_text_field.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<SignInScreen> createState() => _SignInScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignInScreenState extends State<SignInScreen> {
   bool _acceptTerms = false;
 
   @override
@@ -45,13 +44,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     icon: Icons.lock_rounded,
                     isPassword: true,
                   ),
-                  SizedBox(height: 20),
-                  LoginTextField(
-                    hintText: 'Confirm Password',
-                    icon: Icons.lock_rounded,
-                    isPassword: true,
-                  ),
-          
                   SizedBox(height: 30),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,49 +60,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           borderRadius: BorderRadius.circular(4),
                         ),
                       ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 12),
-                          child: RichText(
-                            text: TextSpan(
-                              style: Theme.of(context).textTheme.bodySmall!
-                                  .copyWith(
-                                    fontSize: 13,
-                                    color: Colors.black87,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                              children: [
-                                const TextSpan(text: 'I accept the Eventie '),
-                                TextSpan(
-                                  text: 'Terms of Service',
-                                  style: TextStyle(
-                                    color: const Color(0xFF5B52D5),
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                const TextSpan(text: ', '),
-                                TextSpan(
-                                  text: 'Community Guidelines',
-                                  style: TextStyle(
-                                    color: const Color(0xFF5B52D5),
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                const TextSpan(text: ', and '),
-                                TextSpan(
-                                  text: 'Privacy Policy',
-                                  style: TextStyle(
-                                    color: const Color(0xFF5B52D5),
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                const TextSpan(
-                                  text: ' (Required)',
-                                  style: TextStyle(color: Colors.black87),
-                                ),
-                              ],
-                            ),
-                          ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 12),
+                        child: Text(
+                          'Remember me',
+                          style: Theme.of(context).textTheme.bodyMedium!
+                              .copyWith(fontWeight: FontWeight.bold),
                         ),
                       ),
                     ],
@@ -118,11 +73,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   SizedBox(height: 25),
                   Button(
                     onPressed: () {},
-                    text: 'Sign Up',
+                    text: 'Sign In',
                     width: double.infinity,
                     height: 50,
                   ),
+                  SizedBox(height: 20),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Forgot Password?',
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                   SizedBox(height: 25),
+
+                  //continue with
                   Row(
                     children: [
                       Expanded(
@@ -138,27 +106,40 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   SizedBox(height: 15),
                   Container(
-                    width: 60,
+                    padding: EdgeInsets.symmetric(horizontal: 18),
+                    width: double.infinity,
                     height: 40,
                     decoration: BoxDecoration(
-                      border: Border.all(width: 1.2, color: Colors.grey),
+                      color: Color(0xFFAAAAAA).withOpacity(0.1),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Image.asset('assets/icons/google.png', scale: 24),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset('assets/icons/google.png', scale: 24),
+                        SizedBox(width: 16),
+                        Text(
+                          'Continue With Google',
+                          style: Theme.of(context).textTheme.bodyMedium!
+                              .copyWith(fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(height: 25),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Already have an account?'),
+                      Text('Don\'t have an account?'),
                       TextButton(
                         onPressed: () {},
                         child: Text(
-                          'Login',
-                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            color: Theme.of(context).colorScheme.primary,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          'Sign Up',
+                          style: Theme.of(context).textTheme.bodyMedium!
+                              .copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                                fontWeight: FontWeight.bold,
+                              ),
                         ),
                       ),
                     ],
