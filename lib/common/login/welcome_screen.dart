@@ -22,7 +22,7 @@ class WelcomeScreen extends StatelessWidget {
                 width: 350,
                 decoration: BoxDecoration(
                   color: primaryColor.withOpacity(0.1),
-                  shape: BoxShape.circle
+                  shape: BoxShape.circle,
                 ),
                 child: Image.asset("assets/icons/applogo.png"),
               ),
@@ -35,8 +35,7 @@ class WelcomeScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.headlineLarge!.copyWith(
                   fontWeight: FontWeight.bold,
                   color: primaryColor,
-                  fontSize: 40
-
+                  fontSize: 40,
                 ),
               ),
 
@@ -89,9 +88,7 @@ class WelcomeScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(),
                 ),
               ),
-             SizedBox(
-               height: 10,
-             )
+              SizedBox(height: 10),
             ],
           ),
         ),

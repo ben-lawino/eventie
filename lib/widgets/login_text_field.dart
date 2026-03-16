@@ -21,9 +21,12 @@ class LoginTextField extends StatelessWidget {
       obscureText: isPassword,
       decoration: InputDecoration(
         hintText: hintText,
-        prefixIcon: Icon(icon),
+        prefixIcon: Icon(icon,
+          color: Colors.grey[500],),
         filled: true,
-        fillColor: Colors.grey.shade100,
+        fillColor:  Color(0xFFAAAAAA).withOpacity(0.1),
+        hintStyle: Theme.of(context).textTheme.labelMedium!
+            .copyWith(color: Colors.grey[500], fontSize: 14),
         contentPadding: const EdgeInsets.symmetric(vertical: 18),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
