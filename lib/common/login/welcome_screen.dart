@@ -11,31 +11,19 @@ class WelcomeScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18),
+          padding: const EdgeInsets.all(18),
           child: Column(
             children: [
-              const Spacer(),
+              //logo
+              Image.asset('assets/icons/applogo.png', scale: 8),
 
-              /// Illustration
-              Container(
-                height: 350,
-                width: 350,
-                decoration: BoxDecoration(
-                  color: primaryColor.withOpacity(0.1),
-                  shape: BoxShape.circle,
-                ),
-                child: Image.asset("assets/icons/applogo.png"),
-              ),
-
-              const SizedBox(height: 20),
-
-              /// App name
+              //appname
               Text(
-                "Eventie",
+                "Join Eventie",
                 style: Theme.of(context).textTheme.headlineLarge!.copyWith(
                   fontWeight: FontWeight.bold,
                   color: primaryColor,
-                  fontSize: 40,
+                  fontSize: 36,
                 ),
               ),
 
@@ -43,52 +31,181 @@ class WelcomeScreen extends StatelessWidget {
 
               /// Subtitle
               Text(
-                "An Event Sharing App\nFor Everyone",
+                "Choose how you want use Eventie",
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
 
+              SizedBox(height: 30),
+
+              //Customer card
+              Container(
+                padding: const EdgeInsets.all(16),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.06),
+                      blurRadius: 20,
+                      offset: const Offset(0, 10),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    /// Icon Circle
+                    Container(
+                      height: 60,
+                      width: 60,
+                      decoration: BoxDecoration(
+                        color: primaryColor.withOpacity(0.15),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: Image.asset(
+                          'assets/icons/user_outlined.png',
+                          scale: 26,
+                          color: primaryColor,
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(width: 16),
+
+                    /// Text Section
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Customer',
+                            style: Theme.of(context).textTheme.titleMedium!
+                                .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Discover and attend amazing events',
+                            style: Theme.of(context).textTheme.bodySmall!
+                                .copyWith(color: Colors.black),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    /// Arrow
+                    Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      size: 18,
+                      color: Colors.grey[600],
+                    ),
+                  ],
+                ),
+              ),
+
+              SizedBox(height: 20),
+
+              //Organizer card
+              Container(
+                padding: const EdgeInsets.all(16),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.06),
+                      blurRadius: 20,
+                      offset: const Offset(0, 10),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    /// Icon Circle
+                    Container(
+                      height: 60,
+                      width: 60,
+                      decoration: BoxDecoration(
+                        color: primaryColor.withOpacity(0.15),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: Image.asset(
+                          'assets/icons/calendar.png',
+                          scale: 26,
+                          color: primaryColor,
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(width: 16),
+
+                    /// Text Section
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Organizer',
+                            style: Theme.of(context).textTheme.titleMedium!
+                                .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Create and manage events',
+                            style: Theme.of(context).textTheme.bodySmall!
+                                .copyWith(color: Colors.black),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    /// Arrow
+                    Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      size: 18,
+                      color: Colors.grey[600],
+                    ),
+                  ],
+                ),
+              ),
+
               Spacer(),
 
-              /// Create Account Button
+              /// already have an account
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Already have an account?',
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Login',
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        color: primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
               Button(
                 width: double.infinity,
                 onPressed: () {},
-                text: 'Create Account',
+                text: 'Continue as Guest',
               ),
-
-              const SizedBox(height: 16),
-
-              /// Already have account button
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: OutlinedButton(
-                  onPressed: () {},
-                  style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: Color(0xff4F63D2), width: 2),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                  ),
-                  child: const Text(
-                    "Already have an account",
-                    style: TextStyle(fontSize: 16, color: Color(0xff4F63D2)),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 16),
-
-              /// Continue as guest
-              TextButton(
-                onPressed: () {},
-                child: Text(
-                  'Continue as a guest?',
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(),
-                ),
-              ),
-              SizedBox(height: 10),
             ],
           ),
         ),
