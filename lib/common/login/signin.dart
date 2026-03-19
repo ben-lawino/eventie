@@ -1,3 +1,4 @@
+import 'package:eventie/common/login/sign_up.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/button.dart';
@@ -31,7 +32,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 children: [
                   Image.asset('assets/icons/applogo.png', scale: 8),
                   Text(
-                    'Create Account',
+                    'Login',
                     style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -132,7 +133,14 @@ class _SignInScreenState extends State<SignInScreen> {
                     children: [
                       Text('Don\'t have an account?'),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SignUpScreen(),
+                            ),
+                          );
+                        },
                         child: Text(
                           'Sign Up',
                           style: Theme.of(context).textTheme.bodyMedium!

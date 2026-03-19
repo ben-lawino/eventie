@@ -1,3 +1,4 @@
+import 'package:eventie/common/login/signin.dart';
 import 'package:eventie/widgets/custom_app_bar.dart';
 import 'package:eventie/widgets/login_text_field.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +52,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     icon: Icons.lock_rounded,
                     isPassword: true,
                   ),
-          
+
                   SizedBox(height: 30),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,7 +118,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   SizedBox(height: 25),
                   Button(
-                    onPressed: () {},
+                    onPressed: () {
+
+                    },
                     text: 'Sign Up',
                     width: double.infinity,
                     height: 50,
@@ -152,13 +155,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     children: [
                       Text('Already have an account?'),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SignInScreen(),
+                            ),
+                          );
+                        },
                         child: Text(
                           'Login',
-                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            color: Theme.of(context).colorScheme.primary,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: Theme.of(context).textTheme.bodyMedium!
+                              .copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                                fontWeight: FontWeight.bold,
+                              ),
                         ),
                       ),
                     ],

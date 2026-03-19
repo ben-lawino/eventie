@@ -1,5 +1,8 @@
+import 'package:eventie/common/login/signin.dart';
 import 'package:eventie/widgets/button.dart';
 import 'package:flutter/material.dart';
+
+import '../../customer/navigation.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -15,7 +18,7 @@ class WelcomeScreen extends StatelessWidget {
           child: Column(
             children: [
               //logo
-              Image.asset('assets/icons/applogo.png', scale: 8),
+              Image.asset('assets/icons/applogo.png', scale: 6),
 
               //appname
               Text(
@@ -23,7 +26,7 @@ class WelcomeScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.headlineLarge!.copyWith(
                   fontWeight: FontWeight.bold,
                   color: primaryColor,
-                  fontSize: 36,
+                  fontSize: 34,
                 ),
               ),
 
@@ -31,7 +34,7 @@ class WelcomeScreen extends StatelessWidget {
 
               /// Subtitle
               Text(
-                "Choose how you want use Eventie",
+                "Choose how you want to use Eventie",
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
@@ -189,7 +192,12 @@ class WelcomeScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SignInScreen()),
+                      );
+                    },
                     child: Text(
                       'Login',
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -203,9 +211,17 @@ class WelcomeScreen extends StatelessWidget {
               const SizedBox(height: 16),
               Button(
                 width: double.infinity,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => NavigationMenu()),
+                  );
+                },
                 text: 'Continue as Guest',
               ),
+              SizedBox(
+                height: 18,
+              )
             ],
           ),
         ),
