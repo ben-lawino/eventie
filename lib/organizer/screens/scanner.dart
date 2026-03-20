@@ -17,8 +17,9 @@ class ScannerScreen extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              'Scan QR Code',
+              'Scan Event Ticket',
               style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: Colors.black87,
               ),

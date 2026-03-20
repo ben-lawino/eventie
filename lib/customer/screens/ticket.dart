@@ -16,19 +16,33 @@ class TicketPage extends StatelessWidget {
       initialIndex: 0,
       length: 3,
       child: Scaffold(
-        appBar: CustomAppBar(
-          title: 'Tickets',
-          backDestination: NavigationMenu(),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 18),
-              child: Image.asset(
-                'assets/icons/search.png',
-                scale: 25,
-                color: Colors.grey[700],
-              ),
-            ),
-          ],
+        appBar: AppBar(
+          centerTitle: true,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => NavigationMenu()),
+              );
+            },
+            icon: Icon(Icons.arrow_back_rounded),
+            color: Colors.grey[700],
+          ),
+          title: Text(
+            'Tickets',
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
+          ),
+          bottom: const TabBar(
+            indicatorWeight: 3.5,
+            indicatorSize: TabBarIndicatorSize.tab,
+            tabs: [
+              Tab(child: Text('Upcoming')),
+              Tab(child: Text('Completed')),
+              Tab(child: Text('Cancelled')),
+            ],
+          ),
         ),
         body: TabBarView(children: [Upcoming(), Completed(), Cancelled()]),
       ),

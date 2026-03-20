@@ -34,13 +34,13 @@ class EventsScreen extends StatelessWidget {
             ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
           ),
           bottom: TabBar(
-            indicatorWeight: 3.5,
+            indicatorWeight: 3.0,
             indicatorSize: TabBarIndicatorSize.tab,
             tabs: [
-              Tab(child: Text('Pending')),
-              Tab(child: Text('Upcoming')),
-              Tab(child: Text('Completed')),
-              Tab(child: Text('Cancelled')),
+              Tab(child: Text('Pending',style : Theme.of(context).textTheme.labelMedium),),
+              Tab(child: Text('Upcoming',style : Theme.of(context).textTheme.labelMedium)),
+              Tab(child: Text('Completed',style : Theme.of(context).textTheme.labelMedium)),
+              Tab(child: Text('Cancelled',style : Theme.of(context).textTheme.labelMedium)),
             ],
           ),
         ),

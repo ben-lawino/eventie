@@ -153,7 +153,6 @@ class _ReviewSummaryState extends State<ReviewSummary> {
               child: Padding(
                 padding: const EdgeInsets.all(18.0),
                 child: Column(
-                  spacing: 20,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -242,7 +241,6 @@ class _ReviewSummaryState extends State<ReviewSummary> {
               child: Padding(
                 padding: const EdgeInsets.all(18.0),
                 child: Column(
-                  spacing: 20,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
