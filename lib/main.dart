@@ -1,3 +1,4 @@
+import 'package:eventie/common/login/forgot_password.dart';
 import 'package:eventie/common/login/sign_up.dart';
 import 'package:eventie/common/login/signin.dart';
 import 'package:eventie/customer/navigation.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: ThemeMode.system,
-      home: BottomNav(),
+      home: ForgotPasswordScreen(),
     );
   }
 }

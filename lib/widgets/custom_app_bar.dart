@@ -36,10 +36,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         icon: const Icon(Icons.arrow_back_rounded),
       ),
       title: Text(
-        title!,
-        style: Theme.of(
-          context,
-        ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
+        title ?? "",
+        style: Theme.of(context)
+            .textTheme
+            .titleLarge
+            ?.copyWith(fontWeight: FontWeight.bold),
       ),
       actions: actions,
     );
