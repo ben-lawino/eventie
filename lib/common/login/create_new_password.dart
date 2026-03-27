@@ -129,9 +129,9 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                         .copyWith(fontWeight: FontWeight.w600)),
               ),
               const SizedBox(height: 20),
-              LoginTextField(hintText: 'Enter Password', icon: Icons.lock),
+              LoginTextField(hintText: 'Enter Password', icon: Icons.lock, isPassword: true,),
               const SizedBox(height: 20),
-              LoginTextField(hintText: 'Confirm Password', icon: Icons.lock),
+              LoginTextField(hintText: 'Confirm Password', icon: Icons.lock, isPassword: true),
               const Spacer(),
               Button(
                 width: double.infinity,

@@ -3,6 +3,8 @@ import 'package:eventie/widgets/button.dart';
 import 'package:eventie/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
+import '../../common/screens/edit_profile.dart';
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -11,7 +13,7 @@ class ProfileScreen extends StatelessWidget {
     final primaryColor = Theme.of(context).colorScheme.primary;
 
     return Scaffold(
-      appBar: CustomAppBar(title: 'Profile',backDestination: BottomNav()),
+      appBar: CustomAppBar(title: 'Profile', backDestination: BottomNav()),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18.0),
         child: Column(
@@ -20,12 +22,8 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 40,
-                  backgroundColor: primaryColor.withOpacity(0.15),
-                  child: Padding(
-                    padding: const EdgeInsets.all(3),
-                    child: ClipOval(
-                      child: Image.asset('assets/images/profilepic.png'),
-                    ),
+                  backgroundImage: AssetImage(
+                    'assets/images/profilepic.png',
                   ),
                 ),
                 SizedBox(width: 20),
@@ -35,9 +33,9 @@ class ProfileScreen extends StatelessWidget {
                     Text(
                       'Ben lawin',
                       style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(
@@ -51,10 +49,10 @@ class ProfileScreen extends StatelessWidget {
                       child: Text(
                         'verified organizer',
                         style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                          color: Colors.white,
-                          fontSize: 9,
-                          fontWeight: FontWeight.bold,
-                        ),
+                              color: Colors.white,
+                              fontSize: 9,
+                              fontWeight: FontWeight.bold,
+                            ),
                       ),
                     ),
                   ],
@@ -62,15 +60,20 @@ class ProfileScreen extends StatelessWidget {
               ],
             ),
             Divider(color: Colors.grey[400], thickness: 1, height: 20),
-            ListTile(
-              leading: Image.asset('assets/icons/user_outlined.png', scale: 24),
-              title: Text(
-                'Profile',
-                style: Theme.of(
-                  context,
-                ).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w500),
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen()));
+              },
+              child: ListTile(
+                leading: Image.asset('assets/icons/user_outlined.png', scale: 24),
+                title: Text(
+                  'Profile',
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w500),
+                ),
+                trailing: Image.asset('assets/icons/arrowright.png', scale: 24),
               ),
-              trailing: Image.asset('assets/icons/arrowright.png', scale: 24),
             ),
             ListTile(
               leading: Image.asset('assets/icons/notification.png', scale: 24),
@@ -129,8 +132,8 @@ class ProfileScreen extends StatelessWidget {
               title: Text(
                 'Invite Friends',
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  fontWeight: FontWeight.w500,
-                ),
+                      fontWeight: FontWeight.w500,
+                    ),
               ),
               trailing: Image.asset('assets/icons/arrowright.png', scale: 24),
             ),
@@ -154,9 +157,9 @@ class ProfileScreen extends StatelessWidget {
               title: Text(
                 'Logout',
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  fontWeight: FontWeight.w500,
-                  color: Colors.red,
-                ),
+                      fontWeight: FontWeight.w500,
+                      color: Colors.red,
+                    ),
               ),
             ),
           ],

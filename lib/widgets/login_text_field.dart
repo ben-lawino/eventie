@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
 class LoginTextField extends StatelessWidget {
-  final String hintText;
-  final IconData icon;
+  final String? hintText;
+  final IconData? icon;
   final bool isPassword;
   final TextEditingController? controller;
+  final Widget? suffix;
 
   const LoginTextField({
     super.key,
-    required this.hintText,
-    required this.icon,
+    this.hintText,
+    this.icon,
     this.isPassword = false,
     this.controller,
+    this.suffix,
   });
 
   @override
@@ -23,6 +25,7 @@ class LoginTextField extends StatelessWidget {
         hintText: hintText,
         prefixIcon: Icon(icon,
           color: Colors.grey[500],),
+        suffixIcon: suffix,
         filled: true,
         fillColor:  Color(0xFFAAAAAA).withOpacity(0.1),
         hintStyle: Theme.of(context).textTheme.labelMedium!
