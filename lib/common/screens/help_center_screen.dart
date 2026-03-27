@@ -1,20 +1,17 @@
-import 'package:eventie/customer/navigation.dart';
-import 'package:eventie/customer/screens/home.dart';
-import 'package:eventie/customer/screens/tab_screens/cancelled.dart';
-import 'package:eventie/customer/screens/tab_screens/completed.dart';
-import 'package:eventie/customer/screens/tab_screens/upcoming.dart';
-import 'package:eventie/data/categories.dart';
-import 'package:eventie/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
-class TicketPage extends StatelessWidget {
-  const TicketPage({super.key});
+import '../../customer/navigation.dart';
+import 'mini_screens/contact_us_screen.dart';
+import 'mini_screens/faq_screen.dart';
+
+class HelpCenterScreen extends StatelessWidget {
+  const HelpCenterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       initialIndex: 0,
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -39,14 +36,14 @@ class TicketPage extends StatelessWidget {
             indicatorWeight: 3.5,
             indicatorSize: TabBarIndicatorSize.tab,
             tabs: [
-              Tab(child: Text('Upcoming')),
-              Tab(child: Text('Completed')),
-              Tab(child: Text('Cancelled')),
+              Tab(child: Text('FAQ')),
+              Tab(child: Text('Contact Us')),
             ],
           ),
         ),
-        body: TabBarView(children: [Upcoming(), Completed(), Cancelled()]),
+        body: TabBarView(children: [FaqScreen(), ContactUsScreen()]),
       ),
     );
+    ;
   }
 }

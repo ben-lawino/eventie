@@ -5,6 +5,8 @@ import 'package:eventie/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../../common/screens/edit_profile.dart';
+import '../../common/screens/help_center_screen.dart';
+import '../../common/screens/language_setting_screen.dart';
 import '../../common/screens/notification_setting_screen.dart';
 import '../../common/screens/security_setting_screen.dart';
 
@@ -133,8 +135,11 @@ class ProfilePage extends StatelessWidget {
 
               //security
               GestureDetector(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => SecuritySettingScreen()));
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SecuritySettingScreen()));
                 },
                 child: ListTile(
                   leading: Image.asset('assets/icons/security.png', scale: 24),
@@ -144,10 +149,10 @@ class ProfilePage extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                         ),
                   ),
-                  trailing: Image.asset('assets/icons/arrowright.png', scale: 24),
+                  trailing:
+                      Image.asset('assets/icons/arrowright.png', scale: 24),
                 ),
               ),
-
 
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 18),
@@ -173,29 +178,48 @@ class ProfilePage extends StatelessWidget {
                 activeTrackColor: primaryColor,
               ),
 
-
               //Language
-              ListTile(
-                leading: Image.asset('assets/icons/language.png', scale: 24),
-                title: Text(
-                  'Language',
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        fontWeight: FontWeight.w500,
-                      ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => LanguageSettingScreen()));
+                },
+                child: ListTile(
+                  leading: Image.asset('assets/icons/language.png', scale: 24),
+                  title: Text(
+                    'Language',
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          fontWeight: FontWeight.w500,
+                        ),
+                  ),
+                  trailing:
+                      Image.asset('assets/icons/arrowright.png', scale: 24),
                 ),
-                trailing: Image.asset('assets/icons/arrowright.png', scale: 24),
               ),
 
               //help
-              ListTile(
-                leading: Image.asset('assets/icons/help.png', scale: 24),
-                title: Text(
-                  'Help Center',
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        fontWeight: FontWeight.w500,
-                      ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HelpCenterScreen(),
+                    ),
+                  );
+                },
+                child: ListTile(
+                  leading: Image.asset('assets/icons/help.png', scale: 24),
+                  title: Text(
+                    'Help Center',
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          fontWeight: FontWeight.w500,
+                        ),
+                  ),
+                  trailing:
+                      Image.asset('assets/icons/arrowright.png', scale: 24),
                 ),
-                trailing: Image.asset('assets/icons/arrowright.png', scale: 24),
               ),
 
               //invite friends
