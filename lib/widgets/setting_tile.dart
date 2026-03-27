@@ -28,7 +28,8 @@ class SettingTile extends StatelessWidget {
           Switch(
             value: value,
             onChanged: (val) {},
-            activeThumbColor: primaryColor,
+            activeThumbColor: Colors.white,
+            activeTrackColor: primaryColor,
           ),
         ],
       ),

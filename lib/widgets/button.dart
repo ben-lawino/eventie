@@ -20,27 +20,34 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bgColor = color ?? Theme.of(context).colorScheme.primary;
+
+    // text color if not provided
+    final fgColor = textColor ?? _getContrastingTextColor(bgColor);
+
     return SizedBox(
-      width: width,
-      height: height,
+      width: width ?? double.infinity,
+      height: height ?? 50,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: color ?? Theme.of(context).colorScheme.primary,
-          minimumSize: const Size(150, 50), // width, height
+          backgroundColor: bgColor,
+          foregroundColor: fgColor,
+          elevation: 2,
+          shadowColor: Colors.black.withOpacity(0.2),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
         ),
         onPressed: onPressed,
-        child: Text(
-          text,
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-            fontSize: 16,
-            color: textColor ?? Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        child: Text(text,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                fontWeight: FontWeight.bold, color: fgColor, fontSize: 15)),
       ),
     );
+  }
+
+  // Helps text stay readable on any background
+  Color _getContrastingTextColor(Color bgColor) {
+    return bgColor.computeLuminance() > 0.5 ? Colors.black : Colors.white;
   }
 }

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../../common/screens/edit_profile.dart';
 import '../../common/screens/notification_setting_screen.dart';
+import '../../common/screens/security_setting_screen.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -129,16 +130,25 @@ class ProfilePage extends StatelessWidget {
                 ),
                 trailing: Image.asset('assets/icons/arrowright.png', scale: 24),
               ),
-              ListTile(
-                leading: Image.asset('assets/icons/security.png', scale: 24),
-                title: Text(
-                  'Security',
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        fontWeight: FontWeight.w500,
-                      ),
+
+              //security
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SecuritySettingScreen()));
+                },
+                child: ListTile(
+                  leading: Image.asset('assets/icons/security.png', scale: 24),
+                  title: Text(
+                    'Security',
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          fontWeight: FontWeight.w500,
+                        ),
+                  ),
+                  trailing: Image.asset('assets/icons/arrowright.png', scale: 24),
                 ),
-                trailing: Image.asset('assets/icons/arrowright.png', scale: 24),
               ),
+
+
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 18),
                 child: Divider(
@@ -147,6 +157,8 @@ class ProfilePage extends StatelessWidget {
                   height: 20,
                 ),
               ),
+
+              //darkmode
               SwitchListTile(
                 value: false,
                 onChanged: (value) {},
@@ -157,7 +169,12 @@ class ProfilePage extends StatelessWidget {
                       ),
                 ),
                 secondary: Image.asset('assets/icons/moon.png', scale: 24),
+                activeThumbColor: Colors.white,
+                activeTrackColor: primaryColor,
               ),
+
+
+              //Language
               ListTile(
                 leading: Image.asset('assets/icons/language.png', scale: 24),
                 title: Text(
@@ -168,6 +185,8 @@ class ProfilePage extends StatelessWidget {
                 ),
                 trailing: Image.asset('assets/icons/arrowright.png', scale: 24),
               ),
+
+              //help
               ListTile(
                 leading: Image.asset('assets/icons/help.png', scale: 24),
                 title: Text(
@@ -178,6 +197,8 @@ class ProfilePage extends StatelessWidget {
                 ),
                 trailing: Image.asset('assets/icons/arrowright.png', scale: 24),
               ),
+
+              //invite friends
               ListTile(
                 leading: Image.asset('assets/icons/friends.png', scale: 24),
                 title: Text(
