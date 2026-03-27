@@ -28,10 +28,12 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         child: Column(
           children: [
             const SizedBox(height: 60),
-            const Text(
-              "Code has been send to your email",
+            Text(
+              "Code has been sent to your email",
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, color: Colors.black87),
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 40),
 
@@ -68,21 +70,21 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 
             const SizedBox(height: 80),
             RichText(
-              text: const TextSpan(
+              text: TextSpan(
                 text: "Resend code in ",
-                style: TextStyle(color: Colors.black, fontSize: 16),
+                style: Theme.of(context).textTheme.bodyMedium,
                 children: [
                   TextSpan(
                     text: "55 s",
-                    style: TextStyle(
-                      color: Color(0xFF7B61FF), // Purple timer color
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       fontWeight: FontWeight.bold,
+                      color: primaryColor
                     ),
                   ),
                 ],
               ),
             ),
-            const Spacer(), // Pushes the button to the bottom
+            const Spacer(), 
 
             // Verify Button
             Button(

@@ -1,3 +1,4 @@
+import 'package:eventie/common/login/create_new_password.dart';
 import 'package:eventie/common/login/forgot_password.dart';
 import 'package:eventie/common/login/sign_up.dart';
 import 'package:eventie/common/login/signin.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: ThemeMode.system,
-      home: OtpVerificationScreen(),
+      home: CreateNewPasswordScreen(),
     );
   }
 }
