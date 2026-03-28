@@ -2,6 +2,7 @@ import 'package:eventie/customer/navigation.dart';
 import 'package:eventie/customer/screens/home.dart';
 import 'package:eventie/data/categories.dart';
 import 'package:eventie/widgets/custom_app_bar.dart';
+import 'package:eventie/widgets/log_out.dart';
 import 'package:flutter/material.dart';
 
 import '../../common/screens/edit_profile.dart';
@@ -10,8 +11,29 @@ import '../../common/screens/language_setting_screen.dart';
 import '../../common/screens/notification_setting_screen.dart';
 import '../../common/screens/security_setting_screen.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+
+  void _logOutOverlay() {
+    showModalBottomSheet(
+      useSafeArea: true,
+      isDismissible: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(36)),
+      ),
+      context: context,
+      builder: (ctx) => SizedBox(
+        height: MediaQuery.of(context).size.height * 0.28,
+        child: LogOut(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -174,7 +196,7 @@ class ProfilePage extends StatelessWidget {
                       ),
                 ),
                 secondary: Image.asset('assets/icons/moon.png', scale: 24),
-                activeThumbColor: Colors.white,
+                activeColor: Colors.white,
                 activeTrackColor: primaryColor,
               ),
 
@@ -243,18 +265,23 @@ class ProfilePage extends StatelessWidget {
                 ),
                 trailing: Image.asset('assets/icons/arrowright.png', scale: 24),
               ),
-              ListTile(
-                leading: Image.asset(
-                  'assets/icons/exit.png',
-                  scale: 24,
-                  color: Colors.red,
-                ),
-                title: Text(
-                  'Logout',
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        fontWeight: FontWeight.w500,
-                        color: Colors.red,
-                      ),
+
+              //logOUt
+              GestureDetector(
+                onTap: _logOutOverlay,
+                child: ListTile(
+                  leading: Image.asset(
+                    'assets/icons/exit.png',
+                    scale: 24,
+                    color: Colors.red,
+                  ),
+                  title: Text(
+                    'Logout',
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          fontWeight: FontWeight.w500,
+                          color: Colors.red,
+                        ),
+                  ),
                 ),
               ),
             ],

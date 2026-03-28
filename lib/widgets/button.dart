@@ -41,7 +41,7 @@ class Button extends StatelessWidget {
         onPressed: onPressed,
         child: Text(text,
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                fontWeight: FontWeight.bold, color: fgColor, fontSize: 15)),
+                fontWeight: FontWeight.bold, color: fgColor, fontSize: 14)),
       ),
     );
   }

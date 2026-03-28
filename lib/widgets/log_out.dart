@@ -1,23 +1,21 @@
-import 'package:eventie/customer/screens/mini_screens/cancel_reason.dart';
 import 'package:eventie/widgets/button.dart';
 import 'package:flutter/material.dart';
 
-import '../common/constants/colors.dart';
 
-class CancelEvent extends StatefulWidget {
-  const CancelEvent({super.key});
+class LogOut extends StatefulWidget {
+  const LogOut({super.key});
 
   @override
-  State<CancelEvent> createState() => _CancelEventState();
+  State<LogOut> createState() => _LogOutState();
 }
 
-class _CancelEventState extends State<CancelEvent> {
- 
-  
+class _LogOutState extends State<LogOut> {
+
   @override
   Widget build(BuildContext context) {
-    final primaryColor = Theme.of(context).primaryColor;
-    
+    final primaryColor = Theme.of(context).colorScheme.primary;
+
+
     return SafeArea(
       child: SingleChildScrollView(
         child: Padding(
@@ -25,9 +23,10 @@ class _CancelEventState extends State<CancelEvent> {
           child: Column(
             children: [
               Text(
-                'Cancel Booking',
+                'Log Out',
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   fontSize: 20,
+                  color: Colors.red,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -35,20 +34,12 @@ class _CancelEventState extends State<CancelEvent> {
               Divider(color: Colors.grey[400], thickness: 1, height: 20),
               SizedBox(height: 10),
               Text(
-                'Are you sure you want to cancel \n this event?',
+                'Are you sure you want to log out?',
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                 ),
                 textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 24),
-              Text(
-                'Only 90% of funds will be refunded \n according to our policy',
-                textAlign: TextAlign.center,
-                style: Theme.of(
-                  context,
-                ).textTheme.labelLarge!.copyWith(color: AppColors.textSecondary),
               ),
               SizedBox(height: 24),
               Row(
@@ -59,22 +50,15 @@ class _CancelEventState extends State<CancelEvent> {
                         Navigator.of(context).pop();
                       },
                       color: primaryColor.withOpacity(0.15),
-                      text: "No, Don’t cancel",
+                      text: "Cancel",
                       textColor: primaryColor,
                     ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Button(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const CancelReason(),
-                          ),
-                        );
-                      },
-                      text: "Yes, Cancel",
+                      onPressed: () {},
+                      text: "Yes, Logout",
                     ),
                   ),
                 ],

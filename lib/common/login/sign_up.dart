@@ -80,32 +80,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     color: Colors.black87,
                                     fontWeight: FontWeight.bold,
                                   ),
-                              children: [
-                                const TextSpan(text: 'I accept the Eventie '),
+                              children: const [
+                                TextSpan(text: 'I accept the Eventie '),
                                 TextSpan(
                                   text: 'Terms of Service',
                                   style: TextStyle(
-                                    color: const Color(0xFF5B52D5),
+                                    color: Color(0xFF5B52D5),
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
-                                const TextSpan(text: ', '),
+                                TextSpan(text: ', '),
                                 TextSpan(
                                   text: 'Community Guidelines',
                                   style: TextStyle(
-                                    color: const Color(0xFF5B52D5),
+                                    color: Color(0xFF5B52D5),
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
-                                const TextSpan(text: ', and '),
+                                TextSpan(text: ', and '),
                                 TextSpan(
                                   text: 'Privacy Policy',
                                   style: TextStyle(
-                                    color: const Color(0xFF5B52D5),
+                                    color: Color(0xFF5B52D5),
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
-                                const TextSpan(
+                                TextSpan(
                                   text: ' (Required)',
                                   style: TextStyle(color: Colors.black87),
                                 ),

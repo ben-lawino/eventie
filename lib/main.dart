@@ -1,3 +1,4 @@
+import 'package:eventie/common/login/create_new_password.dart';
 import 'package:eventie/customer/navigation.dart';
 import 'package:eventie/organizer/bottom_nav.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: ThemeMode.system,
-      home: NavigationMenu(),
+      home: CreateNewPasswordScreen(),
     );
   }
 }

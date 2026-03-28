@@ -32,40 +32,35 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               "Code has been sent to your email",
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+                    fontWeight: FontWeight.bold,
+                  ),
             ),
             const SizedBox(height: 40),
 
             // Pin Code Field Section
-            PinInput(
+            PinCodeTextField(
+              appContext: context,
               length: 4,
               keyboardType: TextInputType.number,
-              builder: (context, cells) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: cells.map((cell) {
-                    return Container(
-                      width: 72,
-                      height: 58,
-                      margin: EdgeInsets.symmetric(horizontal: 8),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: cell.isFocused
-                            ? primaryColor
-                            : primaryColor.withOpacity(0.15),
-                      ),
-                      child: Center(
-                        child: Text(
-                          cell.character ?? '',
-                          style: TextStyle(fontSize: 24),
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                );
-              },
+              onChanged: (value) {},
               onCompleted: (pin) => print('PIN: $pin'),
+              pinTheme: PinTheme(
+                shape: PinCodeFieldShape.box,
+                borderRadius: BorderRadius.circular(12),
+                fieldHeight: 58,
+                fieldWidth: 72,
+                activeFillColor: primaryColor,
+                selectedFillColor: primaryColor,
+                inactiveFillColor: primaryColor.withOpacity(0.15),
+                inactiveColor: Colors.transparent,
+                selectedColor: Colors.transparent,
+                activeColor: Colors.transparent,
+              ),
+              enableActiveFill: true,
+              textStyle: TextStyle(
+                fontSize: 24,
+                color: Colors.white,
+              ),
             ),
 
             const SizedBox(height: 80),
@@ -77,14 +72,12 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   TextSpan(
                     text: "55 s",
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: primaryColor
-                    ),
+                        fontWeight: FontWeight.bold, color: primaryColor),
                   ),
                 ],
               ),
             ),
-            const Spacer(), 
+            const Spacer(),
 
             // Verify Button
             Button(
