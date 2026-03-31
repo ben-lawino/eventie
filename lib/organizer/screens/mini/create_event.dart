@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:eventie/widgets/button.dart';
 import 'package:eventie/widgets/custom_text_field.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import '../../../data/categories.dart';
 import '../../../data/models/category_model.dart';
 import '../../bottom_nav.dart';
+
 
 class CreateEventScreen extends StatefulWidget {
   const CreateEventScreen({super.key});
@@ -16,10 +20,27 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   CategoryModel? selectedCategory;
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
+  File? _selectedImage;
+  final ImagePicker _picker = ImagePicker();
 
   //controllers
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
+
+  Future<void> _pickImageFromGallery() async {
+  final pickedFile = await _picker.pickImage(
+    source: ImageSource.gallery,
+    imageQuality: 80,
+  );
+
+  if (pickedFile != null) {
+    setState(() {
+      _selectedImage = File(pickedFile.path);
+    });
+  }
+}
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -282,24 +303,30 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                   ),
                 ),
                 SizedBox(height: 18),
-                Container(
-                  height: 50,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.grey),
-                  ),
-                  child: const Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.image_outlined),
-                        SizedBox(height: 10),
-                        Text("Upload Event Posters"),
-                      ],
+
+                //image picker
+                GestureDetector(
+                  onTap: _pickImageFromGallery,
+                  child: Container(
+                    height: 50,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.grey),
+                    ),
+                    child: const Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.image_outlined),
+                          SizedBox(height: 10),
+                          Text("Upload Event Posters"),
+                        ],
+                      ),
                     ),
                   ),
                 ),
+
                 SizedBox(height: 18),
                 Button(
                   width: double.infinity,
