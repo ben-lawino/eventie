@@ -8,8 +8,10 @@ class FavoriteCard extends StatelessWidget {
   final String date;
   final String location;
   final bool isBooked;
+  final VoidCallback? onTap;
 
   const FavoriteCard({
+    this.onTap,
     super.key,
     required this.imageUrl,
     required this.title,
@@ -104,7 +106,7 @@ class FavoriteCard extends StatelessWidget {
                           ),
 
                           IconButton(
-                            onPressed: () {},
+                            onPressed: onTap,
                             icon: const Icon(
                               Icons.favorite_rounded,
                               size: 20,
