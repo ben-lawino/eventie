@@ -1,43 +1,35 @@
-
 class TicketModel {
   final String id;
-  final String eventId;
-  final String type; // e.g., 'regular', 'vip', 'vvip'
+  final String type; // dynamic
   final double price;
-  final int totalQuantity;
-  final int soldQuantity;
+  final int quantity;
+  final int sold;
 
   TicketModel({
     required this.id,
-    required this.eventId,
     required this.type,
     required this.price,
-    required this.totalQuantity,
-    required this.soldQuantity,
+    required this.quantity,
+    this.sold = 0,
   });
 
-  // 🔹 Computed property
-  int get remainingQuantity => totalQuantity - soldQuantity;
+  bool get isSoldOut => sold >= quantity;
 
   factory TicketModel.fromJson(Map<String, dynamic> json) {
     return TicketModel(
-      id: json['id'],
-      eventId: json['eventId'],
       type: json['type'],
-      price: (json['price'] as num).toDouble(),
-      totalQuantity: json['totalQuantity'],
-      soldQuantity: json['soldQuantity'],
+      price: json['price'],
+      quantity: json['quantity'],
+      sold: json['sold'] ?? 0, id: '',
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
-      'eventId': eventId,
       'type': type,
       'price': price,
-      'totalQuantity': totalQuantity,
-      'soldQuantity': soldQuantity,
+      'quantity': quantity,
+      'sold': sold,
     };
   }
 }

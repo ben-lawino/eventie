@@ -22,7 +22,7 @@ class EventsList extends StatelessWidget {
           final event = dummyEvents[index];
           final formattedDate = DateFormat(
             'EEE, MMM d, HH:mm',
-          ).format(event.date);
+          ).format(event.eventDate);
 
           return SizedBox(
             width: 300,
@@ -35,7 +35,7 @@ class EventsList extends StatelessWidget {
                   ),
                 );
               },
-              imageUrl: event.imageUrl,
+              imageUrl:  event.imageUrl ?? 'https://via.placeholder.com/150',
               title: event.title,
               date: formattedDate,
               location: event.location,

@@ -26,11 +26,11 @@ class SmallEventList extends StatelessWidget {
           final event = dummyEvents[index];
           final formattedDate = DateFormat(
             'EEE, MMM d, HH:mm',
-          ).format(event.date);
+          ).format(event.eventDate);
 
           return GridCard(
             event: event,
-            imageUrl: event.imageUrl,
+            imageUrl: event.imageUrl ?? 'https://via.placeholder.com/150',
             title: event.title,
             date: formattedDate,
             location: event.location,

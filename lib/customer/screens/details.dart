@@ -27,7 +27,7 @@ class DetailsScreen extends StatelessWidget {
                 color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(30),
                 image: DecorationImage(
-                  image: NetworkImage(event.imageUrl),
+                  image: NetworkImage( event.imageUrl ?? 'https://via.placeholder.com/150',),
                   fit: BoxFit.cover,
                 ),
                 boxShadow: [
@@ -98,7 +98,7 @@ class DetailsScreen extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               DateFormat(
                                 'EEE, MMM d • HH:mm',
-                              ).format(event.date),
+                              ).format(event.eventDate),
                               style: Theme.of(context).textTheme.bodySmall!
                                   .copyWith(
                                     fontWeight: FontWeight.bold,

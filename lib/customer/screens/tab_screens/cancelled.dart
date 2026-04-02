@@ -12,13 +12,13 @@ class Cancelled extends StatelessWidget {
     final event = dummyEvents[0];
     final formattedDate = DateFormat(
       'EEE, MMM d, HH:mm',
-    ).format(event.date);
+    ).format(event.eventDate);
 
     return Scaffold(
       body: ListView(
           children: [
             CancelledCard(
-              imageUrl: event.imageUrl,
+              imageUrl:  event.imageUrl ?? 'https://via.placeholder.com/150',
               title: event.title,
               date: formattedDate,
               location: event.location,

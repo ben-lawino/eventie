@@ -13,14 +13,17 @@ class FavoritePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final event = dummyEvents[0];
-    final formattedDate = DateFormat('EEE, MMM d, HH:mm').format(event.date);
+    final formattedDate = DateFormat('EEE, MMM d, HH:mm').format(event.eventDate);
 
     return Scaffold(
-      appBar: CustomAppBar(title: 'Favorites',backDestination: NavigationMenu(),),
+      appBar: CustomAppBar(
+        title: 'Favorites',
+        backDestination: NavigationMenu(),
+      ),
       body: ListView(
         children: [
           FavoriteCard(
-            imageUrl: event.imageUrl,
+            imageUrl: event.imageUrl ?? 'https://via.placeholder.com/150',
             title: event.title,
             date: formattedDate,
             location: event.location,

@@ -31,14 +31,14 @@ class _UpcomingState extends State<Upcoming> {
   @override
   Widget build(BuildContext context) {
     final event = dummyEvents[0];
-    final formattedDate = DateFormat('EEE, MMM d, HH:mm').format(event.date);
+    final formattedDate = DateFormat('EEE, MMM d, HH:mm').format(event.eventDate);
 
     return Scaffold(
       body: ListView(
         children: [
           BookingCard(
             onCancelBooking: _openCancelEventOverlay,
-            imageUrl: event.imageUrl,
+            imageUrl:  event.imageUrl ?? 'https://via.placeholder.com/150',
             title: event.title,
             date: formattedDate,
             location: event.location,

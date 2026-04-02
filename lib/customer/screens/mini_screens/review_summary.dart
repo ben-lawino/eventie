@@ -113,7 +113,7 @@ class _ReviewSummaryState extends State<ReviewSummary> {
   @override
   Widget build(BuildContext context) {
     final event = dummyEvents[0];
-    final formattedDate = DateFormat('EEE, MMM d, HH:mm').format(event.date);
+    final formattedDate = DateFormat('EEE, MMM d, HH:mm').format(event.eventDate);
 
     return Scaffold(
       appBar: AppBar(
@@ -130,7 +130,7 @@ class _ReviewSummaryState extends State<ReviewSummary> {
         child: Column(
           children: [
             PaymentCard(
-              imageUrl: event.imageUrl,
+              imageUrl: event.imageUrl ?? 'https://via.placeholder.com/150',
               title: event.title,
               date: formattedDate,
               location: event.location,
