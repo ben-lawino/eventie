@@ -1,12 +1,14 @@
 import 'package:eventie/data/models/ticket_model.dart';
 
+
+
 class EventModel {
   final String id;
   final String title;
   final String description;
 
 
-  final DateTime eventDate; // ✅ includes date + time
+  final DateTime eventDate; // includes date + time
 
   final String location;
   final String? imageUrl;

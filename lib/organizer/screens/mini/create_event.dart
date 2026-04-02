@@ -22,6 +22,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   final ImagePicker _picker = ImagePicker();
   final _formKey = GlobalKey<FormState>();
 
+
+
   //controllers
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
@@ -488,27 +490,27 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       width: double.infinity,
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          if (_selectedImage == null) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  backgroundColor: Colors.white,
-                                  content: Center(
-                                      child: Text('Please upload event poster',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelSmall!
-                                              .copyWith(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .primary,
-                                                  fontWeight:
-                                                      FontWeight.bold)))),
-                            );
-                            return;
-                          }
+                          // if (_selectedImage == null) {
+                          //   ScaffoldMessenger.of(context).showSnackBar(
+                          //     SnackBar(
+                          //         shape: RoundedRectangleBorder(
+                          //           borderRadius: BorderRadius.circular(12),
+                          //         ),
+                          //         backgroundColor: Colors.white,
+                          //         content: Center(
+                          //             child: Text('Please upload event poster',
+                          //                 style: Theme.of(context)
+                          //                     .textTheme
+                          //                     .labelSmall!
+                          //                     .copyWith(
+                          //                         color: Theme.of(context)
+                          //                             .colorScheme
+                          //                             .primary,
+                          //                         fontWeight:
+                          //                             FontWeight.bold)))),
+                          //   );
+                          //   return;
+                          // }
 
                           if (selectedDate == null || selectedTime == null) {
                             ScaffoldMessenger.of(context).showSnackBar(
@@ -553,8 +555,16 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                             );
                             return;
                           }
+                          final eventDateTime = DateTime(
+                            selectedDate!.year,
+                            selectedDate!.month,
+                            selectedDate!.day,
+                            selectedTime!.hour,
+                            selectedTime!.minute,
+                          );
                           _showSuccessDialog(context);
                         }
+
                       })
                 ],
               ),

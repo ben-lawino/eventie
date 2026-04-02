@@ -103,7 +103,7 @@ final List<EventModel> dummyEvents = [
     description: 'Top African designers showcase their collections.',
     eventDate: DateTime.parse('2025-09-20T16:00:00Z'),
     location: 'Two Rivers Mall',
-    imageUrl: 'https://images.unsplash.com/photo-1521335629791-ce4aec67dd53',
+    imageUrl: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGZhc2hpb258ZW58MHx8MHx8fDI%3D',
     category: 'Fashion',
     organizerId: 'organizer321',
     isFeatured: false,

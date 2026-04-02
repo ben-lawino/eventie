@@ -5,22 +5,26 @@ class EventCard extends StatelessWidget {
   final String imageUrl;
   final String title;
   final String date;
+  final bool isFavorite;
   final String location;
   final VoidCallback? onTap;
   final VoidCallback? onFavorite;
 
+
   const EventCard({
     super.key,
     required this.imageUrl,
+    required this.isFavorite,
     required this.title,
     required this.date,
     required this.location,
     this.onTap,
-    this.onFavorite,
+    this.onFavorite
   });
 
   @override
   Widget build(BuildContext context) {
+    final primaryColor = Theme.of(context).colorScheme.primary;
     return GestureDetector(
       onTap: onTap,
       child: Card(
@@ -33,14 +37,14 @@ class EventCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-                borderRadius: const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-                child: Image.network(
-                  imageUrl,
-                  height: 250,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
+              borderRadius: const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+              child: Image.network(
+                imageUrl,
+                height: 250,
+                width: double.infinity,
+                fit: BoxFit.cover,
               ),
+            ),
             SizedBox(height: 4),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -83,12 +87,15 @@ class EventCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      IconButton(
-                        onPressed: onFavorite,
-                        icon: const Icon(Icons.favorite_border_rounded, size: 20, color: AppColors.primary),
-                        padding: EdgeInsets.zero,
-                        constraints: const BoxConstraints(),
-                      ),
+                      GestureDetector(
+                        onTap: onFavorite,
+                        child: Icon(
+                            isFavorite
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            color: isFavorite ? primaryColor : primaryColor,
+                          ),
+                        ),
                     ],
                   ),
                 ],
