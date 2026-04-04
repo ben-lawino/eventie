@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
-
 import '../common/constants/colors.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FavoriteCard extends StatelessWidget {
+import '../customer/providers/favorites_provider.dart';
+
+class FavoriteCard extends ConsumerWidget {
   final String imageUrl;
   final String title;
   final String date;
   final String location;
+  final String eventId;
+
   final bool isBooked;
-  final VoidCallback? onTap;
+  final VoidCallback onTap;
 
   const FavoriteCard({
-    this.onTap,
+    required this.eventId,
+    required this.onTap,
     super.key,
     required this.imageUrl,
     required this.title,
@@ -21,7 +26,10 @@ class FavoriteCard extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+    final primaryColor = Theme.of(context).primaryColor;
+    final isFav = ref.watch(favoritesProvider).contains(eventId);
+
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
@@ -106,14 +114,16 @@ class FavoriteCard extends StatelessWidget {
                           ),
 
                           IconButton(
-                            onPressed: onTap,
-                            icon: const Icon(
+                            onPressed: () {
+                              ref.read(favoritesProvider.notifier).remove(eventId);
+                            },
+                            icon: Icon(
                               Icons.favorite_rounded,
                               size: 20,
-                              color: AppColors.primary,
+                              color: ref.watch(favoritesProvider).contains(eventId)
+                                  ? primaryColor
+                                  : primaryColor,
                             ),
-                            padding: EdgeInsets.zero,
-                            constraints: const BoxConstraints(),
                           ),
                         ],
                       ),

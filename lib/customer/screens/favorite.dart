@@ -7,6 +7,7 @@ import '../../widgets/custom_app_bar.dart';
 import '../../widgets/favorite_card.dart';
 import '../navigation.dart';
 import '../providers/favorites_provider.dart';
+import 'details.dart';
 
 class FavoritePage extends ConsumerWidget {
   const FavoritePage({super.key});
@@ -38,6 +39,7 @@ class FavoritePage extends ConsumerWidget {
               .format(event.eventDate); // adjust field if needed
 
           return FavoriteCard(
+            eventId: event.id,
             imageUrl: event.imageUrl ??
                 'https://via.placeholder.com/150',
             title: event.title,
@@ -45,7 +47,12 @@ class FavoritePage extends ConsumerWidget {
             location: event.location,
 
             onTap: () {
-              // navigate to details instead
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => DetailsScreen(event: event),
+                ),
+              );
             },
           );
         },

@@ -1,3 +1,4 @@
+import 'package:eventie/customer/screens/profile.dart';
 import 'package:flutter/material.dart';
 
 import '../../customer/navigation.dart';
@@ -19,14 +20,14 @@ class HelpCenterScreen extends StatelessWidget {
             onPressed: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => NavigationMenu()),
+                MaterialPageRoute(builder: (context) => ProfilePage()),
               );
             },
             icon: Icon(Icons.arrow_back_rounded),
             color: Colors.grey[700],
           ),
           title: Text(
-            'Tickets',
+            'Help Center',
             style: Theme.of(
               context,
             ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),

@@ -8,12 +8,14 @@ class GridCard extends StatelessWidget {
   final EventModel event;
   final String title;
   final String date;
+  final bool isFavorite;
   final String location;
   final VoidCallback? onFavorite;
 
   const GridCard({
     super.key,
     required this.event,
+    required this.isFavorite,
     required this.imageUrl,
     required this.title,
     required this.date,
@@ -23,6 +25,7 @@ class GridCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final primaryColor = Theme.of(context).colorScheme.primary;
     return GestureDetector(
       onTap: () {
         //final selectedEvent = dummyEvents.firstWhere((e) => e.id == dummyEvents[0].id);
@@ -112,15 +115,14 @@ class GridCard extends StatelessWidget {
                                 .copyWith(color: const Color(0xFF757575)),
                           ),
                         ),
-                        IconButton(
-                          onPressed: onFavorite,
-                          icon: const Icon(
-                            Icons.favorite_border_rounded,
-                            size: 18,
-                            color: AppColors.primary,
+                        GestureDetector(
+                          onTap: onFavorite,
+                          child: Icon(
+                            isFavorite
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            color: isFavorite ? primaryColor : primaryColor,
                           ),
-                          padding: EdgeInsets.zero,
-                          constraints: const BoxConstraints(),
                         ),
                       ],
                     ),

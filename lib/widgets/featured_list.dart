@@ -27,7 +27,7 @@ class EventsList extends ConsumerWidget {
           final event = dummyEvents[index];
 
           final formattedDate =
-          DateFormat('EEE, MMM d, HH:mm').format(event.eventDate); // ✅ fix here if needed
+          DateFormat('EEE, MMM d, HH:mm').format(event.eventDate);
 
           final isFav = favorites.contains(event.id);
 
@@ -39,7 +39,7 @@ class EventsList extends ConsumerWidget {
               title: event.title,
               date: formattedDate,
               location: event.location,
-              isFavorite: isFav, // ✅ REQUIRED
+              isFavorite: isFav,
 
               onTap: () {
                 Navigator.push(
