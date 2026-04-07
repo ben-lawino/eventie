@@ -119,6 +119,12 @@ class _ReviewSummaryState extends State<ReviewSummary> {
       appBar: AppBar(
         foregroundColor: Colors.black,
         centerTitle: true,
+        leading:  IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_rounded),
+        ),
         title: Text(
           'Payments',
           style: Theme.of(

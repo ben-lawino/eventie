@@ -41,11 +41,13 @@ class PopularEventsPAge extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          SizedBox(height: 15),
-          SmallEventList(dummyEvents: dummyEvents),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: 15),
+            SmallEventList(dummyEvents: dummyEvents),
+          ],
+        ),
       ),
     );
   }

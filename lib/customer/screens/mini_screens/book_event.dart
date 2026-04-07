@@ -13,6 +13,12 @@ class BookEvent extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          leading:  IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.arrow_back_rounded),
+          ),
           title: Text(
             'Book Event',
             style: Theme.of(

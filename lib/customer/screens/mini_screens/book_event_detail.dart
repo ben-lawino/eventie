@@ -17,7 +17,7 @@ class _BookEventScreenState extends State<BookEventDetail> {
 
   String _selectedGender = 'Male';
   String _selectedCountryCode = '+254';
-  bool _acceptTerms = true;
+  bool _acceptTerms = false;
 
   @override
   void dispose() {
@@ -31,151 +31,168 @@ class _BookEventScreenState extends State<BookEventDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
         elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_rounded),
+        ),
         title: Text(
           'Book Event',
-          style: Theme.of(
+          style: Theme
+              .of(
             context,
-          ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
+          )
+              .textTheme
+              .titleLarge!
+              .copyWith(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Contact Information',
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                ),
-              ),
-              const SizedBox(height: 28),
-
-              // Full Name Field
-              _buildTextField(
-                controller: _fullNameController,
-                hintText: 'Full Name',
-              ),
-              const SizedBox(height: 24),
-
-              // First Name Field
-              _buildTextField(
-                controller: _firstNameController,
-                hintText: 'First Name',
-              ),
-              const SizedBox(height: 24),
-
-              // Gender Dropdown
-              _buildDropdownField(
-                value: _selectedGender,
-                items: ['Male', 'Female', 'Other'],
-                onChanged: (value) {
-                  setState(() {
-                    _selectedGender = value!;
-                  });
-                },
-              ),
-              const SizedBox(height: 24),
-
-              // Email Field
-              _buildTextField(
-                controller: _emailController,
-                hintText: 'Email',
-                suffixIcon: Icons.email_outlined,
-                keyboardType: TextInputType.emailAddress,
-              ),
-              const SizedBox(height: 24),
-
-              // Phone Number Field with Country Code
-              _buildPhoneField(),
-              SizedBox(height: 190),
-              // Terms and Conditions Checkbox
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Checkbox(
-                    value: _acceptTerms,
-                    onChanged: (value) {
-                      setState(() {
-                        _acceptTerms = value!;
-                      });
-                    },
-                    activeColor: const Color(0xFF5B52D5),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4),
-                    ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Contact Information',
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .bodyLarge!
+                      .copyWith(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
                   ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 12),
-                      child: RichText(
-                        text: TextSpan(
-                          style: Theme.of(context).textTheme.bodySmall!
-                              .copyWith(
-                                fontSize: 13,
-                                color: Colors.black87,
-                                fontWeight: FontWeight.bold,
-                              ),
-                          children: [
-                            const TextSpan(text: 'I accept the Eventie '),
-                            TextSpan(
-                              text: 'Terms of Service',
-                              style: TextStyle(
-                                color: const Color(0xFF5B52D5),
-                                fontWeight: FontWeight.w600,
-                              ),
+                ),
+                const SizedBox(height: 28),
+
+                // Full Name Field
+                _buildTextField(
+                  controller: _fullNameController,
+                  hintText: 'Full Name',
+                ),
+                const SizedBox(height: 24),
+
+                // First Name Field
+                _buildTextField(
+                  controller: _firstNameController,
+                  hintText: 'First Name',
+                ),
+                const SizedBox(height: 24),
+
+                // Gender Dropdown
+                _buildDropdownField(
+                  value: _selectedGender,
+                  items: ['Male', 'Female', 'Other'],
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedGender = value!;
+                    });
+                  },
+                ),
+                const SizedBox(height: 24),
+
+                // Email Field
+                _buildTextField(
+                  controller: _emailController,
+                  hintText: 'Email',
+                  suffixIcon: Icons.email_outlined,
+                  keyboardType: TextInputType.emailAddress,
+                ),
+                const SizedBox(height: 24),
+
+                // Phone Number Field with Country Code
+                _buildPhoneField(),
+                SizedBox(height: 120),
+                // Terms and Conditions Checkbox
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Checkbox(
+                      value: _acceptTerms,
+                      onChanged: (value) {
+                        setState(() {
+                          _acceptTerms = value!;
+                        });
+                      },
+                      activeColor: const Color(0xFF5B52D5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 12),
+                        child: RichText(
+                          text: TextSpan(
+                            style: Theme
+                                .of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(
+                              fontSize: 13,
+                              color: Theme.of(context).colorScheme.onPrimaryContainer,
+                              fontWeight: FontWeight.bold,
                             ),
-                            const TextSpan(text: ', '),
-                            TextSpan(
-                              text: 'Community Guidelines',
-                              style: TextStyle(
-                                color: const Color(0xFF5B52D5),
-                                fontWeight: FontWeight.w600,
+                            children: [
+                              const TextSpan(text: 'I accept the Eventie '),
+                              TextSpan(
+                                text: 'Terms of Service',
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
-                            ),
-                            const TextSpan(text: ', and '),
-                            TextSpan(
-                              text: 'Privacy Policy',
-                              style: TextStyle(
-                                color: const Color(0xFF5B52D5),
-                                fontWeight: FontWeight.w600,
+                              const TextSpan(text: ', '),
+                              TextSpan(
+                                text: 'Community Guidelines',
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
-                            ),
-                            const TextSpan(
-                              text: ' (Required)',
-                              style: TextStyle(color: Colors.black87),
-                            ),
-                          ],
+                              const TextSpan(text: ', and '),
+                              TextSpan(
+                                text: 'Privacy Policy',
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              TextSpan(
+                                text: ' (Required)',
+                                style: TextStyle(color: Theme.of(context).colorScheme.onPrimaryContainer),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 30),
+                  ],
+                ),
+                const SizedBox(height: 20),
 
-              // Continue Button
-              Button(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PaymentMethodScreen(),
-                    ),
-                  );
-                },
-                text: 'Continue',
-                width: double.infinity,
-                height: 50,
-              ),
-            ],
+                // Continue Button
+                Button(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PaymentMethodScreen(),
+                      ),
+                    );
+                  },
+                  text: 'Continue',
+                  width: double.infinity,
+                  height: 50,
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -190,28 +207,41 @@ class _BookEventScreenState extends State<BookEventDetail> {
     VoidCallback? onTap,
     TextInputType? keyboardType,
   }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey[100],
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: TextField(
-        controller: controller,
-        readOnly: readOnly,
-        onTap: onTap,
-        keyboardType: keyboardType,
-        style: const TextStyle(fontSize: 15, color: Colors.black87),
-        decoration: InputDecoration(
-          hintText: hintText,
-          hintStyle: TextStyle(fontSize: 15, color: Colors.grey[600]),
-          suffixIcon: suffixIcon != null
-              ? Icon(suffixIcon, color: Colors.grey[600], size: 20)
-              : null,
-          border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 16,
-          ),
+    return TextField(
+      controller: controller,
+      readOnly: readOnly,
+      onTap: onTap,
+      keyboardType: keyboardType,
+      style: const TextStyle(fontSize: 15, color: Colors.black87),
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: TextStyle(fontSize: 15, color: Colors.grey[600]),
+        filled: true,
+        fillColor: Theme
+            .of(context)
+            .primaryColor
+            .withOpacity(0.15),
+
+        suffixIcon: suffixIcon != null
+            ? Icon(suffixIcon, color: Colors.grey[600], size: 20)
+            : null,
+
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide.none,
+        ),
+
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 16,
         ),
       ),
     );
@@ -225,17 +255,23 @@ class _BookEventScreenState extends State<BookEventDetail> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
-        color: Colors.grey[100],
+        color: Theme.of(context).colorScheme.primary.withOpacity(0.15),
         borderRadius: BorderRadius.circular(12),
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
+          borderRadius: BorderRadius.circular(14),
+          dropdownColor: Theme.of(context).primaryColor,
           value: value,
           isExpanded: true,
           icon: Icon(Icons.keyboard_arrow_down, color: Colors.grey[600]),
-          style: Theme.of(
+          style: Theme
+              .of(
             context,
-          ).textTheme.bodyLarge!.copyWith(fontSize: 15, color: Colors.black87),
+          )
+              .textTheme
+              .bodyLarge!
+              .copyWith(fontSize: 15, color: Theme.of(context).colorScheme.onPrimary),
           onChanged: onChanged,
           items: items.map<DropdownMenuItem<String>>((String item) {
             return DropdownMenuItem<String>(value: item, child: Text(item));
@@ -246,40 +282,44 @@ class _BookEventScreenState extends State<BookEventDetail> {
   }
 
   Widget _buildPhoneField() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey[100],
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Row(
-              children: [
-                Image.asset('assets/icons/kenya.png', width: 20, height: 20),
-                const SizedBox(width: 4),
-                Icon(Icons.arrow_drop_down, color: Colors.grey[600]),
-              ],
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        color: Theme
+            .of(context)
+            .colorScheme
+            .primary
+            .withOpacity(0.15),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Row(
+                children: [
+                  Image.asset('assets/icons/kenya.png', width: 20, height: 20),
+                  const SizedBox(width: 4),
+                  Icon(Icons.arrow_drop_down, color: Colors.grey[600]),
+                ],
+              ),
             ),
-          ),
-          Expanded(
-            child: TextField(
-              controller: _phoneController,
-              keyboardType: TextInputType.phone,
-              style: const TextStyle(fontSize: 15, color: Colors.black87),
-              decoration: InputDecoration(
-                hintText: 'Phone Number',
-                hintStyle: TextStyle(fontSize: 15, color: Colors.grey[600]),
-                border: InputBorder.none,
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 0,
-                  vertical: 16,
+            Expanded(
+              child: TextField(
+                controller: _phoneController,
+                keyboardType: TextInputType.phone,
+                style: const TextStyle(fontSize: 15, color: Colors.black87),
+                decoration: InputDecoration(
+                  hintText: 'Phone Number',
+                  hintStyle: TextStyle(fontSize: 15, color: Colors.grey[600]),
+                  border: InputBorder.none,
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 0,
+                    vertical: 16,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

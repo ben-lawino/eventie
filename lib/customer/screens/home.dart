@@ -146,7 +146,7 @@ class HomePage extends ConsumerWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ExplorePage(categories: categories),
+                              builder: (context) => PopularEventsPAge()
                             ),
                           );
                         },

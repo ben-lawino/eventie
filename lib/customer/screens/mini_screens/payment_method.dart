@@ -18,6 +18,12 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading:  IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_rounded),
+        ),
         title: Text(
           'Payments',
           style: Theme.of(
@@ -60,7 +66,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                       ),
                       const SizedBox(height: 40),
 
-                      // PayPal Option
+                      // Mpesa Option
                       _buildPaymentOption(
                         image: Image.asset(
                           'assets/icons/mpesa.png',
@@ -69,51 +75,6 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                         ),
                         label: 'M-pesa',
                         value: 'M-pesa',
-                      ),
-                      const SizedBox(height: 40),
-
-                      // Google Pay Option
-                      _buildPaymentOption(
-                        image: Image.asset(
-                          'assets/icons/google.png',
-                          height: 40,
-                          width: 40,
-                        ),
-                        label: 'Google Pay',
-                        value: 'Google Pay',
-                      ),
-                      const SizedBox(height: 40),
-
-                      // Apple Pay Option
-                      _buildPaymentOption(
-                        image: Image.asset(
-                          'assets/icons/social.png',
-                          height: 40,
-                          width: 40,
-                        ),
-                        label: 'Paypal',
-                        value: 'Paypal',
-                      ),
-                      const SizedBox(height: 30),
-
-                      // Add New Card Button
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF5B52D5).withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            'Add New Card',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF5B52D5),
-                            ),
-                          ),
-                        ),
                       ),
                     ],
                   ),
