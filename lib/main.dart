@@ -1,5 +1,7 @@
 import 'package:eventie/common/login/create_new_password.dart';
+import 'package:eventie/common/login/sign_up.dart';
 import 'package:eventie/customer/navigation.dart';
+import 'package:eventie/customer/screens/mini_screens/explore.dart';
 import 'package:eventie/organizer/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

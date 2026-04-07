@@ -7,14 +7,19 @@ import '../../data/dummy_data.dart';
 import '../../data/models/category_model.dart';
 import '../../widgets/featured_list.dart';
 import '../../widgets/small_event_list.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomePage extends StatelessWidget {
+import '../providers/category_filter_provider.dart';
+
+class HomePage extends ConsumerWidget {
   final List<CategoryModel> categories;
 
   const HomePage({super.key, required this.categories});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+    final selectedCategory = ref.watch(categoryProvider);
+
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
@@ -136,12 +141,20 @@ class HomePage extends StatelessWidget {
                           ),
                         );
                       },
-                      child: Text(
-                        'See All',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: Theme.of(context).colorScheme.primary,
-                          fontWeight: FontWeight.w600,
-                        ),
+                      child: TextButton(
+                        onPressed:(){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ExplorePage(categories: categories),
+                            ),
+                          );
+                        },
+                        child: Text( 'See All',
+                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Theme.of(context).colorScheme.primary,
+                            fontWeight: FontWeight.w600,
+                          ),),
                       ),
                     ),
                   ],
@@ -185,24 +198,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 10),
-              SizedBox(
-                height: 100,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.symmetric(horizontal: 18),
-                  itemCount: categories.length,
-                  itemBuilder: (context, index) {
-                    final category = categories[index];
-                    return FilterButton(
-                      label: category.name,
-                      icon: category.icon,
-                    );
-                  },
-                  separatorBuilder: (_, __) => const SizedBox(width: 12),
-                ),
-              ),
               SmallEventList(dummyEvents: dummyEvents),
-
               const SizedBox(height: 24),
             ],
           ),

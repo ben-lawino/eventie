@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../widgets/button.dart';
+import '../navigation.dart';
 
 class DetailsScreen extends StatelessWidget {
   final EventModel event;
@@ -14,7 +15,15 @@ class DetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.surface),
+      appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.surface,leading: IconButton(
+        onPressed: () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => NavigationMenu()),
+          );
+        },
+        icon: Icon(Icons.arrow_back_rounded),
+      ),),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18),
         child: Column(

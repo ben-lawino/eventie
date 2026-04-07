@@ -1,71 +1,86 @@
-import 'package:eventie/customer/screens/home.dart';
-import 'package:eventie/data/categories.dart';
 import 'package:eventie/data/dummy_data.dart';
 import 'package:eventie/data/models/category_model.dart';
-import 'package:eventie/widgets/filter_button.dart' show FilterButton;
+import 'package:eventie/widgets/filter_button.dart';
 import 'package:eventie/widgets/small_event_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ExplorePage extends StatelessWidget {
+import '../../providers/category_filter_provider.dart';
+import '../../providers/search_provider.dart';
+
+class ExplorePage extends ConsumerWidget {
   final List<CategoryModel> categories;
+
   const ExplorePage({super.key, required this.categories});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedCategory = ref.watch(categoryProvider);
+
+    // filter logic
+    final filteredEvents = selectedCategory == null
+        ? dummyEvents
+        : dummyEvents
+            .where((event) => event.category == selectedCategory)
+            .toList();
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(
-              context,
-              MaterialPageRoute(
-                builder: (context) => HomePage(categories: eventCategories),
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_rounded),
+        ),
+        title: Consumer(
+          builder: (context, ref, _) {
+            final isSearching = ref.watch(searchOpenProvider);
+
+            return AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              child: isSearching
+                  ? TextField(
+                key: const ValueKey("searchField"),
+                autofocus: true,
+                decoration: InputDecoration(
+                  hintText: 'Search events...',
+                  border: InputBorder.none,
+                ),
+              )
+                  : Text(
+                "Explore Events",
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(fontWeight: FontWeight.bold),
+                key: const ValueKey("title"),
               ),
             );
           },
-          icon: Icon(Icons.arrow_back_rounded),
-          color: Colors.grey[700],
         ),
-        title: Container(
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.05),
-                blurRadius: 8,
-                offset: const Offset(0, 2),
-              ),
-            ],
+
+        actions: [
+          Consumer(
+            builder: (context, ref, _) {
+              final isSearching = ref.watch(searchOpenProvider);
+
+              return IconButton(
+                icon: Icon(isSearching ? Icons.close : Icons.search),
+                onPressed: () {
+                  ref.read(searchOpenProvider.notifier).state =
+                  !isSearching;
+                },
+              );
+            },
           ),
-          child: TextField(
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Theme.of(context).colorScheme.primaryContainer,
-              hintText: 'What events are you looking for?',
-              hintStyle: Theme.of(context).textTheme.labelMedium!.copyWith(
-                color: Colors.grey[500],
-                fontSize: 14,
-              ),
-              prefixIcon: Image.asset(
-                'assets/icons/search.png',
-                scale: 25,
-                color: Colors.grey[500],
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide.none,
-              ),
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 12,
-              ),
-            ),
-            style: const TextStyle(fontSize: 16, color: Colors.black87),
-          ),
-        ),
+        ],
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
+
+          // category list
           SizedBox(
             height: 100,
             child: ListView.separated(
@@ -73,13 +88,59 @@ class ExplorePage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 18),
               itemCount: categories.length,
               itemBuilder: (context, index) {
-                final category = categories[index];
-                return FilterButton(label: category.name, icon: category.icon);
+                if (index == 0) {
+                  return FilterButton(
+                    label: "All",
+                    icon: Icons.apps,
+                    isSelected: selectedCategory == null,
+                    onTap: () {
+                      ref.read(categoryProvider.notifier).selectCategory(null);
+                    },
+                  );
+                }
+
+                final category = categories[index - 1];
+
+                return FilterButton(
+                  label: category.name,
+                  icon: category.icon,
+                  isSelected: selectedCategory == category.name,
+                  onTap: () {
+                    ref
+                        .read(categoryProvider.notifier)
+                        .selectCategory(category.name);
+                  },
+                );
               },
               separatorBuilder: (_, __) => const SizedBox(width: 12),
             ),
           ),
-          SmallEventList(dummyEvents: dummyEvents),
+
+          const SizedBox(height: 10),
+
+          //  results header
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 18),
+            child: Text(
+              selectedCategory == null
+                  ? "All Events"
+                  : "$selectedCategory Events",
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+          ),
+
+          const SizedBox(height: 10),
+
+          // event list
+          Expanded(
+            child: filteredEvents.isEmpty
+                ? const Center(
+                    child: Text("No events found 😕"),
+                  )
+                : SmallEventList(dummyEvents: filteredEvents),
+          ),
         ],
       ),
     );
