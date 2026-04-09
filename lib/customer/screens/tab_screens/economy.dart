@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 
+import '../../../data/models/event_model.dart';
+import '../../../data/models/ticket_model.dart';
 import '../../../widgets/button.dart';
 import '../mini_screens/book_event_detail.dart';
 
 class Economy extends StatefulWidget {
-  const Economy({super.key});
+  final EventModel event;
+  final TicketModel ticket;
+
+  const Economy({super.key,
+    required this.event,
+    required this.ticket,
+  });
 
   @override
   State<Economy> createState() => _EconomyState();
 }
 
 class _EconomyState extends State<Economy> {
-  int _counter = 0;
+  int _counter = 1;
 
   void _incrementCounter() {
     setState(() {
@@ -20,13 +28,17 @@ class _EconomyState extends State<Economy> {
   }
 
   void _decrementCounter() {
-    setState(() {
-      _counter--;
-    });
+    if (_counter > 1) {
+      setState(() {
+        _counter--;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final total = widget.ticket.price * _counter;
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -93,10 +105,15 @@ class _EconomyState extends State<Economy> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => BookEventDetail()),
+                  MaterialPageRoute(builder: (context) => BookEventDetail(
+                    event: widget.event,
+                    ticket: widget.ticket,
+                    quantity: _counter,
+                    total: total,
+                  )),
                 );
               },
-              text: 'Continue - Ksh.750',
+              text: 'Continue - Ksh. $total',
               width: double.infinity,
               height: 50,
             ),

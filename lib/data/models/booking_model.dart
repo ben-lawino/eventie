@@ -6,6 +6,8 @@ class BookingModel {
   final int quantity;
   final double totalPrice;
   final DateTime bookedAt;
+  final String status; // pending, paid, failed
+  final String? paymentRef;
 
   BookingModel({
     required this.id,
@@ -15,6 +17,8 @@ class BookingModel {
     required this.quantity,
     required this.totalPrice,
     required this.bookedAt,
+    required this.status,
+    this.paymentRef
   });
 
   factory BookingModel.fromJson(Map<String, dynamic> json) {
@@ -26,6 +30,8 @@ class BookingModel {
       quantity: json['quantity'],
       totalPrice: (json['totalPrice'] as num).toDouble(),
       bookedAt: DateTime.parse(json['bookedAt']),
+      status: json['status'] ?? 'pending',
+      paymentRef: json['paymentRef'],
     );
   }
 

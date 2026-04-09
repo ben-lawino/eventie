@@ -2,8 +2,20 @@ import 'package:eventie/customer/screens/mini_screens/payment_method.dart';
 import 'package:eventie/widgets/button.dart';
 import 'package:flutter/material.dart';
 
+import '../../../data/models/event_model.dart';
+import '../../../data/models/ticket_model.dart';
+
 class BookEventDetail extends StatefulWidget {
-  const BookEventDetail({super.key});
+  final EventModel event;
+  final TicketModel ticket;
+  final int quantity;
+  final double total;
+  const BookEventDetail({super.key,
+    required this.event,
+    required this.ticket,
+    required this.quantity,
+    required this.total,
+  });
 
   @override
   State<BookEventDetail> createState() => _BookEventScreenState();

@@ -139,7 +139,7 @@ class DetailsScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => BookEvent()),
+                          MaterialPageRoute(builder: (context) => BookEvent(event: event)),
                         );
                       },
                       text: 'Buy Tickets',
