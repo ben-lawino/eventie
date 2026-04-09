@@ -2,50 +2,51 @@ import 'package:eventie/customer/screens/mini_screens/review_summary.dart';
 import 'package:eventie/widgets/button.dart';
 import 'package:flutter/material.dart';
 
-import '../../../common/constants/colors.dart';
+import '../../../data/models/booking_model.dart';
+
 
 class PaymentMethodScreen extends StatefulWidget {
-  const PaymentMethodScreen({super.key});
+  final BookingModel booking;
+  final double amount;
+  final String phone;
+  const PaymentMethodScreen({super.key,
+    required this.amount,
+    required this.phone,
+    required this.booking
+  });
 
   @override
   State<PaymentMethodScreen> createState() => _PaymentMethodScreenState();
 }
 
 class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
-  String _selectedPayment = 'PayPal';
+  String _selectedPayment = 'M-pesa';
+
+  final TextEditingController _phoneController = TextEditingController();
+
+  @override
+  void dispose() {
+    _phoneController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final isMpesa = _selectedPayment == 'M-pesa';
+
     return Scaffold(
       appBar: AppBar(
-        leading:  IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
           icon: const Icon(Icons.arrow_back_rounded),
         ),
         title: Text(
           'Payments',
-          style: Theme.of(
-            context,
-          ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
+          style: Theme.of(context)
+              .textTheme
+              .titleLarge!
+              .copyWith(fontWeight: FontWeight.bold),
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 18),
-            child: Center(
-              child: IconButton(
-                onPressed: () {},
-                icon: Image.asset(
-                  'assets/icons/scanner.png',
-                  width: 25,
-                  height: 25,
-                  color: Theme.of(context).colorScheme.onSurface,
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
       body: SafeArea(
         child: Padding(
@@ -64,9 +65,9 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                           fontSize: 12,
                         ),
                       ),
-                      const SizedBox(height: 40),
+                      const SizedBox(height: 30),
 
-                      // Mpesa Option
+                      // M-Pesa Option
                       _buildPaymentOption(
                         image: Image.asset(
                           'assets/icons/mpesa.png',
@@ -76,17 +77,67 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                         label: 'M-pesa',
                         value: 'M-pesa',
                       ),
+
+                      const SizedBox(height: 24),
+
+                      // 🔥 SHOW PHONE FIELD ONLY IF MPESA SELECTED
+                      if (isMpesa) ...[
+                        Text(
+                          "Enter phone number",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 10),
+
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: TextField(
+                            controller: _phoneController,
+                            keyboardType: TextInputType.phone,
+                            decoration: const InputDecoration(
+                              hintText: 'e.g. 07XXXXXXXX',
+                              border: InputBorder.none,
+                              contentPadding: EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 14,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ],
                   ),
                 ),
               ),
 
-              // Continue Button - Fixed at bottom
+              //CONTINUE BUTTON
               Button(
                 onPressed: () {
+                  // VALIDATION
+                  if (_selectedPayment == 'M-pesa' &&
+                      _phoneController.text.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Enter phone number"),
+                      ),
+                    );
+                    return;
+                  }
+
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ReviewSummary()),
+                    MaterialPageRoute(
+                      builder: (context) => ReviewSummary(
+                      ),
+                    ),
                   );
                 },
                 text: 'Continue',
@@ -106,6 +157,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
     required String value,
   }) {
     final bool isSelected = _selectedPayment == value;
+    final primaryColor = Theme.of(context).primaryColor;
 
     return GestureDetector(
       onTap: () {
@@ -116,30 +168,22 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: Colors.grey[50],
+          color: isSelected
+              ? primaryColor.withOpacity(0.15)
+              : Colors.grey[50],
           borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.08),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-              spreadRadius: 0,
-            ),
-            BoxShadow(
-              color: Colors.white.withOpacity(0.9),
-              blurRadius: 8,
-              offset: const Offset(0, -1),
-              spreadRadius: 0,
-            ),
-          ],
+          border: Border.all(
+            color: isSelected
+                ? primaryColor
+                : Colors.transparent,
+            width: 2,
+          ),
         ),
         child: Row(
           children: [
-            // Payment Icon
             image,
             const SizedBox(width: 16),
 
-            // Payment Label
             Expanded(
               child: Text(
                 label,
@@ -150,31 +194,13 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
               ),
             ),
 
-            // Radio Button
-            Container(
-              width: 24,
-              height: 24,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: isSelected
-                      ? AppColors.deepViolet
-                      : Theme.of(context).colorScheme.primary,
-                  width: 2,
-                ),
-              ),
-              child: isSelected
-                  ? Center(
-                      child: Container(
-                        width: 12,
-                        height: 12,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color(0xFF5B52D5),
-                        ),
-                      ),
-                    )
-                  : null,
+            Icon(
+              isSelected
+                  ? Icons.radio_button_checked
+                  : Icons.radio_button_off,
+              color: isSelected
+                  ? primaryColor
+                  : Colors.grey,
             ),
           ],
         ),

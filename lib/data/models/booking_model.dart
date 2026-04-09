@@ -44,6 +44,8 @@ class BookingModel {
       'quantity': quantity,
       'totalPrice': totalPrice,
       'bookedAt': bookedAt.toIso8601String(),
+      'status': status,
+      'paymentRef': paymentRef
     };
   }
 }

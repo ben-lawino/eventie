@@ -1,11 +1,13 @@
 import 'package:eventie/customer/screens/mini_screens/payment_method.dart';
 import 'package:eventie/widgets/button.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../data/models/booking_model.dart';
 import '../../../data/models/event_model.dart';
 import '../../../data/models/ticket_model.dart';
+import '../../providers/booking_provider.dart';
 
-class BookEventDetail extends StatefulWidget {
+class BookEventDetail extends ConsumerStatefulWidget {
   final EventModel event;
   final TicketModel ticket;
   final int quantity;
@@ -18,10 +20,10 @@ class BookEventDetail extends StatefulWidget {
   });
 
   @override
-  State<BookEventDetail> createState() => _BookEventScreenState();
+  ConsumerState<BookEventDetail> createState() => _BookEventScreenState();
 }
 
-class _BookEventScreenState extends State<BookEventDetail> {
+class _BookEventScreenState extends ConsumerState<BookEventDetail> {
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -192,17 +194,52 @@ class _BookEventScreenState extends State<BookEventDetail> {
                 // Continue Button
                 Button(
                   onPressed: () {
+                    // 🔒 VALIDATION
+                    if (_fullNameController.text.isEmpty ||
+                        _emailController.text.isEmpty ||
+                        _phoneController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Please fill all required fields")),
+                      );
+                      return;
+                    }
+
+                    if (!_acceptTerms) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Please accept terms")),
+                      );
+                      return;
+                    }
+
+                    // CREATE BOOKING
+                    final booking = BookingModel(
+                      id: DateTime.now().toString(),
+                      userId: "user123", // replace later with auth
+                      eventId: widget.event.id,
+                      ticketId: widget.ticket.id,
+                      quantity: widget.quantity,
+                      totalPrice: widget.total,
+                      bookedAt: DateTime.now(),
+                      status: "pending",
+                    );
+
+                    // SAVE TO PROVIDER
+                    ref.read(bookingProvider.notifier).addBooking(booking);
+
+                    //  GO TO PAYMENT
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => PaymentMethodScreen(),
+                        builder: (context) => PaymentMethodScreen(
+                          booking: booking,
+                          amount: widget.total,
+                          phone: _phoneController.text,
+                        ),
                       ),
                     );
                   },
                   text: 'Continue',
-                  width: double.infinity,
-                  height: 50,
-                ),
+                )
               ],
             ),
           ),
