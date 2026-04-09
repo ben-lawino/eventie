@@ -8,6 +8,10 @@ class BookingModel {
   final DateTime bookedAt;
   final String status; // pending, paid, failed
   final String? paymentRef;
+  final String fullName;
+  final String email;
+  final String phone;
+
 
   BookingModel({
     required this.id,
@@ -18,7 +22,10 @@ class BookingModel {
     required this.totalPrice,
     required this.bookedAt,
     required this.status,
-    this.paymentRef
+    this.paymentRef,
+    required this.fullName,
+    required this.email,
+    required this.phone,
   });
 
   factory BookingModel.fromJson(Map<String, dynamic> json) {
@@ -32,6 +39,9 @@ class BookingModel {
       bookedAt: DateTime.parse(json['bookedAt']),
       status: json['status'] ?? 'pending',
       paymentRef: json['paymentRef'],
+      fullName: json['fullName'],
+      email: json['email'],
+      phone:  json['phone']
     );
   }
 
@@ -45,7 +55,10 @@ class BookingModel {
       'totalPrice': totalPrice,
       'bookedAt': bookedAt.toIso8601String(),
       'status': status,
-      'paymentRef': paymentRef
+      'paymentRef': paymentRef,
+      'fullName' : fullName,
+      'email' : email,
+      'phone' : phone
     };
   }
 }

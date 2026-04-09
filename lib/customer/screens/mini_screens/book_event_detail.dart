@@ -214,6 +214,9 @@ class _BookEventScreenState extends ConsumerState<BookEventDetail> {
                     // CREATE BOOKING
                     final booking = BookingModel(
                       id: DateTime.now().toString(),
+                      fullName: _fullNameController.text,
+                      phone: _phoneController.text,
+                      email: _emailController.text,
                       userId: "user123", // replace later with auth
                       eventId: widget.event.id,
                       ticketId: widget.ticket.id,

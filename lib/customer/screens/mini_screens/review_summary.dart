@@ -1,108 +1,58 @@
+import 'package:eventie/data/models/booking_model.dart';
 import 'package:eventie/widgets/button.dart';
 import 'package:eventie/widgets/payment_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-
-import '../../../common/constants/colors.dart';
 import '../../../data/dummy_data.dart';
+import '../../providers/booking_provider.dart'; // temporary for event lookup
 
-class ReviewSummary extends StatefulWidget {
+class ReviewSummary extends ConsumerStatefulWidget {
   const ReviewSummary({super.key});
 
   @override
-  State<ReviewSummary> createState() => _ReviewSummaryState();
+  ConsumerState<ReviewSummary> createState() => _ReviewSummaryState();
 }
 
-class _ReviewSummaryState extends State<ReviewSummary> {
-  void _onConfirmPayment() {
+class _ReviewSummaryState extends ConsumerState<ReviewSummary> {
+  bool _isLoading = false;
+
+  Future<void> _payWithMpesa() async {
+    await Future.delayed(const Duration(seconds: 2));
+    _showSuccessDialog();
+  }
+
+  void _showSuccessDialog() {
     showDialog(
       barrierDismissible: false,
       context: context,
-      builder: (BuildContext context) {
+      builder: (_) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(36),
           ),
-          contentPadding: EdgeInsets.only(
-            top: 30,
-            left: 40,
-            right: 40,
-            bottom: 25,
-          ),
+          contentPadding: const EdgeInsets.all(24),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    height: 140,
-                    width: 140,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  ),
-                  Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                      child: Icon(
-                        Icons.check_rounded,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 24),
-
-              // Success title
-              Text(
+              Icon(Icons.check_circle,
+                  size: 80, color: Theme.of(context).colorScheme.primary),
+              const SizedBox(height: 20),
+              const Text(
                 'Successful!',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-
-              SizedBox(height: 12),
-
-              // Success message
-              Text(
-                'You have successfully placed an order  for Nairobi Food & Music Festival.Enjoy the event!',
+              const SizedBox(height: 10),
+              const Text(
+                'Payment completed successfully.',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey[600],
-                  height: 1.4,
-                ),
               ),
-
-              SizedBox(height: 24),
-
+              const SizedBox(height: 20),
               Button(
                 width: double.infinity,
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                text: 'view E-ticket',
-              ),
-              SizedBox(height: 15),
-              Button(
-                width:double.infinity,
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                color: Theme.of(context).colorScheme.primaryContainer,
-                text: 'Cancel',
-                textColor: AppColors.badge,
-              ),
+                onPressed: () => Navigator.pop(context),
+                text: 'Close',
+              )
             ],
           ),
         );
@@ -112,202 +62,130 @@ class _ReviewSummaryState extends State<ReviewSummary> {
 
   @override
   Widget build(BuildContext context) {
-    final event = dummyEvents[0];
-    final formattedDate = DateFormat('EEE, MMM d, HH:mm').format(event.eventDate);
+    /// bookings from provider
+    final bookings = ref.watch(bookingProvider);
+
+    final booking = bookings.last;
+
+    ///  map event (replace later with DB)
+    final event = dummyEvents.firstWhere(
+          (e) => e.id == booking.eventId,
+    );
+
+    final formattedDate =
+    DateFormat('EEE, MMM d, HH:mm').format(event.eventDate);
 
     return Scaffold(
       appBar: AppBar(
-        foregroundColor: Colors.black,
         centerTitle: true,
-        leading:  IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_rounded),
-        ),
-        title: Text(
-          'Payments',
-          style: Theme.of(
-            context,
-          ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
-        ),
+        title: const Text('Review & Payment'),
       ),
       body: SafeArea(
         child: Column(
           children: [
+            /// EVENT CARD
             PaymentCard(
-              imageUrl: event.imageUrl ?? 'https://via.placeholder.com/150',
+              imageUrl:
+              event.imageUrl ?? 'https://via.placeholder.com/150',
               title: event.title,
               date: formattedDate,
               location: event.location,
             ),
-            const SizedBox(height: 30),
-            Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 20,
-                    offset: Offset(0, 10),
-                    spreadRadius: 0,
-                  ),
-                ],
-              ),
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Full Name',
-                          style: Theme.of(context).textTheme.bodySmall!
-                              .copyWith(
-                                color: Colors.grey[600],
-                                fontSize: 13,
-                                fontWeight: FontWeight.w700,
-                              ),
-                        ),
-                        Text(
-                          'Ben lawino',
-                          style: Theme.of(context).textTheme.bodySmall!
-                              .copyWith(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w700,
-                              ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Phone',
-                          style: Theme.of(context).textTheme.bodySmall!
-                              .copyWith(
-                                color: Colors.grey[600],
-                                fontSize: 13,
-                                fontWeight: FontWeight.w700,
-                              ),
-                        ),
-                        Text(
-                          '+254 700628088',
-                          style: Theme.of(context).textTheme.bodySmall!
-                              .copyWith(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w700,
-                              ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Email',
-                          style: Theme.of(context).textTheme.bodySmall!
-                              .copyWith(
-                                color: Colors.grey[600],
-                                fontSize: 13,
-                                fontWeight: FontWeight.w700,
-                              ),
-                        ),
-                        Text(
-                          'lawinwes@gmail.com',
-                          style: Theme.of(context).textTheme.bodySmall!
-                              .copyWith(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w700,
-                              ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 20,
-                    offset: Offset(0, 10),
-                    spreadRadius: 0,
-                  ),
-                ],
-              ),
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          '1 Ticket(Economy)',
-                          style: Theme.of(context).textTheme.bodySmall!
-                              .copyWith(
-                                color: Colors.grey[600],
-                                fontSize: 13,
-                                fontWeight: FontWeight.w700,
-                              ),
-                        ),
-                        Text(
-                          'Ksh.750',
-                          style: Theme.of(context).textTheme.bodySmall!
-                              .copyWith(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w700,
-                              ),
-                        ),
-                      ],
-                    ),
-                    Divider(color: Colors.grey[400], thickness: 1, height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Total',
-                          style: Theme.of(context).textTheme.bodySmall!
-                              .copyWith(
-                                color: Colors.grey[600],
-                                fontSize: 13,
-                                fontWeight: FontWeight.w700,
-                              ),
-                        ),
-                        Text(
-                          'Ksh.750',
-                          style: Theme.of(context).textTheme.bodySmall!
-                              .copyWith(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w700,
-                              ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Spacer(),
+
+            const SizedBox(height: 20),
+
+            /// USER INFO
+            _buildInfoCard(),
+
+            /// PRICE
+            _buildPriceCard(booking),
+
+            const Spacer(),
+
             Padding(
-              padding: const EdgeInsets.all(18.0),
+              padding: const EdgeInsets.all(16),
               child: Button(
-                onPressed: _onConfirmPayment,
-                text: 'Confirm and Pay',
+                onPressed: (){},
+                text: _isLoading ? 'Processing...' : 'Confirm & Pay',
                 width: double.infinity,
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildInfoCard() {
+    final bookings = ref.watch(bookingProvider);
+    final booking = bookings.last;
+
+
+    return Container(
+      margin: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(18),
+      decoration: _boxStyle(),
+      child: Column(
+        children: [
+          _InfoRow(label: 'Full Name', value: booking.fullName ),
+          _InfoRow(label: 'Phone', value: booking.phone),
+          _InfoRow(label: 'Email', value: booking.email),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPriceCard(booking) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.all(18),
+      decoration: _boxStyle(),
+      child: Column(
+        children: [
+          _InfoRow(
+            label: '${booking.quantity} Ticket',
+            value: 'Ksh.${booking.totalPrice}',
+          ),
+          const Divider(),
+          _InfoRow(
+            label: 'Total',
+            value: 'Ksh.${booking.totalPrice}',
+          ),
+        ],
+      ),
+    );
+  }
+
+  BoxDecoration _boxStyle() {
+    return BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(16),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.1),
+          blurRadius: 20,
+        )
+      ],
+    );
+  }
+}
+
+class _InfoRow extends StatelessWidget {
+  final String label;
+  final String value;
+
+  const _InfoRow({required this.label, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(label, style: TextStyle(color: Colors.grey[600])),
+          Text(value, style: const TextStyle(fontWeight: FontWeight.bold)),
+        ],
       ),
     );
   }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../data/models/event_model.dart';
 import '../../../data/models/ticket_model.dart';
 import '../../../widgets/button.dart';
