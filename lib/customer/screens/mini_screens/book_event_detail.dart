@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../data/models/booking_model.dart';
 import '../../../data/models/event_model.dart';
 import '../../../data/models/ticket_model.dart';
+import '../../../widgets/custom_app_bar.dart';
 import '../../providers/booking_provider.dart';
 
 class BookEventDetail extends ConsumerStatefulWidget {
@@ -45,25 +46,11 @@ class _BookEventScreenState extends ConsumerState<BookEventDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_rounded),
-        ),
-        title: Text(
-          'Book Event',
-          style: Theme
-              .of(
-            context,
-          )
-              .textTheme
-              .titleLarge!
-              .copyWith(fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
+      appBar: CustomAppBar(
+        title: 'Book Event',
+        onBackPressed: (){
+          Navigator.pop(context);
+        },
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -356,6 +343,9 @@ class _BookEventScreenState extends ConsumerState<BookEventDetail> {
             ),
             Expanded(
               child: TextField(
+                  onTapOutside: (phoneNumber) {
+                    FocusScope.of(context).unfocus();
+                  },
                 controller: _phoneController,
                 keyboardType: TextInputType.phone,
                 style: const TextStyle(fontSize: 15, color: Colors.black87),

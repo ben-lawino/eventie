@@ -1,5 +1,6 @@
 import 'package:eventie/customer/screens/mini_screens/review_summary.dart';
 import 'package:eventie/widgets/button.dart';
+import 'package:eventie/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/models/booking_model.dart';
@@ -35,19 +36,16 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
     final isMpesa = _selectedPayment == 'M-pesa';
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back_rounded),
-        ),
-        title: Text(
-          'Payments',
-          style: Theme.of(context)
-              .textTheme
-              .titleLarge!
-              .copyWith(fontWeight: FontWeight.bold),
-        ),
-      ),
+      resizeToAvoidBottomInset: true,
+      appBar: CustomAppBar(
+        title: 'Payment Method',
+        onBackPressed: ()=>Navigator.pop(context),
+      ), bottomNavigationBar: Padding(
+          padding: EdgeInsets.only(
+            left: 18,
+            right: 18,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 18, // moves up with keyboard
+          ),),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(18.0),
@@ -110,6 +108,9 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                                 vertical: 14,
                               ),
                             ),
+                            onTapOutside: (phoneNumber) {
+                              FocusScope.of(context).unfocus();
+                            },
                           ),
                         ),
                       ],
@@ -188,6 +189,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
               child: Text(
                 label,
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),

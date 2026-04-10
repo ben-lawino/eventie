@@ -1,5 +1,6 @@
 import 'package:eventie/data/models/booking_model.dart';
 import 'package:eventie/widgets/button.dart';
+import 'package:eventie/widgets/custom_app_bar.dart';
 import 'package:eventie/widgets/payment_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -76,43 +77,43 @@ class _ReviewSummaryState extends ConsumerState<ReviewSummary> {
     DateFormat('EEE, MMM d, HH:mm').format(event.eventDate);
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Review & Payment'),
+      appBar: CustomAppBar(
+        title: 'Review & Payment',
+        onBackPressed: ()=>Navigator.pop(context),
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            /// EVENT CARD
-            PaymentCard(
-              imageUrl:
-              event.imageUrl ?? 'https://via.placeholder.com/150',
-              title: event.title,
-              date: formattedDate,
-              location: event.location,
-            ),
-
-            const SizedBox(height: 20),
-
-            /// USER INFO
-            _buildInfoCard(),
-
-            /// PRICE
-            _buildPriceCard(booking),
-
-            const Spacer(),
-
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Button(
-                onPressed: (){},
-                text: _isLoading ? 'Processing...' : 'Confirm & Pay',
-                width: double.infinity,
-              ),
-            ),
-          ],
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+        child: Button(
+          onPressed: () {},
+          text: _isLoading ? 'Processing...' : 'Confirm & Pay',
+          width: double.infinity,
         ),
       ),
+      body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                /// EVENT CARD
+                PaymentCard(
+                  imageUrl:
+                  event.imageUrl ?? 'https://via.placeholder.com/150',
+                  title: event.title,
+                  date: formattedDate,
+                  location: event.location,
+                ),
+            
+                const SizedBox(height: 20),
+            
+                /// USER INFO
+                _buildInfoCard(),
+            
+                /// PRICE
+                _buildPriceCard(booking),
+                const SizedBox(height: 16),
+              ],
+            ),
+          ),
+        ),
     );
   }
 
