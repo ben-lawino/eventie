@@ -39,7 +39,7 @@ class ContactUsScreen extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium!
-                      .copyWith(fontWeight: FontWeight.bold, fontSize: 17),
+                      .copyWith(fontWeight: FontWeight.bold, fontSize: 17,color: primaryColor),
                 )
               ],
             ),
@@ -75,7 +75,7 @@ class ContactUsScreen extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium!
-                      .copyWith(fontWeight: FontWeight.bold, fontSize: 17),
+                      .copyWith(fontWeight: FontWeight.bold, fontSize: 17,color: primaryColor),
                 )
               ],
             ),
@@ -112,7 +112,7 @@ class ContactUsScreen extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium!
-                      .copyWith(fontWeight: FontWeight.bold, fontSize: 17),
+                      .copyWith(fontWeight: FontWeight.bold, fontSize: 17,color: primaryColor),
                 )
               ],
             ),
@@ -149,7 +149,7 @@ class ContactUsScreen extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium!
-                      .copyWith(fontWeight: FontWeight.bold, fontSize: 17),
+                      .copyWith(fontWeight: FontWeight.bold, fontSize: 17,color: primaryColor),
                 )
               ],
             ),
@@ -186,7 +186,7 @@ class ContactUsScreen extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium!
-                      .copyWith(fontWeight: FontWeight.bold, fontSize: 17),
+                      .copyWith(fontWeight: FontWeight.bold, fontSize: 17,color: primaryColor),
                 )
               ],
             ),
@@ -224,7 +224,7 @@ class ContactUsScreen extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium!
-                      .copyWith(fontWeight: FontWeight.bold, fontSize: 17),
+                      .copyWith(fontWeight: FontWeight.bold, fontSize: 17,color: primaryColor),
                 )
               ],
             ),
