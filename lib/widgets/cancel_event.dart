@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import '../common/constants/colors.dart';
 
 class CancelEvent extends StatefulWidget {
-  const CancelEvent({super.key});
+  final String bookingId;
+  const CancelEvent({super.key,required this.bookingId});
 
   @override
   State<CancelEvent> createState() => _CancelEventState();
@@ -70,7 +71,9 @@ class _CancelEventState extends State<CancelEvent> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const CancelReason(),
+                            builder: (context) => CancelReason(
+                              bookingId: widget.bookingId,
+                            ),
                           ),
                         );
                       },

@@ -3,7 +3,8 @@ import 'package:eventie/widgets/button.dart';
 import 'package:flutter/material.dart';
 
 class RateEvent extends StatefulWidget {
-  const RateEvent({super.key});
+  final String bookingId;
+  const RateEvent({super.key,required this.bookingId});
 
   @override
   State<RateEvent> createState() => _CancelEventState();
@@ -97,7 +98,11 @@ class _CancelEventState extends State<RateEvent> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => CancelReason()),
+                        MaterialPageRoute(
+                          builder: (context) => RateEvent(
+                            bookingId: widget.bookingId,
+                          ),
+                        ),
                       );
                     },
                     text: 'Submit',

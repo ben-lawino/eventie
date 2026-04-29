@@ -6,7 +6,8 @@ import '../../../widgets/completed_card.dart';
 import '../../../widgets/rate_event.dart';
 
 class Completed extends StatefulWidget {
-  const Completed({super.key});
+  final String bookingId;
+  const Completed({super.key,required this.bookingId});
 
   @override
   State<Completed> createState() => _CompletedState();
@@ -27,7 +28,7 @@ class _CompletedState extends State<Completed> {
                 .of(context)
                 .size
                 .height * 0.35,
-            child: RateEvent(),
+            child: RateEvent(bookingId: widget.bookingId,),
           ),
     );
   }

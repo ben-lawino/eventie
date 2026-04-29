@@ -6,12 +6,13 @@ class BookingModel {
   final int quantity;
   final double totalPrice;
   final DateTime bookedAt;
-  final String status; // pending, paid, failed
+  final String status;
   final String? paymentRef;
   final String fullName;
   final String email;
   final String phone;
-
+  final String? cancellationReason;
+  final DateTime? cancelledAt;
 
   BookingModel({
     required this.id,
@@ -26,8 +27,11 @@ class BookingModel {
     required this.fullName,
     required this.email,
     required this.phone,
+    this.cancellationReason,
+    this.cancelledAt,
   });
 
+  // ✅ fromJson
   factory BookingModel.fromJson(Map<String, dynamic> json) {
     return BookingModel(
       id: json['id'],
@@ -41,10 +45,15 @@ class BookingModel {
       paymentRef: json['paymentRef'],
       fullName: json['fullName'],
       email: json['email'],
-      phone:  json['phone']
+      phone: json['phone'],
+      cancellationReason: json['cancellationReason'],
+      cancelledAt: json['cancelledAt'] != null
+          ? DateTime.parse(json['cancelledAt'])
+          : null,
     );
   }
 
+  // ✅ toJson
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -56,9 +65,36 @@ class BookingModel {
       'bookedAt': bookedAt.toIso8601String(),
       'status': status,
       'paymentRef': paymentRef,
-      'fullName' : fullName,
-      'email' : email,
-      'phone' : phone
+      'fullName': fullName,
+      'email': email,
+      'phone': phone,
+      'cancellationReason': cancellationReason,
+      'cancelledAt': cancelledAt?.toIso8601String(),
     };
+  }
+
+  // copyWith
+  BookingModel copyWith({
+    String? status,
+    String? cancellationReason,
+    DateTime? cancelledAt,
+  }) {
+    return BookingModel(
+      id: id,
+      userId: userId,
+      eventId: eventId,
+      ticketId: ticketId,
+      quantity: quantity,
+      totalPrice: totalPrice,
+      bookedAt: bookedAt,
+      status: status ?? this.status,
+      paymentRef: paymentRef,
+      fullName: fullName,
+      email: email,
+      phone: phone,
+      cancellationReason:
+      cancellationReason ?? this.cancellationReason,
+      cancelledAt: cancelledAt ?? this.cancelledAt,
+    );
   }
 }

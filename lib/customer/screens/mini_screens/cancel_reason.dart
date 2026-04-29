@@ -1,14 +1,18 @@
+import 'package:eventie/customer/providers/booking_provider.dart';
 import 'package:eventie/widgets/button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CancelReason extends StatefulWidget {
-  const CancelReason({super.key});
+class CancelReason extends ConsumerStatefulWidget {
+  final String bookingId;
+
+  const CancelReason({super.key, required this.bookingId});
 
   @override
-  State<CancelReason> createState() => _CancelReasonState();
+  ConsumerState<CancelReason> createState() => _CancelReasonState();
 }
 
-class _CancelReasonState extends State<CancelReason> {
+class _CancelReasonState extends ConsumerState<CancelReason> {
   final List<String> reasons = [
     "Scheduling conflict with another event",
     "I am unwell and unable to attend",
@@ -30,6 +34,30 @@ class _CancelReasonState extends State<CancelReason> {
   }
 
   void _onSubmitCancellation() {
+    if (selectedReason == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please select a reason')),
+      );
+      return;
+    }
+
+    if (selectedReason == "Others" &&
+        otherReasonController.text.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter your reason')),
+      );
+      return;
+    }
+
+    final String reason = selectedReason == "Others"
+        ? otherReasonController.text.trim()
+        : selectedReason!;
+
+    ref.read(bookingProvider.notifier).cancelBooking(
+          widget.bookingId,
+          reason,
+        );
+
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -102,7 +130,7 @@ class _CancelReasonState extends State<CancelReason> {
               SizedBox(height: 24),
 
               Button(
-                width: double.infinity,
+                  width: double.infinity,
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -112,6 +140,14 @@ class _CancelReasonState extends State<CancelReason> {
         );
       },
     );
+  }
+
+  bool get isValid {
+    if (selectedReason == null) return false;
+    if (selectedReason == "Others") {
+      return otherReasonController.text.trim().isNotEmpty;
+    }
+    return true;
   }
 
   @override
@@ -150,16 +186,9 @@ class _CancelReasonState extends State<CancelReason> {
               itemBuilder: (context, index) {
                 final reason = reasons[index];
                 return RadioListTile<String>(
-                  fillColor: WidgetStateProperty.resolveWith<Color?>((states) {
-                    if (states.contains(WidgetState.selected)) {
-                      return Theme.of(context).colorScheme.primary;
-                    }
-                    if (states.contains(WidgetState.disabled)) {
-                      return Theme.of(context).colorScheme.primary;
-                    }
-                    return Theme.of(context).colorScheme.primary;
-                    ;
-                  }),
+                  fillColor: WidgetStateProperty.all(
+                    Theme.of(context).colorScheme.primary,
+                  ),
                   selectedTileColor: Colors.blue[50],
                   // Background when selected
                   title: Text(
@@ -189,9 +218,9 @@ class _CancelReasonState extends State<CancelReason> {
                 decoration: InputDecoration(
                   hintText: "Other reason...",
                   hintStyle: Theme.of(context).textTheme.labelMedium!.copyWith(
-                    color: Colors.grey[500],
-                    fontSize: 16,
-                  ),
+                        color: Colors.grey[500],
+                        fontSize: 16,
+                      ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide.none,
@@ -204,7 +233,7 @@ class _CancelReasonState extends State<CancelReason> {
           Padding(
             padding: const EdgeInsets.only(bottom: 18, left: 18, right: 18),
             child: Button(
-              onPressed: _onSubmitCancellation,
+              onPressed: isValid ? _onSubmitCancellation : null,
               width: double.infinity,
               text: 'Cancel Booking',
             ),

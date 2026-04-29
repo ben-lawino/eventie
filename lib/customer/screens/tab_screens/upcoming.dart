@@ -6,7 +6,8 @@ import '../../../data/dummy_data.dart';
 import '../../../widgets/booking_card.dart';
 
 class Upcoming extends StatefulWidget {
-  const Upcoming({super.key});
+  final String bookingId;
+  const Upcoming({super.key,required this.bookingId});
 
   @override
   State<Upcoming> createState() => _UpcomingState();
@@ -23,7 +24,7 @@ class _UpcomingState extends State<Upcoming> {
       context: context,
       builder: (ctx) => SizedBox(
         height: MediaQuery.of(context).size.height * 0.35,
-        child: CancelEvent(),
+        child: CancelEvent(bookingId: widget.bookingId,),
       ),
     );
   }
