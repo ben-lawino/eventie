@@ -1,4 +1,3 @@
-import 'package:eventie/data/models/booking_model.dart';
 import 'package:eventie/widgets/button.dart';
 import 'package:eventie/widgets/custom_app_bar.dart';
 import 'package:eventie/widgets/payment_card.dart';
@@ -6,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../../../data/dummy_data.dart';
-import '../../providers/booking_provider.dart'; // temporary for event lookup
+import '../../providers/booking_provider.dart';
+import 'e_ticket_screen.dart'; // temporary for event lookup
 
 class ReviewSummary extends ConsumerStatefulWidget {
   const ReviewSummary({super.key});
@@ -24,6 +24,10 @@ class _ReviewSummaryState extends ConsumerState<ReviewSummary> {
   }
 
   void _showSuccessDialog() {
+    // capture booking before dialog opens
+    final bookings = ref.read(bookingProvider);
+    final booking = bookings.last;
+
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -49,14 +53,20 @@ class _ReviewSummaryState extends ConsumerState<ReviewSummary> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 20),
-            Button(
-              width: double.infinity,
-              onPressed: () {
-                Navigator.pop(context); // close dialog
-                // Pop back to root or navigate to tickets tab
-                Navigator.of(context).popUntil((route) => route.isFirst);
-              },
-              text: 'Close',)]
+              Button(
+                width: double.infinity,
+                onPressed: () {
+                  Navigator.pop(context); // close dialog
+                  Navigator.pushReplacement(  // ← go to e-ticket
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ETicketScreen(booking: booking),
+                    ),
+                  );
+                },
+                text: 'View My Ticket',
+              ),
+            ],
           ),
         );
       },

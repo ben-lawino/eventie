@@ -4,7 +4,6 @@ import 'package:eventie/widgets/booking_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-
 import '../../../data/dummy_data.dart';
 
 class Upcoming extends ConsumerStatefulWidget {
