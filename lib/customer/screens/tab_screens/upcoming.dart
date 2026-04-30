@@ -39,10 +39,6 @@ class _UpcomingState extends ConsumerState<Upcoming> {
         .where((b) => b.status == 'paid') // adjust if needed
         .toList();
 
-    final event = dummyEvents[0];
-    final formattedDate =
-        DateFormat('EEE, MMM d, HH:mm').format(event.eventDate);
-
 
     return Scaffold(
       body: upcomingBookings.isEmpty
@@ -58,6 +54,11 @@ class _UpcomingState extends ConsumerState<Upcoming> {
               itemBuilder: (context, index) {
                 final booking = upcomingBookings[index];
 
+                final event = dummyEvents.firstWhere(
+                      (e) => e.id == booking.eventId,
+                  orElse: () => dummyEvents[0], // fallback, to be removed once data is solid
+                );
+
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: BookingCard(
@@ -69,7 +70,7 @@ class _UpcomingState extends ConsumerState<Upcoming> {
                     title: event.title,
                     date: DateFormat('EEE, MMM d, HH:mm')
                         .format(booking.bookedAt),
-                    location: 'Event location', // to be replaced later
+                    location: event.location, // to be replaced later
                   ),
                 );
               },

@@ -7,7 +7,7 @@ final List<EventModel> dummyEvents = [
     title: 'Nairobi Food & Music Festival',
     description:
     'Experience the best of Kenyan cuisine and live performances.',
-    eventDate: DateTime.parse('2025-12-24T18:00:00Z'),
+    eventDate: DateTime.parse('2026-12-24T18:00:00Z'),
     location: 'KICC Grounds, Nairobi',
     imageUrl: 'https://images.pexels.com/photos/36565760/pexels-photo-36565760.jpeg',
     category: 'Music',

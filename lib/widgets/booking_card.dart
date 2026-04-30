@@ -95,16 +95,18 @@ class BookingCard extends StatelessWidget {
                                   color: AppColors.primary,
                                 ),
                                 SizedBox(width: 4),
-                                Text(
-                                    location,
-                                    style: Theme.of(context).textTheme.bodySmall!
-                                        .copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.textSecondary,
+                                Expanded(
+                                  child: Text(
+                                      location,
+                                      style: Theme.of(context).textTheme.bodySmall!
+                                          .copyWith(
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColors.textSecondary,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
+                                ),
                               ],
                             ),
                           ),

@@ -49,12 +49,14 @@ class _ReviewSummaryState extends ConsumerState<ReviewSummary> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 20),
-              Button(
-                width: double.infinity,
-                onPressed: () => Navigator.pop(context),
-                text: 'Close',
-              )
-            ],
+            Button(
+              width: double.infinity,
+              onPressed: () {
+                Navigator.pop(context); // close dialog
+                // Pop back to root or navigate to tickets tab
+                Navigator.of(context).popUntil((route) => route.isFirst);
+              },
+              text: 'Close',)]
           ),
         );
       },
@@ -84,36 +86,50 @@ class _ReviewSummaryState extends ConsumerState<ReviewSummary> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
         child: Button(
-          onPressed: () {},
+          onPressed: _isLoading ? null : () async {
+            setState(() => _isLoading = true);
+
+            // Update booking status to 'paid'
+            final bookings = ref.read(bookingProvider);
+            final booking = bookings.last;
+
+            ref.read(bookingProvider.notifier).updateBooking(
+              booking.id,
+              booking.copyWith(status: 'paid'), // ← this makes it show in Upcoming
+            );
+
+            setState(() => _isLoading = false);
+            _showSuccessDialog();
+          },
           text: _isLoading ? 'Processing...' : 'Confirm & Pay',
           width: double.infinity,
         ),
       ),
       body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                /// EVENT CARD
-                PaymentCard(
-                  imageUrl:
-                  event.imageUrl ?? 'https://via.placeholder.com/150',
-                  title: event.title,
-                  date: formattedDate,
-                  location: event.location,
-                ),
-            
-                const SizedBox(height: 20),
-            
-                /// USER INFO
-                _buildInfoCard(),
-            
-                /// PRICE
-                _buildPriceCard(booking),
-                const SizedBox(height: 16),
-              ],
-            ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              /// EVENT CARD
+              PaymentCard(
+                imageUrl:
+                event.imageUrl ?? 'https://via.placeholder.com/150',
+                title: event.title,
+                date: formattedDate,
+                location: event.location,
+              ),
+
+              const SizedBox(height: 20),
+
+              /// USER INFO
+              _buildInfoCard(),
+
+              /// PRICE
+              _buildPriceCard(booking),
+              const SizedBox(height: 16),
+            ],
           ),
         ),
+      ),
     );
   }
 
