@@ -44,7 +44,7 @@ class TicketPage extends StatelessWidget {
             ],
           ),
         ),
-        body: TabBarView(children: [Upcoming(bookingId: '',), Completed(bookingId: '',), Cancelled()]),
+        body: TabBarView(children: [Upcoming(), Completed(), Cancelled()]),
       ),
     );
   }
