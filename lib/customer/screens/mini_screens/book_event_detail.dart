@@ -26,7 +26,6 @@ class BookEventDetail extends ConsumerStatefulWidget {
 
 class _BookEventScreenState extends ConsumerState<BookEventDetail> {
   final TextEditingController _fullNameController = TextEditingController();
-  final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
 
@@ -37,7 +36,6 @@ class _BookEventScreenState extends ConsumerState<BookEventDetail> {
   @override
   void dispose() {
     _fullNameController.dispose();
-    _firstNameController.dispose();
     _emailController.dispose();
     _phoneController.dispose();
     super.dispose();
@@ -53,63 +51,66 @@ class _BookEventScreenState extends ConsumerState<BookEventDetail> {
         },
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(18.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Contact Information',
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .copyWith(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            'Contact Information',
+                            style: Theme
+                                .of(context)
+                                .textTheme
+                                .bodyLarge!
+                                .copyWith(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 28),
+                        
+                        // Full Name Field
+                        _buildTextField(
+                          controller: _fullNameController,
+                          hintText: 'Full Name',
+                        ),
+                        const SizedBox(height: 24),
+                        
+                        // Gender Dropdown
+                        _buildDropdownField(
+                          value: _selectedGender,
+                          items: ['Male', 'Female'],
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedGender = value!;
+                            });
+                          },
+                        ),
+                        const SizedBox(height: 24),
+                        
+                        // Email Field
+                        _buildTextField(
+                          controller: _emailController,
+                          hintText: 'Email',
+                          suffixIcon: Icons.email_outlined,
+                          keyboardType: TextInputType.emailAddress,
+                        ),
+                        const SizedBox(height: 24),
+                        
+                        // Phone Number Field with Country Code
+                        _buildPhoneField(),
+                        //SizedBox(height: 120),
+                      ],
+                    ),
                   ),
                 ),
-                const SizedBox(height: 28),
-
-                // Full Name Field
-                _buildTextField(
-                  controller: _fullNameController,
-                  hintText: 'Full Name',
-                ),
-                const SizedBox(height: 24),
-
-                // First Name Field
-                _buildTextField(
-                  controller: _firstNameController,
-                  hintText: 'First Name',
-                ),
-                const SizedBox(height: 24),
-
-                // Gender Dropdown
-                _buildDropdownField(
-                  value: _selectedGender,
-                  items: ['Male', 'Female', 'Other'],
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedGender = value!;
-                    });
-                  },
-                ),
-                const SizedBox(height: 24),
-
-                // Email Field
-                _buildTextField(
-                  controller: _emailController,
-                  hintText: 'Email',
-                  suffixIcon: Icons.email_outlined,
-                  keyboardType: TextInputType.emailAddress,
-                ),
-                const SizedBox(height: 24),
-
-                // Phone Number Field with Country Code
-                _buildPhoneField(),
-                SizedBox(height: 120),
                 // Terms and Conditions Checkbox
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -176,7 +177,7 @@ class _BookEventScreenState extends ConsumerState<BookEventDetail> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 40),
 
                 // Continue Button
                 Button(
@@ -234,7 +235,6 @@ class _BookEventScreenState extends ConsumerState<BookEventDetail> {
             ),
           ),
         ),
-      ),
     );
   }
 
@@ -313,7 +313,11 @@ class _BookEventScreenState extends ConsumerState<BookEventDetail> {
               .copyWith(fontSize: 15, color: Theme.of(context).colorScheme.onPrimary),
           onChanged: onChanged,
           items: items.map<DropdownMenuItem<String>>((String item) {
-            return DropdownMenuItem<String>(value: item, child: Text(item));
+            return DropdownMenuItem<String>(value: item, child: Text(item,style: Theme.of(context).textTheme.labelMedium!.copyWith(
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
+              fontSize: 14,
+              fontWeight: FontWeight.bold
+            ),));
           }).toList(),
         ),
       ),

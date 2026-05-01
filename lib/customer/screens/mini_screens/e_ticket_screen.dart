@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'package:eventie/customer/providers/ticket_provider.dart';
+import 'package:eventie/customer/screens/ticket.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:eventie/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:screenshot/screenshot.dart';
 import '../../../data/models/booking_model.dart';
 import '../../../data/dummy_data.dart';
 import '../../../widgets/button.dart';
@@ -9,19 +12,40 @@ import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:intl/intl.dart';
 import '../../providers/booking_provider.dart';
 
-class ETicketScreen extends StatelessWidget {
+class ETicketScreen extends ConsumerWidget {
   final BookingModel booking;
 
   const ETicketScreen({super.key, required this.booking});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     final event = dummyEvents.firstWhere((e) => e.id == booking.eventId);
+    final ticketState = ref.watch(ticketProvider);
+    final ticketNotifier = ref.read(ticketProvider.notifier);
+
+    // Show snackbar when state changes
+    ref.listen(ticketProvider, (_, next) {
+      if (next.downloadStatus == DownloadStatus.success ||
+          next.downloadStatus == DownloadStatus.error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(next.message ?? ''),
+            behavior: SnackBarBehavior.floating,
+            shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            backgroundColor: next.downloadStatus == DownloadStatus.success
+                ? Colors.green
+                : Colors.red,
+          ),
+        );
+        ticketNotifier.reset(); // back to idle
+      }
+    });
 
     return Scaffold(
       appBar: CustomAppBar(
         title: 'E-Ticket',
-        onBackPressed: () => Navigator.pop(context),
+        backDestination: TicketPage(),
         actions: [
           IconButton(
             icon: const Icon(Icons.share_outlined),
@@ -33,14 +57,19 @@ class ETicketScreen extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            _TicketCard(
-              bookingId: booking.id, // ✅ FIXED
-              event: event,
+            Screenshot(
+              controller: ticketNotifier.screenshotController,
+              child: _TicketCard(bookingId: booking.id, event: event),
             ),
             const SizedBox(height: 24),
             Button(
-              onPressed: () {},
-              text: 'Download Ticket',
+              onPressed:
+              ticketState.downloadStatus == DownloadStatus.downloading
+                  ? null
+                  : () => ticketNotifier.downloadTicket(booking.id),
+              text: ticketState.downloadStatus == DownloadStatus.downloading
+                  ? 'Saving...'
+                  : 'Download Ticket',
               width: double.infinity,
             ),
           ],
