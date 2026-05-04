@@ -13,7 +13,8 @@ class BookEventDetail extends ConsumerStatefulWidget {
   final TicketModel ticket;
   final int quantity;
   final double total;
-  const BookEventDetail({super.key,
+  const BookEventDetail({
+    super.key,
     required this.event,
     required this.ticket,
     required this.quantity,
@@ -30,7 +31,6 @@ class _BookEventScreenState extends ConsumerState<BookEventDetail> {
   final TextEditingController _phoneController = TextEditingController();
 
   String _selectedGender = 'Male';
-  String _selectedCountryCode = '+254';
   bool _acceptTerms = false;
 
   @override
@@ -43,198 +43,215 @@ class _BookEventScreenState extends ConsumerState<BookEventDetail> {
 
   @override
   Widget build(BuildContext context) {
+    final bottomInset = MediaQuery.of(context).viewInsets.bottom;
+    final isKeyboardOpen = bottomInset > 0;
+
     return Scaffold(
+      resizeToAvoidBottomInset: true, //  scaffold shrinks with keyboard
       appBar: CustomAppBar(
         title: 'Book Event',
-        onBackPressed: (){
+        onBackPressed: () {
           Navigator.pop(context);
         },
       ),
       body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            'Contact Information',
-                            style: Theme
-                                .of(context)
-                                .textTheme
-                                .bodyLarge!
-                                .copyWith(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 28),
-                        
-                        // Full Name Field
-                        _buildTextField(
-                          controller: _fullNameController,
-                          hintText: 'Full Name',
-                        ),
-                        const SizedBox(height: 24),
-                        
-                        // Gender Dropdown
-                        _buildDropdownField(
-                          value: _selectedGender,
-                          items: ['Male', 'Female'],
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedGender = value!;
-                            });
-                          },
-                        ),
-                        const SizedBox(height: 24),
-                        
-                        // Email Field
-                        _buildTextField(
-                          controller: _emailController,
-                          hintText: 'Email',
-                          suffixIcon: Icons.email_outlined,
-                          keyboardType: TextInputType.emailAddress,
-                        ),
-                        const SizedBox(height: 24),
-                        
-                        // Phone Number Field with Country Code
-                        _buildPhoneField(),
-                        //SizedBox(height: 120),
-                      ],
-                    ),
-                  ),
-                ),
-                // Terms and Conditions Checkbox
-                Row(
+        child: Column(
+          children: [
+            // Scrollable fields section
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.fromLTRB(18, 18, 18, 0),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Checkbox(
-                      value: _acceptTerms,
-                      onChanged: (value) {
-                        setState(() {
-                          _acceptTerms = value!;
-                        });
-                      },
-                      activeColor: const Color(0xFF5B52D5),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4),
+                    Text(
+                      'Contact Information',
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
                       ),
                     ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 12),
-                        child: RichText(
-                          text: TextSpan(
-                            style: Theme
-                                .of(context)
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(
-                              fontSize: 13,
-                              color: Theme.of(context).colorScheme.onPrimaryContainer,
-                              fontWeight: FontWeight.bold,
+                    const SizedBox(height: 28),
+
+                    // Full Name
+                    _buildTextField(
+                      controller: _fullNameController,
+                      hintText: 'Full Name',
+                    ),
+                    const SizedBox(height: 24),
+
+                    // Gender Dropdown
+                    _buildDropdownField(
+                      value: _selectedGender,
+                      items: ['Male', 'Female'],
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedGender = value!;
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 24),
+
+                    // Email
+                    _buildTextField(
+                      controller: _emailController,
+                      hintText: 'Email',
+                      suffixIcon: Icons.email_outlined,
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    const SizedBox(height: 24),
+
+                    // Phone
+                    _buildPhoneField(),
+                    const SizedBox(height: 16),
+                  ],
+                ),
+              ),
+            ),
+
+            // Pinned bottom section (terms + button)
+            Padding(
+              padding: EdgeInsets.fromLTRB(18, 0, 18, isKeyboardOpen ? 12 : 40),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Terms and Conditions
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Checkbox(
+                        value: _acceptTerms,
+                        onChanged: (value) {
+                          setState(() {
+                            _acceptTerms = value!;
+                          });
+                        },
+                        activeColor: const Color(0xFF5B52D5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 12),
+                          child: RichText(
+                            text: TextSpan(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                fontSize: 13,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              children: [
+                                const TextSpan(text: 'I accept the Eventie '),
+                                TextSpan(
+                                  text: 'Terms of Service',
+                                  style: TextStyle(
+                                    color:
+                                    Theme.of(context).colorScheme.primary,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                const TextSpan(text: ', '),
+                                TextSpan(
+                                  text: 'Community Guidelines',
+                                  style: TextStyle(
+                                    color:
+                                    Theme.of(context).colorScheme.primary,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                const TextSpan(text: ', and '),
+                                TextSpan(
+                                  text: 'Privacy Policy',
+                                  style: TextStyle(
+                                    color:
+                                    Theme.of(context).colorScheme.primary,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: ' (Required)',
+                                  style: TextStyle(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimaryContainer,
+                                  ),
+                                ),
+                              ],
                             ),
-                            children: [
-                              const TextSpan(text: 'I accept the Eventie '),
-                              TextSpan(
-                                text: 'Terms of Service',
-                                style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              const TextSpan(text: ', '),
-                              TextSpan(
-                                text: 'Community Guidelines',
-                                style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              const TextSpan(text: ', and '),
-                              TextSpan(
-                                text: 'Privacy Policy',
-                                style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              TextSpan(
-                                text: ' (Required)',
-                                style: TextStyle(color: Theme.of(context).colorScheme.onPrimaryContainer),
-                              ),
-                            ],
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 40),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
 
-                // Continue Button
-                Button(
-                  onPressed: () {
-                    // 🔒 VALIDATION
-                    if (_fullNameController.text.isEmpty ||
-                        _emailController.text.isEmpty ||
-                        _phoneController.text.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Please fill all required fields")),
+                  // Continue Button
+                  Button(
+                    onPressed: () {
+                      // Validation
+                      if (_fullNameController.text.isEmpty ||
+                          _emailController.text.isEmpty ||
+                          _phoneController.text.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content:
+                              Text("Please fill all required fields")),
+                        );
+                        return;
+                      }
+
+                      if (!_acceptTerms) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text("Please accept terms")),
+                        );
+                        return;
+                      }
+
+                      // Create booking
+                      final booking = BookingModel(
+                        id: DateTime.now().toString(),
+                        fullName: _fullNameController.text,
+                        phone: _phoneController.text,
+                        email: _emailController.text,
+                        userId: "user123",
+                        eventId: widget.event.id,
+                        ticketId: widget.ticket.id,
+                        quantity: widget.quantity,
+                        totalPrice: widget.total,
+                        bookedAt: DateTime.now(),
+                        status: "pending",
                       );
-                      return;
-                    }
 
-                    if (!_acceptTerms) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Please accept terms")),
-                      );
-                      return;
-                    }
+                      // Save to provider
+                      ref.read(bookingProvider.notifier).addBooking(booking);
 
-                    // CREATE BOOKING
-                    final booking = BookingModel(
-                      id: DateTime.now().toString(),
-                      fullName: _fullNameController.text,
-                      phone: _phoneController.text,
-                      email: _emailController.text,
-                      userId: "user123", // replace later with auth
-                      eventId: widget.event.id,
-                      ticketId: widget.ticket.id,
-                      quantity: widget.quantity,
-                      totalPrice: widget.total,
-                      bookedAt: DateTime.now(),
-                      status: "pending",
-                    );
-
-                    // SAVE TO PROVIDER
-                    ref.read(bookingProvider.notifier).addBooking(booking);
-
-                    //  GO TO PAYMENT
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PaymentMethodScreen(
-                          booking: booking,
-                          amount: widget.total,
-                          phone: _phoneController.text,
+                      // Go to payment
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PaymentMethodScreen(
+                            booking: booking,
+                            amount: widget.total,
+                            phone: _phoneController.text,
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                  text: 'Continue',
-                )
-              ],
+                      );
+                    },
+                    text: 'Continue',
+                  ),
+                ],
+              ),
             ),
-          ),
+          ],
         ),
+      ),
     );
   }
 
@@ -251,20 +268,16 @@ class _BookEventScreenState extends ConsumerState<BookEventDetail> {
       readOnly: readOnly,
       onTap: onTap,
       keyboardType: keyboardType,
+      onTapOutside: (_) => FocusScope.of(context).unfocus(), // added globally
       style: const TextStyle(fontSize: 15, color: Colors.black87),
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: TextStyle(fontSize: 15, color: Colors.grey[600]),
         filled: true,
-        fillColor: Theme
-            .of(context)
-            .primaryColor
-            .withOpacity(0.15),
-
+        fillColor: Theme.of(context).primaryColor.withOpacity(0.15),
         suffixIcon: suffixIcon != null
             ? Icon(suffixIcon, color: Colors.grey[600], size: 20)
             : null,
-
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none,
@@ -277,7 +290,6 @@ class _BookEventScreenState extends ConsumerState<BookEventDetail> {
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none,
         ),
-
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 16,
@@ -304,20 +316,24 @@ class _BookEventScreenState extends ConsumerState<BookEventDetail> {
           value: value,
           isExpanded: true,
           icon: Icon(Icons.keyboard_arrow_down, color: Colors.grey[600]),
-          style: Theme
-              .of(
-            context,
-          )
-              .textTheme
-              .bodyLarge!
-              .copyWith(fontSize: 15, color: Theme.of(context).colorScheme.onPrimary),
+          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+            fontSize: 15,
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
           onChanged: onChanged,
           items: items.map<DropdownMenuItem<String>>((String item) {
-            return DropdownMenuItem<String>(value: item, child: Text(item,style: Theme.of(context).textTheme.labelMedium!.copyWith(
-              color: Theme.of(context).colorScheme.onPrimaryContainer,
-              fontSize: 14,
-              fontWeight: FontWeight.bold
-            ),));
+            return DropdownMenuItem<String>(
+              value: item,
+              child: Text(
+                item,
+                style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                  color:
+                  Theme.of(context).colorScheme.onPrimaryContainer,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            );
           }).toList(),
         ),
       ),
@@ -328,11 +344,7 @@ class _BookEventScreenState extends ConsumerState<BookEventDetail> {
     return ClipRRect(
       borderRadius: BorderRadius.circular(12),
       child: Container(
-        color: Theme
-            .of(context)
-            .colorScheme
-            .primary
-            .withOpacity(0.15),
+        color: Theme.of(context).colorScheme.primary.withOpacity(0.15),
         child: Row(
           children: [
             Container(
@@ -347,11 +359,9 @@ class _BookEventScreenState extends ConsumerState<BookEventDetail> {
             ),
             Expanded(
               child: TextField(
-                  onTapOutside: (phoneNumber) {
-                    FocusScope.of(context).unfocus();
-                  },
                 controller: _phoneController,
                 keyboardType: TextInputType.phone,
+                onTapOutside: (_) => FocusScope.of(context).unfocus(),
                 style: const TextStyle(fontSize: 15, color: Colors.black87),
                 decoration: InputDecoration(
                   hintText: 'Phone Number',

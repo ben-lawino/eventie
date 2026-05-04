@@ -5,9 +5,8 @@ final List<EventModel> dummyEvents = [
   EventModel(
     id: 'event001',
     title: 'Nairobi Food & Music Festival',
-    description:
-    'Experience the best of Kenyan cuisine and live performances.',
-    eventDate: DateTime.parse('2026-12-24T18:00:00Z'),
+    description: 'Experience the best of Kenyan cuisine and live performances.',
+    eventDate: DateTime.now().add(const Duration(days: 5)), // UPCOMING
     location: 'KICC Grounds, Nairobi',
     imageUrl: 'https://images.pexels.com/photos/36565760/pexels-photo-36565760.jpeg',
     category: 'Music',
@@ -37,9 +36,8 @@ final List<EventModel> dummyEvents = [
   EventModel(
     id: 'event002',
     title: 'Tech Expo Nairobi 2025',
-    description:
-    'Discover startups and connect with Kenya’s tech ecosystem.',
-    eventDate: DateTime.parse('2025-11-15T10:00:00Z'),
+    description: 'Discover startups and connect with Kenya’s tech ecosystem.',
+    eventDate: DateTime.now().add(const Duration(hours: 6)), // UPCOMING
     location: 'Sarit Expo Centre',
     imageUrl: 'https://images.unsplash.com/photo-1556761175-4b46a572b786',
     category: 'Tech',
@@ -70,7 +68,7 @@ final List<EventModel> dummyEvents = [
     id: 'event003',
     title: 'Gospel Night Live',
     description: 'A night of praise and worship.',
-    eventDate: DateTime.parse('2025-10-07T19:00:00Z'),
+    eventDate: DateTime.now().add(const Duration(days: 10)), // UPCOMING
     location: 'Kenyatta University Amphitheatre',
     imageUrl: 'https://images.pexels.com/photos/15672801/pexels-photo-15672801.jpeg',
     category: 'Community',
@@ -101,9 +99,9 @@ final List<EventModel> dummyEvents = [
     id: 'event004',
     title: 'Nairobi Fashion Week',
     description: 'Top African designers showcase their collections.',
-    eventDate: DateTime.parse('2025-09-20T16:00:00Z'),
+    eventDate: DateTime.now().subtract(const Duration(days: 2)), // COMPLETED
     location: 'Two Rivers Mall',
-    imageUrl: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGZhc2hpb258ZW58MHx8MHx8fDI%3D',
+    imageUrl: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d',
     category: 'Fashion',
     organizerId: 'organizer321',
     isFeatured: false,
@@ -125,7 +123,7 @@ final List<EventModel> dummyEvents = [
     id: 'event005',
     title: 'Startup Pitch Night',
     description: 'Startups pitch ideas to investors.',
-    eventDate: DateTime.parse('2025-08-10T18:30:00Z'),
+    eventDate: DateTime.now().add(const Duration(days: 3)), // UPCOMING
     location: 'iHub Nairobi',
     imageUrl: 'https://images.pexels.com/photos/7414268/pexels-photo-7414268.jpeg',
     category: 'Business',
@@ -149,7 +147,7 @@ final List<EventModel> dummyEvents = [
     id: 'event006',
     title: 'Comedy Night Nairobi',
     description: 'Stand-up comedy with top Kenyan comedians.',
-    eventDate: DateTime.parse('2025-07-05T20:00:00Z'),
+    eventDate: DateTime.now().subtract(const Duration(days: 5)), // COMPLETED
     location: 'Carnivore Grounds',
     imageUrl: 'https://images.pexels.com/photos/19275019/pexels-photo-19275019.jpeg',
     category: 'Art & Culture',
@@ -173,7 +171,7 @@ final List<EventModel> dummyEvents = [
     id: 'event007',
     title: 'Art & Culture Exhibition',
     description: 'Explore African art, crafts, and cultural heritage.',
-    eventDate: DateTime.parse('2025-06-18T11:00:00Z'),
+    eventDate: DateTime.now().subtract(const Duration(days: 10)), // COMPLETED
     location: 'Nairobi National Museum',
     imageUrl: 'https://images.pexels.com/photos/35912971/pexels-photo-35912971.jpeg',
     category: 'Art & Culture',
@@ -197,7 +195,7 @@ final List<EventModel> dummyEvents = [
     id: 'event008',
     title: 'Fitness Bootcamp',
     description: 'Outdoor workout session with professional trainers.',
-    eventDate: DateTime.parse('2025-05-10T07:00:00Z'),
+    eventDate: DateTime.now().subtract(const Duration(days: 1)), // COMPLETED
     location: 'Uhuru Park',
     imageUrl: 'https://images.pexels.com/photos/9958670/pexels-photo-9958670.jpeg',
     category: 'Wellness',
@@ -221,7 +219,7 @@ final List<EventModel> dummyEvents = [
     id: 'event009',
     title: 'DJ Night Party',
     description: 'Dance all night with top DJs in Nairobi.',
-    eventDate: DateTime.parse('2025-04-25T22:00:00Z'),
+    eventDate: DateTime.now().subtract(const Duration(days: 20)), // COMPLETED
     location: 'Westlands Club',
     imageUrl: 'https://images.pexels.com/photos/5152573/pexels-photo-5152573.jpeg',
     category: 'Music',
@@ -252,7 +250,7 @@ final List<EventModel> dummyEvents = [
     id: 'event010',
     title: 'Film Premiere Night',
     description: 'Exclusive screening of a new Kenyan film.',
-    eventDate: DateTime.parse('2025-03-30T19:30:00Z'),
+    eventDate: DateTime.now().subtract(const Duration(days: 30)), // COMPLETED
     location: 'Century Cinemax',
     imageUrl: 'https://images.pexels.com/photos/7991126/pexels-photo-7991126.jpeg',
     category: 'Art & Culture',

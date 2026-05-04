@@ -6,7 +6,6 @@ class CancelledCard extends StatelessWidget {
   final String title;
   final String date;
   final String location;
-  final VoidCallback? onCancelBooking;
   final bool isBooked;
 
   const CancelledCard({
@@ -15,7 +14,6 @@ class CancelledCard extends StatelessWidget {
     required this.title,
     required this.date,
     required this.location,
-    this.onCancelBooking,
     this.isBooked = true,
   });
 

@@ -1,8 +1,10 @@
 import 'package:eventie/customer/providers/booking_provider.dart';
+import 'package:eventie/widgets/booking_card.dart';
 import 'package:eventie/widgets/cancelled_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import '../../../data/dummy_data.dart';
 
 class Cancelled extends ConsumerWidget {
   const Cancelled({super.key});
@@ -11,7 +13,7 @@ class Cancelled extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final bookings = ref.watch(bookingProvider);
 
-    // Filter cancelled bookings
+    // ONLY cancelled bookings
     final cancelledBookings = bookings
         .where((b) => b.status == 'cancelled')
         .toList();
@@ -30,16 +32,21 @@ class Cancelled extends ConsumerWidget {
         itemBuilder: (context, index) {
           final booking = cancelledBookings[index];
 
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 12),
-            child: CancelledCard(
+          final event = dummyEvents.firstWhere(
+                (e) => e.id == booking.eventId,
+            orElse: () => dummyEvents[0],
+          );
+
+          return CancelledCard(
               imageUrl:
-              'https://via.placeholder.com/150',
-              title: booking.eventId,
+              event.imageUrl ?? 'https://via.placeholder.com/150',
+
+              title: event.title,
+
               date: DateFormat('EEE, MMM d, HH:mm')
-                  .format(booking.bookedAt),
-              location: 'Event location',
-            ),
+                  .format(event.eventDate),
+
+              location: event.location,
           );
         },
       ),

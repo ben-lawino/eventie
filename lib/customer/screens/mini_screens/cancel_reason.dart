@@ -33,115 +33,6 @@ class _CancelReasonState extends ConsumerState<CancelReason> {
     super.dispose();
   }
 
-  void _onSubmitCancellation() {
-    if (selectedReason == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please select a reason')),
-      );
-      return;
-    }
-
-    if (selectedReason == "Others" &&
-        otherReasonController.text.trim().isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter your reason')),
-      );
-      return;
-    }
-
-    final String reason = selectedReason == "Others"
-        ? otherReasonController.text.trim()
-        : selectedReason!;
-
-    ref.read(bookingProvider.notifier).cancelBooking(
-          widget.bookingId,
-          reason,
-        );
-
-    showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(36),
-          ),
-          contentPadding: EdgeInsets.only(
-            top: 30,
-            left: 40,
-            right: 40,
-            bottom: 25,
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    height: 140,
-                    width: 140,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  ),
-                  Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                      child: Icon(
-                        Icons.check_rounded,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 24),
-
-              // Success title
-              Text(
-                'Successful!',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-
-              SizedBox(height: 12),
-
-              // Success message
-              Text(
-                'You have successfully cancelled the event! 90% of the funds will be returned to you.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey[600],
-                  height: 1.4,
-                ),
-              ),
-
-              SizedBox(height: 24),
-
-              Button(
-                  width: double.infinity,
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  text: 'ok'),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
   bool get isValid {
     if (selectedReason == null) return false;
     if (selectedReason == "Others") {
@@ -150,17 +41,113 @@ class _CancelReasonState extends ConsumerState<CancelReason> {
     return true;
   }
 
+  void _onSubmitCancellation() {
+    if (!isValid) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please select a valid reason')),
+      );
+      return;
+    }
+
+    final String reason = selectedReason == "Others"
+        ? otherReasonController.text.trim()
+        : selectedReason!;
+
+    // Update provider FIRST
+    ref.read(bookingProvider.notifier).cancelBooking(
+      widget.bookingId,
+      reason,
+    );
+
+    // Close bottom sheet BEFORE dialog
+    Navigator.of(context).pop();
+
+    // Show success dialog
+    Future.delayed(const Duration(milliseconds: 200), () {
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(36),
+            ),
+            contentPadding: const EdgeInsets.only(
+              top: 30,
+              left: 40,
+              right: 40,
+              bottom: 25,
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  height: 140,
+                  width: 140,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  child: const Center(
+                    child: Icon(
+                      Icons.check_rounded,
+                      color: Colors.white,
+                      size: 40,
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 24),
+
+                const Text(
+                  'Successful!',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+
+                Text(
+                  'You have successfully cancelled the event! 90% of the funds will be returned to you.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey[600],
+                    height: 1.4,
+                  ),
+                ),
+
+                const SizedBox(height: 24),
+
+                Button(
+                  width: double.infinity,
+                  onPressed: () {
+                    Navigator.of(context).pop(); // close dialog
+                  },
+                  text: 'OK',
+                ),
+              ],
+            ),
+          );
+        },
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        leading: BackButton(),
+        leading: const BackButton(),
         title: Text(
           'Cancel Booking',
-          style: Theme.of(
-            context,
-          ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
+          style: Theme.of(context)
+              .textTheme
+              .titleLarge!
+              .copyWith(fontWeight: FontWeight.bold),
         ),
       ),
       body: Column(
@@ -175,22 +162,19 @@ class _CancelReasonState extends ConsumerState<CancelReason> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18),
-            child: Divider(color: Colors.grey[400], thickness: 1, height: 20),
-          ),
-          SizedBox(height: 8),
+
+          const SizedBox(height: 8),
+
           Expanded(
             child: ListView.builder(
               itemCount: reasons.length,
               itemBuilder: (context, index) {
                 final reason = reasons[index];
+
                 return RadioListTile<String>(
                   fillColor: WidgetStateProperty.all(
                     Theme.of(context).colorScheme.primary,
                   ),
-                  selectedTileColor: Colors.blue[50],
-                  // Background when selected
                   title: Text(
                     reason,
                     style: Theme.of(context).textTheme.titleMedium,
@@ -209,29 +193,26 @@ class _CancelReasonState extends ConsumerState<CancelReason> {
               },
             ),
           ),
+
           if (selectedReason == "Others")
             Padding(
-              padding: const EdgeInsets.only(bottom: 100, left: 18, right: 18),
+              padding: const EdgeInsets.symmetric(horizontal: 18),
               child: TextField(
                 controller: otherReasonController,
                 maxLines: 3,
                 decoration: InputDecoration(
                   hintText: "Other reason...",
-                  hintStyle: Theme.of(context).textTheme.labelMedium!.copyWith(
-                        color: Colors.grey[500],
-                        fontSize: 16,
-                      ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide.none,
                   ),
                   filled: true,
-                  fillColor: Theme.of(context).colorScheme.primaryContainer,
                 ),
               ),
             ),
+
           Padding(
-            padding: const EdgeInsets.only(bottom: 18, left: 18, right: 18),
+            padding: const EdgeInsets.all(18),
             child: Button(
               onPressed: isValid ? _onSubmitCancellation : null,
               width: double.infinity,

@@ -1,10 +1,10 @@
-import 'package:eventie/customer/providers/booking_provider.dart';
-import 'package:eventie/widgets/cancel_event.dart';
-import 'package:eventie/widgets/booking_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import '../../../data/dummy_data.dart';
+import '../../../widgets/booking_card.dart';
+import '../../../widgets/cancel_event.dart';
+import '../../providers/booking_provider.dart';
+import 'package:intl/intl.dart';
 
 class Upcoming extends ConsumerStatefulWidget {
   const Upcoming({super.key});
@@ -17,7 +17,7 @@ class _UpcomingState extends ConsumerState<Upcoming> {
   void _openCancelEventOverlay(BuildContext context, String bookingId) {
     showModalBottomSheet(
       useSafeArea: true,
-      isDismissible: false,
+      isDismissible: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(36)),
       ),
@@ -33,47 +33,55 @@ class _UpcomingState extends ConsumerState<Upcoming> {
   Widget build(BuildContext context) {
     final bookings = ref.watch(bookingProvider);
 
-    //Filter upcoming bookings
-    final upcomingBookings = bookings
-        .where((b) => b.status == 'paid') // adjust if needed
-        .toList();
+    // upcoming logic
+    final upcomingBookings = bookings.where((b) {
+      final event = dummyEvents.firstWhere(
+            (e) => e.id == b.eventId,
+        orElse: () => dummyEvents[0],
+      );
 
+      return b.status != 'cancelled' &&
+          event.eventDate.isAfter(DateTime.now());
+    }).toList();
 
     return Scaffold(
       body: upcomingBookings.isEmpty
           ? const Center(
-              child: Text(
-                "No upcoming bookings",
-                style: TextStyle(fontSize: 16),
-              ),
-            )
+        child: Text(
+          "No upcoming bookings",
+          style: TextStyle(fontSize: 16),
+        ),
+      )
           : ListView.builder(
-              padding: const EdgeInsets.all(16),
-              itemCount: upcomingBookings.length,
-              itemBuilder: (context, index) {
-                final booking = upcomingBookings[index];
+        padding: const EdgeInsets.all(16),
+        itemCount: upcomingBookings.length,
+        itemBuilder: (context, index) {
+          final booking = upcomingBookings[index];
 
-                final event = dummyEvents.firstWhere(
-                      (e) => e.id == booking.eventId,
-                  orElse: () => dummyEvents[0], // fallback, to be removed once data is solid
-                );
+          final event = dummyEvents.firstWhere(
+                (e) => e.id == booking.eventId,
+            orElse: () => dummyEvents[0],
+          );
 
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: BookingCard(
-                    onCancelBooking: () {
-                      _openCancelEventOverlay(context, booking.id);
-                    },
-                    imageUrl:
-                        event.imageUrl ?? 'https://via.placeholder.com/150',
-                    title: event.title,
-                    date: DateFormat('EEE, MMM d, HH:mm')
-                        .format(booking.bookedAt),
-                    location: event.location, // to be replaced later
-                  ),
-                );
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: BookingCard(
+              onCancelBooking: () {
+                _openCancelEventOverlay(context, booking.id);
               },
+              imageUrl:
+              event.imageUrl ?? 'https://via.placeholder.com/150',
+              title: event.title,
+
+              // show event date, not booking date
+              date: DateFormat('EEE, MMM d, HH:mm')
+                  .format(event.eventDate),
+
+              location: event.location,
             ),
+          );
+        },
+      ),
     );
   }
 }
