@@ -1,17 +1,32 @@
+import 'package:eventie/organizer/providers/dashboard_provider.dart';
 import 'package:flutter/material.dart';
-
 import '../../customer/screens/mini_screens/notification.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DashboardScreen extends StatelessWidget {
+
+class DashboardScreen extends ConsumerStatefulWidget {
   const DashboardScreen({super.key});
+
+  @override
+  ConsumerState<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends ConsumerState<DashboardScreen> {
+
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      ref.read(dashboardProvider.notifier).loadDashboard();
+    });}
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final primaryColor = Theme.of(context).colorScheme.primary;
+    final dashboard = ref.watch(dashboardProvider);
 
     return Scaffold(
-      appBar: AppBar(
+        appBar: AppBar(
         leading: Padding(
           padding: const EdgeInsets.only(left: 18.0),
           child: CircleAvatar(
@@ -73,22 +88,22 @@ class DashboardScreen extends StatelessWidget {
                   dashboardItem(
                     context: context,
                     title: "Total Events",
-                    value: "12",
+                    value: dashboard.totalEvents.toString(),
                   ),
                   dashboardItem(
                     context: context,
                     title: "Tickets Sold",
-                    value: "1667",
+                    value: dashboard.ticketsSold.toString(),
                   ),
                   dashboardItem(
                     context: context,
                     title: "Approved",
-                    value: "5",
+                    value: dashboard.approved.toString(),
                   ),
                   dashboardItem(
                     context: context,
                     title: "Completed",
-                    value: "1",
+                    value: dashboard.completed.toString(),
                   ),
                 ],
               ),
