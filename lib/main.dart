@@ -34,7 +34,7 @@ class MyApp extends ConsumerWidget {
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: themeMode,
-      home: const NavigationMenu(),
+      home: BottomNav(),
     );
   }
 }

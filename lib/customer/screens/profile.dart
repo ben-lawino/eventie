@@ -3,7 +3,6 @@ import 'package:eventie/widgets/custom_app_bar.dart';
 import 'package:eventie/widgets/log_out.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../common/providers/theme_provider.dart';
 import '../../common/screens/help_center_screen.dart';
 import '../../common/screens/language_setting_screen.dart';
