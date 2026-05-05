@@ -10,13 +10,13 @@
 
 | Explore Events | Favourites | Profile |
 |:-:|:-:|:-:|
-| ![Explore](screenshots/explore.png) | ![Favourites](screenshots/favourites.png) | ![Profile](screenshots/profile.png) |
+| ![Explore](assets/screenshots/explore.png) | ![Favourites](assets/screenshots/favourites.png) | ![Profile](assets/screenshots/profile.png) |
 
 **Organizer**
 
 | Dashboard | Ticket Scanner | Wallet |
 |:-:|:-:|:-:|
-| ![Dashboard](screenshots/dashboard.png) | ![Scan](screenshots/scan.png) | ![Wallet](screenshots/wallet.png) |
+| ![Dashboard](assets/screenshots/dashboard.png) | ![Scan](assets/screenshots/scan.png) | ![Wallet](assets/screenshots/wallet.png) |
 
 ---
 
