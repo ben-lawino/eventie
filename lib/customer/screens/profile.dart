@@ -1,13 +1,16 @@
+import 'dart:io';
+import 'package:eventie/common/providers/theme_provider.dart';
+import 'package:eventie/common/screens/help_center_screen.dart';
+import 'package:eventie/common/screens/language_setting_screen.dart';
+import 'package:eventie/common/screens/notification_setting_screen.dart';
+import 'package:eventie/common/screens/security_setting_screen.dart';
 import 'package:eventie/customer/navigation.dart';
 import 'package:eventie/widgets/custom_app_bar.dart';
 import 'package:eventie/widgets/log_out.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../common/providers/theme_provider.dart';
-import '../../common/screens/help_center_screen.dart';
-import '../../common/screens/language_setting_screen.dart';
-import '../../common/screens/notification_setting_screen.dart';
-import '../../common/screens/security_setting_screen.dart';
+import 'package:image_picker/image_picker.dart';
+import '../../common/profile_provider.dart';
 
 class ProfilePage extends ConsumerStatefulWidget {
   const ProfilePage({super.key});
@@ -18,25 +21,82 @@ class ProfilePage extends ConsumerStatefulWidget {
 
 class _ProfilePageState extends ConsumerState<ProfilePage> {
   bool _isEditing = false;
-  bool _isDarkMode = false;
+  bool _isSaving = false;
 
-  final TextEditingController _nameController =
-  TextEditingController(text: 'Ben Lawin');
-  final TextEditingController _emailController =
-  TextEditingController(text: 'benlawin@email.com');
-  final TextEditingController _phoneController =
-  TextEditingController(text: '+254 712 345 678');
-  final TextEditingController _bioController =
-  TextEditingController(text: 'Event enthusiast 🎉');
+  late TextEditingController _nameController;
+  late TextEditingController _emailController;
+  late TextEditingController _phoneController;
+  String? _localAvatarPath;
+
+  @override
+  void initState() {
+    super.initState();
+    final p = ref.read(profileProvider);
+    _nameController  = TextEditingController(text: p.fullName);
+    _emailController = TextEditingController(text: p.email);
+    _phoneController = TextEditingController(text: p.phone);
+    _localAvatarPath = p.avatarPath;
+  }
 
   @override
   void dispose() {
     _nameController.dispose();
     _emailController.dispose();
     _phoneController.dispose();
-    _bioController.dispose();
     super.dispose();
   }
+
+  // ── Image picker ──────────────────────────────────────────────────────────
+
+  Future<void> _pickImage() async {
+    final picked = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 80,
+    );
+    if (picked != null) setState(() => _localAvatarPath = picked.path);
+  }
+
+  // ── Cancel ────────────────────────────────────────────────────────────────
+
+  void _cancelEdit() {
+    final p = ref.read(profileProvider);
+    _nameController.text  = p.fullName;
+    _emailController.text = p.email;
+    _phoneController.text = p.phone;
+    setState(() {
+      _localAvatarPath = p.avatarPath;
+      _isEditing = false;
+    });
+  }
+
+  // ── Save ──────────────────────────────────────────────────────────────────
+
+  Future<void> _saveProfile() async {
+    setState(() => _isSaving = true);
+
+    await Future.delayed(const Duration(milliseconds: 600));
+
+    ref.read(profileProvider.notifier).update(
+      ref.read(profileProvider).copyWith(
+        fullName: _nameController.text.trim(),
+        email: _emailController.text.trim(),
+        phone: _phoneController.text.trim(),
+        avatarPath: _localAvatarPath,
+      ),
+    );
+
+    setState(() {
+      _isSaving = false;
+      _isEditing = false;
+    });
+
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Profile updated successfully')),
+    );
+  }
+
+  // ── Logout overlay ────────────────────────────────────────────────────────
 
   void _logOutOverlay() {
     showModalBottomSheet(
@@ -53,27 +113,21 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     );
   }
 
-  void _saveProfile() {
-    setState(() => _isEditing = false);
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Profile updated successfully')),
-    );
-  }
+  // ── Field builder ─────────────────────────────────────────────────────────
 
   Widget _buildEditableField({
     required TextEditingController controller,
     required String label,
     required IconData icon,
     TextInputType keyboardType = TextInputType.text,
-    int maxLines = 1,
   }) {
+    final primary = Theme.of(context).colorScheme.primary;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
       child: TextField(
         controller: controller,
         enabled: _isEditing,
         keyboardType: keyboardType,
-        maxLines: maxLines,
         onTapOutside: (_) => FocusScope.of(context).unfocus(),
         style: Theme.of(context).textTheme.bodyMedium,
         decoration: InputDecoration(
@@ -81,7 +135,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           prefixIcon: Icon(icon, size: 20),
           filled: true,
           fillColor: _isEditing
-              ? Theme.of(context).colorScheme.primary.withOpacity(0.08)
+              ? primary.withOpacity(0.08)
               : Colors.grey.withOpacity(0.07),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
@@ -89,9 +143,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.primary.withOpacity(0.3),
-            ),
+            borderSide: BorderSide(color: primary.withOpacity(0.3)),
           ),
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
@@ -99,10 +151,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.primary,
-              width: 1.5,
-            ),
+            borderSide: BorderSide(color: primary, width: 1.5),
           ),
           contentPadding:
           const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
@@ -111,16 +160,32 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     );
   }
 
+  // ── Build ─────────────────────────────────────────────────────────────────
+
   @override
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).colorScheme.primary;
+    final profile = ref.watch(profileProvider);
+
+    final ImageProvider avatarImage = _localAvatarPath != null
+        ? FileImage(File(_localAvatarPath!))
+        : const AssetImage('assets/images/profilepic.png');
 
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Profile',
         backDestination: NavigationMenu(),
         actions: [
-          TextButton(
+          _isSaving
+              ? const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: SizedBox(
+              width: 20,
+              height: 20,
+              child: CircularProgressIndicator(strokeWidth: 2),
+            ),
+          )
+              : TextButton(
             onPressed: () {
               if (_isEditing) {
                 _saveProfile();
@@ -143,23 +208,17 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
         children: [
           const SizedBox(height: 24),
 
-          // ── Avatar ──────────────────────────────────────────
+          // ── Avatar ──────────────────────────────────────────────────────
           Center(
             child: Stack(
               children: [
-                CircleAvatar(
-                  radius: 60,
-                  backgroundImage:
-                  const AssetImage('assets/images/profilepic.png'),
-                ),
+                CircleAvatar(radius: 60, backgroundImage: avatarImage),
                 if (_isEditing)
                   Positioned(
                     bottom: 0,
                     right: 0,
                     child: GestureDetector(
-                      onTap: () {
-                        // TODO: image picker
-                      },
+                      onTap: _pickImage,
                       child: Container(
                         padding: const EdgeInsets.all(6),
                         decoration: BoxDecoration(
@@ -177,11 +236,11 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           ),
           const SizedBox(height: 12),
 
-          // Name display (non-edit mode)
+          // Name (non-edit mode)
           if (!_isEditing)
             Center(
               child: Text(
-                _nameController.text,
+                profile.fullName,
                 style: Theme.of(context).textTheme.titleLarge!.copyWith(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
@@ -191,7 +250,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
 
           const SizedBox(height: 20),
 
-          // ── Editable Fields ─────────────────────────────────
+          // ── Fields ──────────────────────────────────────────────────────
           _buildEditableField(
             controller: _nameController,
             label: 'Full Name',
@@ -209,23 +268,15 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             icon: Icons.phone_outlined,
             keyboardType: TextInputType.phone,
           ),
-          _buildEditableField(
-            controller: _bioController,
-            label: 'Bio',
-            icon: Icons.edit_note_outlined,
-            maxLines: 2,
-          ),
 
-          // Cancel button (only in edit mode)
+          // Cancel button
           if (_isEditing)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 4),
               child: TextButton(
-                onPressed: () => setState(() => _isEditing = false),
-                child: Text(
-                  'Cancel',
-                  style: TextStyle(color: Colors.grey[600]),
-                ),
+                onPressed: _cancelEdit,
+                child: Text('Cancel',
+                    style: TextStyle(color: Colors.grey[600])),
               ),
             ),
 
@@ -235,19 +286,15 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             child: Divider(color: Colors.grey[400], thickness: 1, height: 20),
           ),
 
-          // ── Settings List ────────────────────────────────────
+          // ── Settings ─────────────────────────────────────────────────────
           ListTile(
-            leading:
-            Image.asset('assets/icons/calendar.png', scale: 24),
-            title: Text(
-              'Manage Events',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium!
-                  .copyWith(fontWeight: FontWeight.w500),
-            ),
-            trailing:
-            Image.asset('assets/icons/arrowright.png', scale: 24),
+            leading: Image.asset('assets/icons/calendar.png', scale: 24),
+            title: Text('Manage Events',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .copyWith(fontWeight: FontWeight.w500)),
+            trailing: Image.asset('assets/icons/arrowright.png', scale: 24),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18),
@@ -257,8 +304,10 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           _buildNavTile(
             icon: 'assets/icons/notification.png',
             label: 'Notification',
-            onTap: () => Navigator.push(context,
-                MaterialPageRoute(builder: (_) => NotificationSettingScreen())),
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (_) => const NotificationSettingScreen())),
           ),
           _buildNavTile(
             icon: 'assets/icons/payment.png',
@@ -268,8 +317,10 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           _buildNavTile(
             icon: 'assets/icons/security.png',
             label: 'Security',
-            onTap: () => Navigator.push(context,
-                MaterialPageRoute(builder: (_) => SecuritySettingScreen())),
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (_) => const SecuritySettingScreen())),
           ),
 
           Padding(
@@ -277,13 +328,11 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             child: Divider(color: Colors.grey[400], thickness: 1, height: 20),
           ),
 
-          // Dark Mode Toggle
           SwitchListTile(
             value: ref.watch(themeProvider) == ThemeMode.dark,
-            onChanged: (value) {
-              ref.read(themeProvider.notifier).toggleTheme();
-            },
-            title: Text('Dark Mode'),
+            onChanged: (_) =>
+                ref.read(themeProvider.notifier).toggleTheme(),
+            title: const Text('Dark Mode'),
             secondary: Image.asset('assets/icons/moon.png', scale: 24),
             activeColor: Colors.white,
             activeTrackColor: primaryColor,
@@ -292,14 +341,18 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           _buildNavTile(
             icon: 'assets/icons/language.png',
             label: 'Language',
-            onTap: () => Navigator.push(context,
-                MaterialPageRoute(builder: (_) => LanguageSettingScreen())),
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (_) => const LanguageSettingScreen())),
           ),
           _buildNavTile(
             icon: 'assets/icons/help.png',
             label: 'Help Center',
-            onTap: () => Navigator.push(context,
-                MaterialPageRoute(builder: (_) => HelpCenterScreen())),
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (_) => const HelpCenterScreen())),
           ),
           _buildNavTile(
             icon: 'assets/icons/friends.png',
@@ -312,7 +365,6 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             onTap: () {},
           ),
 
-          // Logout
           GestureDetector(
             onTap: _logOutOverlay,
             child: ListTile(
@@ -342,13 +394,11 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
       onTap: onTap,
       child: ListTile(
         leading: Image.asset(icon, scale: 24),
-        title: Text(
-          label,
-          style: Theme.of(context)
-              .textTheme
-              .titleMedium!
-              .copyWith(fontWeight: FontWeight.w500),
-        ),
+        title: Text(label,
+            style: Theme.of(context)
+                .textTheme
+                .titleMedium!
+                .copyWith(fontWeight: FontWeight.w500)),
         trailing: Image.asset('assets/icons/arrowright.png', scale: 24),
       ),
     );

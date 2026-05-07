@@ -1,48 +1,60 @@
+
 import 'package:flutter/material.dart';
 
 class ProfileField extends StatelessWidget {
-  final String text;
+  final TextEditingController? controller;
+  final String? text; // kept for backward compat
+  final String? label;
   final IconData? suffixIcon;
   final Widget? prefixWidget;
+  final TextInputType? keyboardType;
+  final bool readOnly;
+  final VoidCallback? onTap;
+  final VoidCallback? onSuffixTap;
+  final String? Function(String?)? validator;
 
   const ProfileField({
     super.key,
-    required this.text,
+    this.controller,
+    this.text,
+    this.label,
     this.suffixIcon,
     this.prefixWidget,
+    this.keyboardType,
+    this.readOnly = false,
+    this.onTap,
+    this.onSuffixTap,
+    this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
-      decoration: BoxDecoration(
-        color:Color(0xFFAAAAAA).withOpacity(0.15),
-        borderRadius: BorderRadius.circular(14),
-      ),
-      child: Row(
-        children: [
-          if (prefixWidget != null) ...[
-            prefixWidget!,
-            const SizedBox(width: 8),
-          ],
-
-          Expanded(
-            child: Text(
-              text,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                fontWeight: FontWeight.w800
-              )
-            ),
-          ),
-
-          if (suffixIcon != null)
-            Icon(
-              suffixIcon,
-              size: 18,
-              color: Colors.black,
-            ),
-        ],
+    return TextFormField(
+      controller: controller ?? TextEditingController(text: text),
+      readOnly: readOnly,
+      keyboardType: keyboardType,
+      onTap: onTap,
+      validator: validator,
+      decoration: InputDecoration(
+        labelText: label,
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+        contentPadding:
+        const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        prefixIcon: prefixWidget != null
+            ? Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: prefixWidget,
+        )
+            : null,
+        prefixIconConstraints: prefixWidget != null
+            ? const BoxConstraints(minWidth: 0, minHeight: 0)
+            : null,
+        suffixIcon: suffixIcon != null
+            ? GestureDetector(
+          onTap: onSuffixTap,
+          child: Icon(suffixIcon),
+        )
+            : null,
       ),
     );
   }

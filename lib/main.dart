@@ -1,3 +1,4 @@
+import 'package:eventie/customer/navigation.dart';
 import 'package:eventie/organizer/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -29,7 +30,7 @@ class MyApp extends ConsumerWidget {
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: themeMode,
-      home: BottomNav(),
+      home:BottomNav(),
     );
   }
 }
