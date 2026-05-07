@@ -10,7 +10,7 @@ import 'package:eventie/widgets/log_out.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../common/profile_provider.dart';
+import '../../common/providers/profile_provider.dart';
 
 class ProfilePage extends ConsumerStatefulWidget {
   const ProfilePage({super.key});
@@ -160,7 +160,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     );
   }
 
-  // ── Build ─────────────────────────────────────────────────────────────────
+  // ── Build
 
   @override
   Widget build(BuildContext context) {
@@ -250,7 +250,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
 
           const SizedBox(height: 20),
 
-          // ── Fields ──────────────────────────────────────────────────────
+          // Fields
           _buildEditableField(
             controller: _nameController,
             label: 'Full Name',
@@ -286,7 +286,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             child: Divider(color: Colors.grey[400], thickness: 1, height: 20),
           ),
 
-          // ── Settings ─────────────────────────────────────────────────────
+          // ── Settings
           ListTile(
             leading: Image.asset('assets/icons/calendar.png', scale: 24),
             title: Text('Manage Events',

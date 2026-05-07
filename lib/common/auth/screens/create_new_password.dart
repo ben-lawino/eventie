@@ -1,4 +1,4 @@
-import 'package:eventie/common/login/signin.dart';
+import 'package:eventie/common/auth/screens/signin.dart';
 import 'package:eventie/widgets/button.dart';
 import 'package:eventie/widgets/custom_app_bar.dart';
 import 'package:eventie/widgets/login_text_field.dart';

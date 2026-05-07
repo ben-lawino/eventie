@@ -6,6 +6,7 @@ class LoginTextField extends StatelessWidget {
   final bool isPassword;
   final TextEditingController? controller;
   final Widget? suffix;
+  final String? Function(String?)? validator;
 
   const LoginTextField({
     super.key,
@@ -14,6 +15,7 @@ class LoginTextField extends StatelessWidget {
     this.isPassword = false,
     this.controller,
     this.suffix,
+    this.validator
   });
 
   @override

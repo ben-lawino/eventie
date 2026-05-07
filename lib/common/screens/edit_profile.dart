@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
-import '../profile_provider.dart';
+import '../providers/profile_provider.dart';
 
 class EditProfileScreen extends ConsumerStatefulWidget {
   const EditProfileScreen({super.key});
@@ -19,7 +19,6 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   final _formKey = GlobalKey<FormState>();
 
   late TextEditingController _fullNameCtrl;
-  late TextEditingController _firstNameCtrl;
   late TextEditingController _dobCtrl;
   late TextEditingController _emailCtrl;
   late TextEditingController _phoneCtrl;
@@ -66,7 +65,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     if (picked != null) setState(() => _avatarPath = picked.path);
   }
 
-  // ── Date picker ───────────────────────────────────────────────────────────
+  // ── Date picker
 
   Future<void> _pickDate() async {
     final initial = _parseDate(_dobCtrl.text) ?? DateTime(1990);
@@ -89,7 +88,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     }
   }
 
-  // ── Save ──────────────────────────────────────────────────────────────────
+  // ── Save
 
   Future<void> _save() async {
     if (!_formKey.currentState!.validate()) return;
@@ -120,7 +119,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     Navigator.pop(context);
   }
 
-  // ── Validators ────────────────────────────────────────────────────────────
+  // ── Validators
 
   String? _requiredValidator(String? v) =>
       (v == null || v.trim().isEmpty) ? 'This field is required' : null;
@@ -137,7 +136,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     return digits.length < 9 ? 'Enter a valid phone number' : null;
   }
 
-  // ── Build ─────────────────────────────────────────────────────────────────
+  // ── Build
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +150,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
           padding: const EdgeInsets.all(18),
           child: Column(
             children: [
-              // ── Avatar ──────────────────────────────────────────────────
+              // ── Avatar
               Stack(
                 children: [
                   CircleAvatar(
@@ -181,7 +180,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
 
               const SizedBox(height: 20),
 
-              // ── Full name ────────────────────────────────────────────────
+              // ── Full name
               ProfileField(
                 controller: _fullNameCtrl,
                 label: 'Full Name',
@@ -189,7 +188,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               ),
               const SizedBox(height: 15),
 
-              // ── Date of birth ────────────────────────────────────────────
+              // ── Date of birth
               ProfileField(
                 controller: _dobCtrl,
                 label: 'Date of Birth',
@@ -201,7 +200,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               ),
               const SizedBox(height: 15),
 
-              // ── Gender dropdown ──────────────────────────────────────────
+              // ── Gender dropdown
               DropdownButtonFormField<String>(
                 value: _selectedGender,
                 decoration: _dropdownDecoration('Gender'),
@@ -213,7 +212,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               ),
               const SizedBox(height: 15),
 
-              // ── Email ────────────────────────────────────────────────────
+              // ── Email
               ProfileField(
                 controller: _emailCtrl,
                 label: 'Email',
@@ -223,7 +222,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               ),
               const SizedBox(height: 15),
 
-              // ── Phone ────────────────────────────────────────────────────
+              // ── Phone
               ProfileField(
                 controller: _phoneCtrl,
                 label: 'Phone',
@@ -233,7 +232,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               ),
               const SizedBox(height: 15),
 
-              // ── Country dropdown ─────────────────────────────────────────
+              // ── Country dropdown
               DropdownButtonFormField<String>(
                 value: _selectedCountry,
                 decoration: _dropdownDecoration('Country'),
@@ -245,7 +244,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               ),
               const SizedBox(height: 30),
 
-              // ── Save button ──────────────────────────────────────────────
+              // ── Save button
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(

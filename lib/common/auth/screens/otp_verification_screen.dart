@@ -1,9 +1,9 @@
-import 'package:eventie/common/login/signin.dart';
+import 'package:eventie/common/auth/screens/signin.dart';
 import 'package:eventie/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-import '../../widgets/button.dart';
+import '../../../widgets/button.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
   const OtpVerificationScreen({super.key});

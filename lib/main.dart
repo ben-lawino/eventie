@@ -1,19 +1,22 @@
+import 'package:eventie/common/auth/screens/welcome_screen.dart';
 import 'package:eventie/customer/navigation.dart';
 import 'package:eventie/organizer/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'common/auth/screens/signin.dart';
 import 'common/providers/theme_provider.dart';
 import 'common/theme/app_theme.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-
-void main() {
+void main() async {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
     ),
   );
+  await dotenv.load();
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -30,7 +33,7 @@ class MyApp extends ConsumerWidget {
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: themeMode,
-      home:BottomNav(),
+      home: BottomNav(),
     );
   }
 }

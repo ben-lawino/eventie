@@ -1,21 +1,24 @@
+import 'dart:io';
 import 'package:eventie/organizer/bottom_nav.dart';
-import 'package:eventie/widgets/button.dart';
 import 'package:eventie/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
-
+import '../../common/providers/profile_provider.dart';
+import '../../common/providers/theme_provider.dart';
 import '../../common/screens/edit_profile.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  ConsumerState<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).colorScheme.primary;
+    final profile = ref.watch(profileProvider);
 
     return Scaffold(
       appBar: CustomAppBar(title: 'Profile', backDestination: BottomNav()),
@@ -27,16 +30,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 CircleAvatar(
                   radius: 40,
-                  backgroundImage: AssetImage(
-                    'assets/images/profilepic.png',
-                  ),
+                  backgroundImage: profile.avatarPath != null
+                      ? FileImage(File(profile.avatarPath!))
+                      : const AssetImage('assets/images/profilepic.png')
+                  as ImageProvider,
                 ),
                 SizedBox(width: 20),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Ben lawin',
+                      profile.fullName,
                       style: Theme.of(context).textTheme.titleMedium!.copyWith(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
@@ -77,7 +81,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     context,
                   ).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w500),
                 ),
-                trailing: Image.asset('assets/icons/arrowright.png', scale: 24),
+                trailing: Image.asset('assets/icons/arrowright.png', scale: 24,
+                color: primaryColor.withOpacity(0.15),),
               ),
             ),
             ListTile(
@@ -102,15 +107,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             Divider(color: Colors.grey[400], thickness: 1, height: 20),
             SwitchListTile(
-              value: false,
-              onChanged: (value) {},
-              title: Text(
-                'Dark Mode',
-                style: Theme.of(
-                  context,
-                ).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w500),
-              ),
+              value: ref.watch(themeProvider) == ThemeMode.dark,
+              onChanged: (_) =>
+                  ref.read(themeProvider.notifier).toggleTheme(),
+              title: const Text('Dark Mode'),
               secondary: Image.asset('assets/icons/moon.png', scale: 24),
+              activeColor: Colors.white,
+              activeTrackColor: primaryColor,
             ),
             ListTile(
               leading: Image.asset('assets/icons/language.png', scale: 24),

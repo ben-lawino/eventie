@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../data/models/profile_model.dart';
+import '../../data/models/profile_model.dart';
 
 
 class ProfileNotifier extends StateNotifier<ProfileModel> {
@@ -12,6 +12,7 @@ class ProfileNotifier extends StateNotifier<ProfileModel> {
     email: 'lawinwes@gmail.com',
     phone: '+254 700628088',
     country: 'Kenya',
+    avatarPath: null,
   ));
 
   void update(ProfileModel updated) => state = updated;

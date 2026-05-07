@@ -1,9 +1,8 @@
-import 'package:eventie/common/login/signin.dart';
-import 'package:eventie/widgets/custom_app_bar.dart';
+import 'package:eventie/common/auth/screens/signin.dart';
 import 'package:eventie/widgets/login_text_field.dart';
 import 'package:flutter/material.dart';
 
-import '../../widgets/button.dart';
+import '../../../widgets/button.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
