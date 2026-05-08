@@ -3,7 +3,9 @@ import 'package:eventie/customer/navigation.dart';
 import 'package:eventie/organizer/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../widgets/onboarding.dart';
 import '../providers/role_provider.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
@@ -19,6 +21,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   late Animation<double> _fadeAnimation;
   late Animation<double> _scaleAnimation;
 
+
   @override
   void initState() {
     super.initState();
@@ -26,7 +29,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     _navigate();
   }
 
-  // ── Animations ────────────────────────────────────────────────────────────
+  // ── Animations
 
   void _setupAnimations() {
     _animationController = AnimationController(
@@ -51,10 +54,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     _animationController.forward();
   }
 
-  // ── Check role and navigate ───────────────────────────────────────────────
-
+  // ── Check role and navigate
+  final _onboardingKey = 'has_seen_onboarding';
   Future<void> _navigate() async {
-    // Run the 2 second wait and role load in parallel
     await Future.wait([
       Future.delayed(const Duration(seconds: 2)),
       ref.read(roleProvider.notifier).loadRole(),
@@ -62,15 +64,21 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
     if (!mounted) return;
 
+    final prefs = await SharedPreferences.getInstance();
+    final hasSeenOnboarding = prefs.getBool(_onboardingKey) ?? false;
     final role = ref.read(roleProvider);
 
     Widget destination;
-    if (role == 'organizer') {
+
+    if (!hasSeenOnboarding) {
+      // First time ever — show onboarding
+      destination = const OnboardingScreen();
+    } else if (role == 'organizer') {
       destination = const BottomNav();
     } else if (role == 'customer') {
       destination = const NavigationMenu();
     } else {
-      // No saved role — first time user
+      // Seen onboarding but not signed up yet
       destination = const WelcomeScreen();
     }
 

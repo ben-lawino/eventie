@@ -168,7 +168,7 @@ class _RoleCard extends StatelessWidget {
                 shape: BoxShape.circle,
               ),
               child: Center(
-                child: Image.asset(icon, scale: 26, color: primaryColor),
+                child: Image.asset(icon, scale: 24, color: primaryColor,),
               ),
             ),
             const SizedBox(width: 16),
@@ -181,6 +181,7 @@ class _RoleCard extends StatelessWidget {
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
+                      color: primaryColor
                     ),
                   ),
                   const SizedBox(height: 4),
