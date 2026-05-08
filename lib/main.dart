@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'common/auth/screens/signin.dart';
 import 'common/providers/theme_provider.dart';
+import 'common/services/notification_service.dart';
 import 'common/theme/app_theme.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -18,6 +19,9 @@ void main() async {
     ),
   );
   await dotenv.load();
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await NotificationService.initialize();
   runApp(const ProviderScope(child: MyApp()));
 }
 

@@ -20,14 +20,14 @@ class SecuritySettingScreen extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: 10),
-              const SettingTile(
-                title: "Remember me",
-                value: true,
-              ),
-              const SettingTile(
-                title: 'Biometric ID',
-                value: true,
-              ),
+              // const SettingTile(
+              //   title: "Remember me",
+              //   value: true,
+              // ),
+              // const SettingTile(
+              //   title: 'Biometric ID',
+              //   value: true,
+              // ),
               const SizedBox(height: 25),
               Button(
                   width: double.infinity,

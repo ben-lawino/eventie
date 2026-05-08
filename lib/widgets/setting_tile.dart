@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class SettingTile extends StatelessWidget {
   final String title;
   final bool value;
+  final ValueChanged<bool>? onChanged;
 
   const SettingTile({
     super.key,
     required this.title,
     required this.value,
+    required this.onChanged,
   });
 
   @override
@@ -19,15 +21,17 @@ class SettingTile extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            title,
-            style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  fontWeight: FontWeight.w500,
-                ),
+          Expanded(
+            child: Text(
+              title,
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                fontWeight: FontWeight.w500,
+              ),
+            ),
           ),
           Switch(
             value: value,
-            onChanged: (val) {},
+            onChanged: onChanged,
             activeColor: Colors.white,
             activeTrackColor: primaryColor,
           ),
