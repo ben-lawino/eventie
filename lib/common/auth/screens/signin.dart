@@ -105,7 +105,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    Image.asset('assets/icons/applogo.png', scale: 8),
+                    Image.asset('assets/icons/applogo.png', scale: 5),
 
                     Text(
                       'Login',

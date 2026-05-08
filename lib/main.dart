@@ -1,3 +1,4 @@
+import 'package:eventie/common/auth/screens/splash_screen.dart';
 import 'package:eventie/common/auth/screens/welcome_screen.dart';
 import 'package:eventie/customer/navigation.dart';
 import 'package:eventie/organizer/bottom_nav.dart';
@@ -33,7 +34,7 @@ class MyApp extends ConsumerWidget {
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: themeMode,
-      home: BottomNav(),
+      home: SplashScreen(),
     );
   }
 }

@@ -4,12 +4,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 const _roleKey = 'user_role';
 
 class RoleNotifier extends StateNotifier<String?> {
-  RoleNotifier() : super(null) {
-    _loadSavedRole();
-  }
+  RoleNotifier() : super(null);
 
-  //  Load saved role on app start
-  Future<void> _loadSavedRole() async {
+  // Load saved role from SharedPreferences
+  Future<void> loadRole() async {
     final prefs = await SharedPreferences.getInstance();
     state = prefs.getString(_roleKey);
   }
@@ -19,14 +17,14 @@ class RoleNotifier extends StateNotifier<String?> {
     state = role;
   }
 
-  // Called after successful sign up — persists role locally
+  // Called after successful sign up
   Future<void> saveRole(String role) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_roleKey, role);
     state = role;
   }
 
-  // Called after sign out — clears everything
+  // Called after sign out
   Future<void> clearRole() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_roleKey);

@@ -27,8 +27,9 @@ class WelcomeScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(18),
           child: Column(
             children: [
+              SizedBox(height: 50,),
               // ── Logo
-              Image.asset('assets/icons/applogo.png', scale: 6),
+              Image.asset('assets/icons/applogo.png', scale: 4),
 
               // ── App name
               Text(

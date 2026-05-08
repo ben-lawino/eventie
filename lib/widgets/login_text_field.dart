@@ -15,22 +15,24 @@ class LoginTextField extends StatelessWidget {
     this.isPassword = false,
     this.controller,
     this.suffix,
-    this.validator
+    this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: controller,
       obscureText: isPassword,
+      validator: validator,
       decoration: InputDecoration(
         hintText: hintText,
-        prefixIcon: Icon(icon,
-          color: Colors.grey[500],),
+        prefixIcon: Icon(icon, color: Colors.grey[500]),
         suffixIcon: suffix,
         filled: true,
-        fillColor:  Color(0xFFAAAAAA).withOpacity(0.1),
-        hintStyle: Theme.of(context).textTheme.labelMedium!
+        fillColor: const Color(0xFFAAAAAA).withOpacity(0.1),
+        hintStyle: Theme.of(context)
+            .textTheme
+            .labelMedium!
             .copyWith(color: Colors.grey[500], fontSize: 14),
         contentPadding: const EdgeInsets.symmetric(vertical: 18),
         border: OutlineInputBorder(
