@@ -2,18 +2,18 @@ import 'package:eventie/customer/screens/mini_screens/review_summary.dart';
 import 'package:eventie/widgets/button.dart';
 import 'package:eventie/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
-
 import '../../../data/models/booking_model.dart';
-
 
 class PaymentMethodScreen extends StatefulWidget {
   final BookingModel booking;
   final double amount;
   final String phone;
-  const PaymentMethodScreen({super.key,
+
+  const PaymentMethodScreen({
+    super.key,
     required this.amount,
     required this.phone,
-    required this.booking
+    required this.booking,
   });
 
   @override
@@ -22,13 +22,25 @@ class PaymentMethodScreen extends StatefulWidget {
 
 class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
   String _selectedPayment = 'M-pesa';
-
   final TextEditingController _phoneController = TextEditingController();
+
 
   @override
   void dispose() {
     _phoneController.dispose();
     super.dispose();
+  }
+
+  bool _isValidMpesaNumber(String number) {
+    final cleaned = number.replaceAll(' ', '');
+
+    // local format: 07XX or 01XX (10 digits)
+    final localFormat = RegExp(r'^0[17]\d{8}$');
+
+    // international format: +2547XX or +2541XX
+    final intlFormat = RegExp(r'^\+2547\d{8}$|^\+2541\d{8}$');
+
+    return localFormat.hasMatch(cleaned) || intlFormat.hasMatch(cleaned);
   }
 
   @override
@@ -39,13 +51,8 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
       resizeToAvoidBottomInset: true,
       appBar: CustomAppBar(
         title: 'Payment Method',
-        onBackPressed: ()=>Navigator.pop(context),
-      ), bottomNavigationBar: Padding(
-          padding: EdgeInsets.only(
-            left: 18,
-            right: 18,
-            bottom: MediaQuery.of(context).viewInsets.bottom + 18, // moves up with keyboard
-          ),),
+        onBackPressed: () => Navigator.pop(context),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(18.0),
@@ -65,7 +72,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                       ),
                       const SizedBox(height: 30),
 
-                      // M-Pesa Option
+                      // M-Pesa option
                       _buildPaymentOption(
                         image: Image.asset(
                           'assets/icons/mpesa.png',
@@ -75,20 +82,18 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                         label: 'M-pesa',
                         value: 'M-pesa',
                       ),
-
                       const SizedBox(height: 24),
 
-                      // 🔥 SHOW PHONE FIELD ONLY IF MPESA SELECTED
+                      // Phone field shown only when M-pesa is selected
                       if (isMpesa) ...[
                         Text(
-                          "Enter phone number",
+                          'Enter M-Pesa phone number',
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium!
                               .copyWith(fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 10),
-
                         Container(
                           decoration: BoxDecoration(
                             color: Theme.of(context)
@@ -100,17 +105,29 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                           child: TextField(
                             controller: _phoneController,
                             keyboardType: TextInputType.phone,
+                            onTapOutside: (_) =>
+                                FocusScope.of(context).unfocus(),
                             decoration: const InputDecoration(
-                              hintText: 'e.g. 07XXXXXXXX',
+                              hintText: 'e.g. 0712345678',
                               border: InputBorder.none,
                               contentPadding: EdgeInsets.symmetric(
                                 horizontal: 16,
                                 vertical: 14,
                               ),
                             ),
-                            onTapOutside: (phoneNumber) {
-                              FocusScope.of(context).unfocus();
-                            },
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Safaricom numbers only (07XX or 01XX)',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withOpacity(0.45),
                           ),
                         ),
                       ],
@@ -119,25 +136,31 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                 ),
               ),
 
-              //CONTINUE BUTTON
+              // Continue button
               Button(
                 onPressed: () {
-                  // VALIDATION
-                  if (_selectedPayment == 'M-pesa' &&
-                      _phoneController.text.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text("Enter phone number"),
-                      ),
-                    );
-                    return;
+                  if (_selectedPayment == 'M-pesa') {
+                    if (_phoneController.text.trim().isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Enter phone number")),
+                      );
+                      return;
+                    }
+
+                    if (!_isValidMpesaNumber(_phoneController.text.trim())) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Enter a valid Safaricom number"),
+                        ),
+                      );
+                      return;
+                    }
                   }
 
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ReviewSummary(
-                      ),
+                      builder: (context) => ReviewSummary(),
                     ),
                   );
                 },
@@ -169,14 +192,10 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: isSelected
-              ? primaryColor.withOpacity(0.15)
-              : Colors.grey[50],
+          color: isSelected ? primaryColor.withOpacity(0.15) : Colors.grey[50],
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: isSelected
-                ? primaryColor
-                : Colors.transparent,
+            color: isSelected ? primaryColor : Colors.transparent,
             width: 2,
           ),
         ),
@@ -184,7 +203,6 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
           children: [
             image,
             const SizedBox(width: 16),
-
             Expanded(
               child: Text(
                 label,
@@ -195,14 +213,9 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                 ),
               ),
             ),
-
             Icon(
-              isSelected
-                  ? Icons.radio_button_checked
-                  : Icons.radio_button_off,
-              color: isSelected
-                  ? primaryColor
-                  : Colors.grey,
+              isSelected ? Icons.radio_button_checked : Icons.radio_button_off,
+              color: isSelected ? primaryColor : Colors.grey,
             ),
           ],
         ),

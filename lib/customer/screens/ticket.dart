@@ -1,10 +1,7 @@
 import 'package:eventie/customer/navigation.dart';
-import 'package:eventie/customer/screens/home.dart';
 import 'package:eventie/customer/screens/tab_screens/cancelled.dart';
 import 'package:eventie/customer/screens/tab_screens/completed.dart';
 import 'package:eventie/customer/screens/tab_screens/upcoming.dart';
-import 'package:eventie/data/categories.dart';
-import 'package:eventie/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class TicketPage extends StatelessWidget {

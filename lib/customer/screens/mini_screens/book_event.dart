@@ -2,19 +2,27 @@ import 'package:eventie/data/models/event_model.dart';
 import 'package:flutter/material.dart';
 import '../tab_screens/economy.dart';
 
-class BookEvent extends StatefulWidget {
+class BookEvent extends StatelessWidget {
   final EventModel event;
 
   const BookEvent({super.key, required this.event});
 
   @override
-  State<BookEvent> createState() => _BookEventState();
-}
-
-class _BookEventState extends State<BookEvent> {
-  @override
   Widget build(BuildContext context) {
-    final tickets = widget.event.tickets;
+    final tickets = event.tickets;
+    if (tickets.isEmpty) {
+      return Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(Icons.arrow_back_rounded),
+          ),
+        ),
+        body: const Center(
+          child: Text('No tickets available for this event.'),
+        ),
+      );
+    }
 
     return DefaultTabController(
       length: tickets.length, // dynamic
@@ -58,7 +66,7 @@ class _BookEventState extends State<BookEvent> {
           child: TabBarView(
             children: tickets.map((ticket) {
               return Economy(
-                event: widget.event,
+                event: event,
                 ticket: ticket,
               );
             }).toList(),

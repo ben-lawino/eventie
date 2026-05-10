@@ -2,6 +2,7 @@ import 'package:eventie/customer/screens/mini_screens/payment_method.dart';
 import 'package:eventie/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl_mobile_field/intl_mobile_field.dart';
 import '../../../data/models/booking_model.dart';
 import '../../../data/models/event_model.dart';
 import '../../../data/models/ticket_model.dart';
@@ -13,6 +14,7 @@ class BookEventDetail extends ConsumerStatefulWidget {
   final TicketModel ticket;
   final int quantity;
   final double total;
+
   const BookEventDetail({
     super.key,
     required this.event,
@@ -28,17 +30,50 @@ class BookEventDetail extends ConsumerStatefulWidget {
 class _BookEventScreenState extends ConsumerState<BookEventDetail> {
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
 
   String _selectedGender = 'Male';
   bool _acceptTerms = false;
+  String _completePhone = '';
 
   @override
   void dispose() {
     _fullNameController.dispose();
     _emailController.dispose();
-    _phoneController.dispose();
     super.dispose();
+  }
+
+  bool _validate() {
+    if (_fullNameController.text.trim().isEmpty ||
+        _emailController.text.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please fill all required fields")),
+      );
+      return false;
+    }
+
+    if (!RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$')
+        .hasMatch(_emailController.text.trim())) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please enter a valid email")),
+      );
+      return false;
+    }
+
+    if (_completePhone.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please enter a valid phone number")),
+      );
+      return false;
+    }
+
+    if (!_acceptTerms) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please accept terms")),
+      );
+      return false;
+    }
+
+    return true;
   }
 
   @override
@@ -47,17 +82,15 @@ class _BookEventScreenState extends ConsumerState<BookEventDetail> {
     final isKeyboardOpen = bottomInset > 0;
 
     return Scaffold(
-      resizeToAvoidBottomInset: true, //  scaffold shrinks with keyboard
+      resizeToAvoidBottomInset: true,
       appBar: CustomAppBar(
         title: 'Book Event',
-        onBackPressed: () {
-          Navigator.pop(context);
-        },
+        onBackPressed: () => Navigator.pop(context),
       ),
       body: SafeArea(
         child: Column(
           children: [
-            // Scrollable fields section
+            // Scrollable fields
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.fromLTRB(18, 18, 18, 0),
@@ -73,14 +106,14 @@ class _BookEventScreenState extends ConsumerState<BookEventDetail> {
                     ),
                     const SizedBox(height: 28),
 
-                    // Full Name
+                    // Full name
                     _buildTextField(
                       controller: _fullNameController,
                       hintText: 'Full Name',
                     ),
                     const SizedBox(height: 24),
 
-                    // Gender Dropdown
+                    // Gender
                     _buildDropdownField(
                       value: _selectedGender,
                       items: ['Male', 'Female'],
@@ -102,20 +135,59 @@ class _BookEventScreenState extends ConsumerState<BookEventDetail> {
                     const SizedBox(height: 24),
 
                     // Phone
-                    _buildPhoneField(),
+                    IntlMobileField(
+                      initialCountryCode: 'KE',
+                      favorite: const ['KE', 'UG', 'TZ', 'RW'],
+                      languageCode: 'en',
+                      disableLengthCounter: true,
+
+                      autovalidateMode: AutovalidateMode.disabled,
+
+                      invalidNumberMessage: 'Enter a valid phone number',
+
+                      decoration: InputDecoration(
+                        hintText: '712345678',
+                        filled: true,
+                        fillColor: Theme.of(context).cardColor,
+
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                            color: Colors.grey.shade300,
+                          ),
+                        ),
+
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.primary,
+                            width: 1.5,
+                          ),
+                        ),
+                      ),
+
+                      onChanged: (phone) {
+                        _completePhone = phone.completeNumber;
+                      },
+                    ),
                     const SizedBox(height: 16),
                   ],
                 ),
               ),
             ),
 
-            // Pinned bottom section (terms + button)
+            // Pinned bottom
             Padding(
-              padding: EdgeInsets.fromLTRB(18, 0, 18, isKeyboardOpen ? 12 : 40),
+              padding:
+              EdgeInsets.fromLTRB(18, 0, 18, isKeyboardOpen ? 12 : 40),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Terms and Conditions
+                  // Terms
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -191,36 +263,17 @@ class _BookEventScreenState extends ConsumerState<BookEventDetail> {
                   ),
                   const SizedBox(height: 16),
 
-                  // Continue Button
+                  // Continue button
                   Button(
                     onPressed: () {
-                      // Validation
-                      if (_fullNameController.text.isEmpty ||
-                          _emailController.text.isEmpty ||
-                          _phoneController.text.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                              content:
-                              Text("Please fill all required fields")),
-                        );
-                        return;
-                      }
+                      if (!_validate()) return;
 
-                      if (!_acceptTerms) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                              content: Text("Please accept terms")),
-                        );
-                        return;
-                      }
-
-                      // Create booking
                       final booking = BookingModel(
-                        id: DateTime.now().toString(),
-                        fullName: _fullNameController.text,
-                        phone: _phoneController.text,
-                        email: _emailController.text,
-                        userId: "user123",
+                        id: DateTime.now().millisecondsSinceEpoch.toString(), // TODO: use uuid
+                        fullName: _fullNameController.text.trim(),
+                        phone: _completePhone,
+                        email: _emailController.text.trim(),
+                        userId: "user123", // TODO: replace with auth user id
                         eventId: widget.event.id,
                         ticketId: widget.ticket.id,
                         quantity: widget.quantity,
@@ -229,17 +282,15 @@ class _BookEventScreenState extends ConsumerState<BookEventDetail> {
                         status: "pending",
                       );
 
-                      // Save to provider
                       ref.read(bookingProvider.notifier).addBooking(booking);
 
-                      // Go to payment
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => PaymentMethodScreen(
                             booking: booking,
                             amount: widget.total,
-                            phone: _phoneController.text,
+                            phone: _completePhone,
                           ),
                         ),
                       );
@@ -268,7 +319,7 @@ class _BookEventScreenState extends ConsumerState<BookEventDetail> {
       readOnly: readOnly,
       onTap: onTap,
       keyboardType: keyboardType,
-      onTapOutside: (_) => FocusScope.of(context).unfocus(), // added globally
+      onTapOutside: (_) => FocusScope.of(context).unfocus(),
       style: const TextStyle(fontSize: 15, color: Colors.black87),
       decoration: InputDecoration(
         hintText: hintText,
@@ -327,54 +378,13 @@ class _BookEventScreenState extends ConsumerState<BookEventDetail> {
               child: Text(
                 item,
                 style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                  color:
-                  Theme.of(context).colorScheme.onPrimaryContainer,
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             );
           }).toList(),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPhoneField() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(12),
-      child: Container(
-        color: Theme.of(context).colorScheme.primary.withOpacity(0.15),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Row(
-                children: [
-                  Image.asset('assets/icons/kenya.png', width: 20, height: 20),
-                  const SizedBox(width: 4),
-                  Icon(Icons.arrow_drop_down, color: Colors.grey[600]),
-                ],
-              ),
-            ),
-            Expanded(
-              child: TextField(
-                controller: _phoneController,
-                keyboardType: TextInputType.phone,
-                onTapOutside: (_) => FocusScope.of(context).unfocus(),
-                style: const TextStyle(fontSize: 15, color: Colors.black87),
-                decoration: InputDecoration(
-                  hintText: 'Phone Number',
-                  hintStyle: TextStyle(fontSize: 15, color: Colors.grey[600]),
-                  border: InputBorder.none,
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 0,
-                    vertical: 16,
-                  ),
-                ),
-              ),
-            ),
-          ],
         ),
       ),
     );

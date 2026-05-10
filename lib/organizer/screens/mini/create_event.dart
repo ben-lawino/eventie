@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:eventie/data/models/ticket_model.dart';
 import 'package:eventie/organizer/providers/event_provider.dart';
-import 'package:eventie/organizer/screens/dashboard.dart';
 import 'package:eventie/widgets/button.dart';
 import 'package:eventie/widgets/custom_app_bar.dart';
 import 'package:eventie/widgets/custom_text_field.dart';

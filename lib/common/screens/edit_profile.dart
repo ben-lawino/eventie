@@ -54,7 +54,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     super.dispose();
   }
 
-  // ── Image picker ──────────────────────────────────────────────────────────
+  // ── Image picker
 
   Future<void> _pickImage() async {
     final picker = ImagePicker();

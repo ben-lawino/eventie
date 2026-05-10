@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:eventie/widgets/button.dart';
 import 'package:eventie/widgets/custom_app_bar.dart';
 import 'package:eventie/widgets/payment_card.dart';
@@ -5,8 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../../../data/dummy_data.dart';
+import '../../../data/models/booking_model.dart';
 import '../../providers/booking_provider.dart';
-import 'e_ticket_screen.dart'; // temporary for event lookup
+import 'e_ticket_screen.dart';
 
 class ReviewSummary extends ConsumerStatefulWidget {
   const ReviewSummary({super.key});
@@ -19,12 +21,21 @@ class _ReviewSummaryState extends ConsumerState<ReviewSummary> {
   bool _isLoading = false;
 
   Future<void> _payWithMpesa() async {
+    final bookings = ref.read(bookingProvider);
+    final booking = bookings.last;
+
+    // TODO: trigger real M-Pesa STK push here
     await Future.delayed(const Duration(seconds: 2));
+
+    ref.read(bookingProvider.notifier).updateBooking(
+      booking.id,
+      booking.copyWith(status: 'paid'),
+    );
+
     _showSuccessDialog();
   }
 
   void _showSuccessDialog() {
-    // capture booking before dialog opens
     final bookings = ref.read(bookingProvider);
     final booking = bookings.last;
 
@@ -40,8 +51,11 @@ class _ReviewSummaryState extends ConsumerState<ReviewSummary> {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.check_circle,
-                  size: 80, color: Theme.of(context).colorScheme.primary),
+              Icon(
+                Icons.check_circle,
+                size: 80,
+                color: Theme.of(context).colorScheme.primary,
+              ),
               const SizedBox(height: 20),
               const Text(
                 'Successful!',
@@ -56,8 +70,8 @@ class _ReviewSummaryState extends ConsumerState<ReviewSummary> {
               Button(
                 width: double.infinity,
                 onPressed: () {
-                  Navigator.pop(context); // close dialog
-                  Navigator.pushReplacement(  // ← go to e-ticket
+                  Navigator.pop(context);
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (_) => ETicketScreen(booking: booking),
@@ -75,15 +89,25 @@ class _ReviewSummaryState extends ConsumerState<ReviewSummary> {
 
   @override
   Widget build(BuildContext context) {
-    /// bookings from provider
     final bookings = ref.watch(bookingProvider);
+
+    // guard empty state
+    if (bookings.isEmpty) {
+      return const Scaffold(
+        body: Center(child: Text('No booking found')),
+      );
+    }
 
     final booking = bookings.last;
 
-    ///  map event (replace later with DB)
-    final event = dummyEvents.firstWhere(
-          (e) => e.id == booking.eventId,
-    );
+    // TODO: replace with Firestore lookup
+    final event = dummyEvents.firstWhereOrNull((e) => e.id == booking.eventId);
+
+    if (event == null) {
+      return const Scaffold(
+        body: Center(child: Text('Event not found')),
+      );
+    }
 
     final formattedDate =
     DateFormat('EEE, MMM d, HH:mm').format(event.eventDate);
@@ -91,25 +115,17 @@ class _ReviewSummaryState extends ConsumerState<ReviewSummary> {
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Review & Payment',
-        onBackPressed: ()=>Navigator.pop(context),
+        onBackPressed: () => Navigator.pop(context),
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
         child: Button(
-          onPressed: _isLoading ? null : () async {
+          onPressed: _isLoading
+              ? null
+              : () async {
             setState(() => _isLoading = true);
-
-            // Update booking status to 'paid'
-            final bookings = ref.read(bookingProvider);
-            final booking = bookings.last;
-
-            ref.read(bookingProvider.notifier).updateBooking(
-              booking.id,
-              booking.copyWith(status: 'paid'), // ← this makes it show in Upcoming
-            );
-
+            await _payWithMpesa();
             setState(() => _isLoading = false);
-            _showSuccessDialog();
           },
           text: _isLoading ? 'Processing...' : 'Confirm & Pay',
           width: double.infinity,
@@ -119,21 +135,19 @@ class _ReviewSummaryState extends ConsumerState<ReviewSummary> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              /// EVENT CARD
+              // Event card
               PaymentCard(
-                imageUrl:
-                event.imageUrl ?? 'https://via.placeholder.com/150',
+                imageUrl: event.imageUrl ?? 'https://via.placeholder.com/150',
                 title: event.title,
                 date: formattedDate,
                 location: event.location,
               ),
-
               const SizedBox(height: 20),
 
-              /// USER INFO
-              _buildInfoCard(),
+              // User info
+              _buildInfoCard(booking),
 
-              /// PRICE
+              // Price
               _buildPriceCard(booking),
               const SizedBox(height: 16),
             ],
@@ -143,18 +157,14 @@ class _ReviewSummaryState extends ConsumerState<ReviewSummary> {
     );
   }
 
-  Widget _buildInfoCard() {
-    final bookings = ref.watch(bookingProvider);
-    final booking = bookings.last;
-
-
+  Widget _buildInfoCard(BookingModel booking) {
     return Container(
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(18),
       decoration: _boxStyle(),
       child: Column(
         children: [
-          _InfoRow(label: 'Full Name', value: booking.fullName ),
+          _InfoRow(label: 'Full Name', value: booking.fullName),
           _InfoRow(label: 'Phone', value: booking.phone),
           _InfoRow(label: 'Email', value: booking.email),
         ],
@@ -162,7 +172,9 @@ class _ReviewSummaryState extends ConsumerState<ReviewSummary> {
     );
   }
 
-  Widget _buildPriceCard(booking) {
+  Widget _buildPriceCard(BookingModel booking) {
+    final formatted = NumberFormat('#,##0').format(booking.totalPrice);
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       padding: const EdgeInsets.all(18),
@@ -170,13 +182,13 @@ class _ReviewSummaryState extends ConsumerState<ReviewSummary> {
       child: Column(
         children: [
           _InfoRow(
-            label: '${booking.quantity} Ticket',
-            value: 'Ksh.${booking.totalPrice}',
+            label: '${booking.quantity} Ticket(s)',
+            value: 'Ksh. $formatted',
           ),
           const Divider(),
           _InfoRow(
             label: 'Total',
-            value: 'Ksh.${booking.totalPrice}',
+            value: 'Ksh. $formatted',
           ),
         ],
       ),
@@ -191,7 +203,7 @@ class _ReviewSummaryState extends ConsumerState<ReviewSummary> {
         BoxShadow(
           color: Colors.black.withOpacity(0.1),
           blurRadius: 20,
-        )
+        ),
       ],
     );
   }

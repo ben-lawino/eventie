@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../../../data/models/event_model.dart';
 import '../../../data/models/ticket_model.dart';
 import '../../../widgets/button.dart';
@@ -37,6 +38,7 @@ class _EconomyState extends State<Economy> {
   @override
   Widget build(BuildContext context) {
     final total = widget.ticket.price * _counter;
+    final formattedTotal = NumberFormat('#,##0', 'en_US').format(total);
 
     return Scaffold(
       body: SafeArea(
@@ -112,7 +114,7 @@ class _EconomyState extends State<Economy> {
                   )),
                 );
               },
-              text: 'Continue - Ksh. $total',
+              text: 'Continue - Ksh. $formattedTotal',
               width: double.infinity,
               height: 50,
             ),

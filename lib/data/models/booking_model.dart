@@ -76,6 +76,7 @@ class BookingModel {
   // copyWith
   BookingModel copyWith({
     String? status,
+    String? paymentRef,
     String? cancellationReason,
     DateTime? cancelledAt,
   }) {
@@ -88,7 +89,7 @@ class BookingModel {
       totalPrice: totalPrice,
       bookedAt: bookedAt,
       status: status ?? this.status,
-      paymentRef: paymentRef,
+      paymentRef: paymentRef ?? this.paymentRef,
       fullName: fullName,
       email: email,
       phone: phone,

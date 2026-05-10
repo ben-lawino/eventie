@@ -152,7 +152,7 @@ final List<EventModel> dummyEvents = [
   EventModel(
     id: 'event009',
     title: 'DJ Night Party',
-    description: 'Dance all night with top DJs in Nairobi.',
+    description: 'Dance all night with top DJs in Nairobi.Dance all night with top DJs in Nairobi.Dance all night with top DJs in Nairobi.Dance all night with top DJs in Nairobi.Dance all night with top DJs in Nairobi.Dance all night with top DJs in Nairobi.',
     eventDate: DateTime.now().subtract(const Duration(days: 20)),
     location: 'Westlands Club',
     imageUrl: 'https://images.pexels.com/photos/5152573/pexels-photo-5152573.jpeg',
