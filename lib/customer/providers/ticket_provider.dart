@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:flutter/material.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -33,15 +33,18 @@ class TicketNotifier extends StateNotifier<TicketState> {
   TicketNotifier() : super(const TicketState());
 
   Future<void> downloadTicket(String bookingId) async {
-    // Android needs permission, iOS doesn't
+    // Android 12 and below needs storage permission
     if (Platform.isAndroid) {
-      final status = await Permission.storage.request();
-      if (!status.isGranted) {
-        state = state.copyWith(
-          downloadStatus: DownloadStatus.error,
-          message: 'Storage permission denied',
-        );
-        return;
+      final androidInfo = await DeviceInfoPlugin().androidInfo;
+      if (androidInfo.version.sdkInt < 33) {
+        final status = await Permission.storage.request();
+        if (!status.isGranted) {
+          state = state.copyWith(
+            downloadStatus: DownloadStatus.error,
+            message: 'Storage permission denied',
+          );
+          return;
+        }
       }
     }
 
@@ -63,7 +66,9 @@ class TicketNotifier extends StateNotifier<TicketState> {
         name: 'ticket_$bookingId',
       );
 
-      if (result['isSuccess']) {
+      final isSuccess = result['isSuccess'] == true;
+
+      if (isSuccess) {
         state = state.copyWith(
           downloadStatus: DownloadStatus.success,
           message: 'Ticket saved to gallery!',
@@ -82,11 +87,10 @@ class TicketNotifier extends StateNotifier<TicketState> {
     }
   }
 
-  // Reset state back to idle after snackbar is shown
+  // reset state back to idle after snackbar is shown
   void reset() => state = const TicketState();
 }
 
-final ticketProvider =
-StateNotifierProvider<TicketNotifier, TicketState>(
+final ticketProvider = StateNotifierProvider<TicketNotifier, TicketState>(
       (ref) => TicketNotifier(),
 );
