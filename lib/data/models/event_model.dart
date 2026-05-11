@@ -1,6 +1,6 @@
 import 'package:eventie/data/models/ticket_model.dart';
 
-
+enum EventStatus { pending, approved, rejected }
 
 class EventModel {
   final String id;
@@ -20,7 +20,7 @@ class EventModel {
 
   final bool isFeatured;
 
-  final String status; // pending, approved, rejected
+  final EventStatus status; // pending, approved, rejected
 
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -36,7 +36,7 @@ class EventModel {
     required this.organizerId,
     required this.tickets,
     this.isFeatured = false,
-    this.status = 'pending',
+    this.status = EventStatus.pending,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -55,7 +55,7 @@ class EventModel {
           .map((e) => TicketModel.fromJson(e))
           .toList(),
       isFeatured: json['isFeatured'] ?? false,
-      status: json['status'] ?? 'pending',
+      status: EventStatus.values.byName(json['status'] ?? 'pending'),
       createdAt: DateTime.parse(json['createdAt']),
       updatedAt: DateTime.parse(json['updatedAt']),
     );
@@ -73,7 +73,7 @@ class EventModel {
       'organizerId': organizerId,
       'tickets': tickets.map((e) => e.toJson()).toList(),
       'isFeatured': isFeatured,
-      'status': status,
+      'status': status.name,
       'createdAt': createdAt.toIso8601String(),
       'updatedAt': updatedAt.toIso8601String(),
     };

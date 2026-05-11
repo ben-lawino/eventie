@@ -12,7 +12,7 @@ final List<EventModel> dummyEvents = [
     category: 'Music',
     organizerId: 'organizer123',
     isFeatured: true,
-    status: 'approved',
+    status: EventStatus.approved,
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
     tickets: [
@@ -31,7 +31,7 @@ final List<EventModel> dummyEvents = [
     category: 'Tech',
     organizerId: 'organizer456',
     isFeatured: false,
-    status: 'pending',
+    status: EventStatus.pending,
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
     tickets: [
@@ -50,7 +50,7 @@ final List<EventModel> dummyEvents = [
     category: 'Community',
     organizerId: 'organizer789',
     isFeatured: true,
-    status: 'approved',
+    status: EventStatus.approved,
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
     tickets: [
@@ -69,7 +69,7 @@ final List<EventModel> dummyEvents = [
     category: 'Fashion',
     organizerId: 'organizer321',
     isFeatured: false,
-    status: 'approved',
+    status: EventStatus.approved, // past event, was approved
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
     tickets: [
@@ -87,7 +87,7 @@ final List<EventModel> dummyEvents = [
     category: 'Business',
     organizerId: 'organizer654',
     isFeatured: false,
-    status: 'pending',
+    status: EventStatus.pending,
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
     tickets: [
@@ -105,7 +105,7 @@ final List<EventModel> dummyEvents = [
     category: 'Art & Culture',
     organizerId: 'organizer987',
     isFeatured: true,
-    status: 'approved',
+    status: EventStatus.approved, // past, was approved
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
     tickets: [
@@ -123,7 +123,7 @@ final List<EventModel> dummyEvents = [
     category: 'Art & Culture',
     organizerId: 'organizer111',
     isFeatured: false,
-    status: 'approved',
+    status: EventStatus.approved, // past, was approved
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
     tickets: [
@@ -141,7 +141,7 @@ final List<EventModel> dummyEvents = [
     category: 'Wellness',
     organizerId: 'organizer222',
     isFeatured: false,
-    status: 'pending',
+    status: EventStatus.approved, // fixed: past events shouldn't be pending
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
     tickets: [
@@ -152,14 +152,14 @@ final List<EventModel> dummyEvents = [
   EventModel(
     id: 'event009',
     title: 'DJ Night Party',
-    description: 'Dance all night with top DJs in Nairobi.Dance all night with top DJs in Nairobi.Dance all night with top DJs in Nairobi.Dance all night with top DJs in Nairobi.Dance all night with top DJs in Nairobi.Dance all night with top DJs in Nairobi.',
+    description: 'Dance all night with top DJs in Nairobi.',
     eventDate: DateTime.now().subtract(const Duration(days: 20)),
     location: 'Westlands Club',
     imageUrl: 'https://images.pexels.com/photos/5152573/pexels-photo-5152573.jpeg',
     category: 'Music',
     organizerId: 'organizer333',
     isFeatured: true,
-    status: 'approved',
+    status: EventStatus.approved, // past, was approved
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
     tickets: [
@@ -178,7 +178,7 @@ final List<EventModel> dummyEvents = [
     category: 'Art & Culture',
     organizerId: 'organizer444',
     isFeatured: false,
-    status: 'approved',
+    status: EventStatus.approved, // past, was approved
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
     tickets: [

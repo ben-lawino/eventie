@@ -13,8 +13,9 @@ import '../providers/category_filter_provider.dart';
 
 class HomePage extends ConsumerWidget {
   final List<CategoryModel> categories;
+  final String? userName; // nullable — null means not logged in
 
-  const HomePage({super.key, required this.categories});
+  const HomePage({super.key, required this.categories, this.userName});
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
@@ -22,6 +23,7 @@ class HomePage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: false,
         leading: Padding(
           padding: const EdgeInsets.only(left: 18.0),
           child: CircleAvatar(
@@ -30,22 +32,20 @@ class HomePage extends ConsumerWidget {
           ),
         ),
         title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Good Morning',
-              style: Theme.of(
-                context,
-              ).textTheme.labelMedium!.copyWith(color: Colors.grey),
-            ),
-            Text(
-              'Ben lawin',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            userName != null ? 'Good Morning,' : 'Good Morning',
+            style: Theme.of(context).textTheme.labelMedium!
+                .copyWith(color: Colors.grey),
+          ),
+          Text(
+            userName?.split(' ').first ?? 'Sign in to get started',
+            style: Theme.of(context).textTheme.bodyMedium!
+                .copyWith(fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 18),
