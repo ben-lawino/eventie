@@ -174,7 +174,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Profile',
-        backDestination: NavigationMenu(),
+        backDestination: const NavigationMenu(),
         actions: [
           _isSaving
               ? const Padding(
@@ -334,7 +334,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                 ref.read(themeProvider.notifier).toggleTheme(),
             title: const Text('Dark Mode'),
             secondary: Image.asset('assets/icons/moon.png', scale: 24),
-            activeColor: Colors.white,
+            activeThumbColor: Colors.white,
             activeTrackColor: primaryColor,
           ),
 

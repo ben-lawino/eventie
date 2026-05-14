@@ -59,7 +59,7 @@ class GridCard extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              SizedBox(height: 6),
+              const SizedBox(height: 6),
               // Content
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),

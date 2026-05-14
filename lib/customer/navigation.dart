@@ -36,7 +36,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
         height: 90,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primaryContainer,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(36),
             topRight: Radius.circular(26),
           ),

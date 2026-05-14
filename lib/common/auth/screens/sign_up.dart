@@ -4,8 +4,8 @@ import 'package:eventie/widgets/button.dart';
 import 'package:eventie/widgets/login_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../providers/role_provider.dart';
+
 
 class SignUpScreen extends ConsumerStatefulWidget {
   const SignUpScreen({super.key});
@@ -287,8 +287,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     const SizedBox(height: 25),
 
                     // ── Or continue with ───────────────────────────────────
-                    Row(
-                      children: const [
+                    const Row(
+                      children: [
                         Expanded(
                             child: Divider(
                                 color: Color(0xFFE0E0E0), thickness: 1)),

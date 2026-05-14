@@ -1,4 +1,3 @@
-import 'package:eventie/customer/screens/mini_screens/cancel_reason.dart';
 import 'package:eventie/widgets/button.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +13,7 @@ class _CancelEventState extends State<RateEvent> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(18.0),
+      padding: const EdgeInsets.all(18.0),
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -25,9 +24,9 @@ class _CancelEventState extends State<RateEvent> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Divider(color: Colors.grey[400], thickness: 1, height: 20),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               'How was your experience with \n Nairobi Food and Music Festival?',
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
@@ -36,7 +35,7 @@ class _CancelEventState extends State<RateEvent> {
               ),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -46,28 +45,28 @@ class _CancelEventState extends State<RateEvent> {
                   height: 28,
                   color: Theme.of(context).colorScheme.primary,
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 Image.asset(
                   'assets/icons/star.png',
                   width: 28,
                   height: 28,
                   color: Theme.of(context).colorScheme.primary,
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 Image.asset(
                   'assets/icons/star.png',
                   width: 28,
                   height: 28,
                   color: Theme.of(context).colorScheme.primary,
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 Image.asset(
                   'assets/icons/star.png',
                   width: 28,
                   height: 28,
                   color: Theme.of(context).colorScheme.primary,
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 Image.asset(
                   'assets/icons/star.png',
                   width: 28,
@@ -76,9 +75,9 @@ class _CancelEventState extends State<RateEvent> {
                 ),
               ],
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             Divider(color: Colors.grey[400], thickness: 1, height: 20),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

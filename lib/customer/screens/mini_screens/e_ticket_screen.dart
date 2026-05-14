@@ -45,7 +45,7 @@ class ETicketScreen extends ConsumerWidget {
     return Scaffold(
       appBar: CustomAppBar(
         title: 'E-Ticket',
-        backDestination: TicketPage(),
+        backDestination: const TicketPage(),
         actions: [
           IconButton(
             icon: const Icon(Icons.share_outlined),

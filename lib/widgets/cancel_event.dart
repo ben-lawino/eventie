@@ -22,7 +22,7 @@ class _CancelEventState extends State<CancelEvent> {
     return SafeArea(
       child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(18.0),
+          padding: const EdgeInsets.all(18.0),
           child: Column(
             children: [
               Text(
@@ -32,9 +32,9 @@ class _CancelEventState extends State<CancelEvent> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Divider(color: Colors.grey[400], thickness: 1, height: 20),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Are you sure you want to cancel \n this event?',
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
@@ -43,7 +43,7 @@ class _CancelEventState extends State<CancelEvent> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               Text(
                 'Only 90% of funds will be refunded \n according to our policy',
                 textAlign: TextAlign.center,
@@ -51,7 +51,7 @@ class _CancelEventState extends State<CancelEvent> {
                   context,
                 ).textTheme.labelLarge!.copyWith(color: AppColors.textSecondary),
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               Row(
                 children: [
                   Expanded(

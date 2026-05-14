@@ -21,13 +21,13 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
         Future.delayed(const Duration(seconds: 3), () {
           Navigator.pop(context);
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => SignInScreen()));
+              context, MaterialPageRoute(builder: (context) => const SignInScreen()));
         });
         return AlertDialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(36),
           ),
-          contentPadding: EdgeInsets.only(
+          contentPadding: const EdgeInsets.only(
             top: 30,
             left: 40,
             right: 40,
@@ -63,10 +63,10 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
 
               // Success title
-              Text(
+              const Text(
                 'Successful!',
                 style: TextStyle(
                   fontSize: 20,
@@ -75,11 +75,11 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                 ),
               ),
 
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
 
               // Success message
               Text(
-                'You\'re all set! You\’ll be redirected to the login page in a few seconds.',
+                'You\'re all set! You’ll be redirected to the login page in a few seconds.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 14,
@@ -88,7 +88,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                 ),
               ),
 
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
 
               //loader
               SizedBox(
@@ -109,7 +109,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: const CustomAppBar(
         title: 'Create New Password',
         backDestination: SignInScreen(),
       ),
@@ -129,9 +129,9 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                         .copyWith(fontWeight: FontWeight.w600)),
               ),
               const SizedBox(height: 20),
-              LoginTextField(hintText: 'Enter Password', icon: Icons.lock, isPassword: true,),
+              const LoginTextField(hintText: 'Enter Password', icon: Icons.lock, isPassword: true,),
               const SizedBox(height: 20),
-              LoginTextField(hintText: 'Confirm Password', icon: Icons.lock, isPassword: true),
+              const LoginTextField(hintText: 'Confirm Password', icon: Icons.lock, isPassword: true),
               const Spacer(),
               Button(
                 width: double.infinity,

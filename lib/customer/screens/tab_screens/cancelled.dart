@@ -1,5 +1,4 @@
 import 'package:eventie/customer/providers/booking_provider.dart';
-import 'package:eventie/widgets/booking_card.dart';
 import 'package:eventie/widgets/cancelled_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

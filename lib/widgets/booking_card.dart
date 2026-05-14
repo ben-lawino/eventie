@@ -32,7 +32,7 @@ class BookingCard extends StatelessWidget {
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
             blurRadius: 20,
-            offset: Offset(0, 10),
+            offset: const Offset(0, 10),
             spreadRadius: 0,
           ),
         ],
@@ -55,7 +55,7 @@ class BookingCard extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,7 +94,7 @@ class BookingCard extends StatelessWidget {
                                   size: 15,
                                   color: AppColors.primary,
                                 ),
-                                SizedBox(width: 4),
+                                const SizedBox(width: 4),
                                 Expanded(
                                   child: Text(
                                       location,
@@ -137,7 +137,7 @@ class BookingCard extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 6),
+            const SizedBox(height: 6),
             Divider(
               color: Colors.grey[400],
               thickness: 1,
@@ -149,7 +149,7 @@ class BookingCard extends StatelessWidget {
                   child: OutlinedButton(
                     onPressed: onCancelBooking,
                     style: OutlinedButton.styleFrom(
-                      side: BorderSide(color: AppColors.primary),
+                      side: const BorderSide(color: AppColors.primary),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
@@ -162,7 +162,7 @@ class BookingCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: onViewTicket,

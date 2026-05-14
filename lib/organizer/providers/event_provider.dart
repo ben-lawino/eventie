@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../../data/models/event_model.dart';
 
 class EventsNotifier extends StateNotifier<List<EventModel>> {

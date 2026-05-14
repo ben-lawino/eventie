@@ -2,10 +2,11 @@ import 'dart:io';
 import 'package:eventie/organizer/bottom_nav.dart';
 import 'package:eventie/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../common/providers/profile_provider.dart';
 import '../../common/providers/theme_provider.dart';
 import '../../common/screens/edit_profile.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
@@ -21,7 +22,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     final profile = ref.watch(profileProvider);
 
     return Scaffold(
-      appBar: CustomAppBar(title: 'Profile', backDestination: BottomNav()),
+      appBar: const CustomAppBar(title: 'Profile', backDestination: BottomNav()),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18.0),
         child: Column(
@@ -35,7 +36,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       : const AssetImage('assets/images/profilepic.png')
                   as ImageProvider,
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -71,7 +72,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             Divider(color: Colors.grey[400], thickness: 1, height: 20),
             GestureDetector(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfileScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const EditProfileScreen()));
               },
               child: ListTile(
                 leading: Image.asset('assets/icons/user_outlined.png', scale: 24),
@@ -112,7 +113,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   ref.read(themeProvider.notifier).toggleTheme(),
               title: const Text('Dark Mode'),
               secondary: Image.asset('assets/icons/moon.png', scale: 24),
-              activeColor: Colors.white,
+              activeThumbColor: Colors.white,
               activeTrackColor: primaryColor,
             ),
             ListTile(

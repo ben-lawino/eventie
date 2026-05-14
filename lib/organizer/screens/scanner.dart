@@ -2,6 +2,7 @@ import 'package:eventie/widgets/button.dart';
 import 'package:eventie/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 import '../bottom_nav.dart';
@@ -18,7 +19,7 @@ class ScannerScreen extends ConsumerWidget {
     final isIdle = state.status == ScanStatus.idle;
 
     return Scaffold(
-      appBar: CustomAppBar(title: 'Scan', backDestination: BottomNav()),
+      appBar: const CustomAppBar(title: 'Scan', backDestination: BottomNav()),
       body: Center(
         child: Column(
           children: [

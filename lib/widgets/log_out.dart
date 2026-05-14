@@ -19,7 +19,7 @@ class _LogOutState extends State<LogOut> {
     return SafeArea(
       child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(18.0),
+          padding: const EdgeInsets.all(18.0),
           child: Column(
             children: [
               Text(
@@ -30,9 +30,9 @@ class _LogOutState extends State<LogOut> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Divider(color: Colors.grey[400], thickness: 1, height: 20),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Are you sure you want to log out?',
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
@@ -41,7 +41,7 @@ class _LogOutState extends State<LogOut> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               Row(
                 children: [
                   Expanded(

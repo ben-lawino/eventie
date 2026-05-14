@@ -1,6 +1,4 @@
-
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:riverpod/legacy.dart';
 import '../services/notification_service.dart';
 
 class NotificationSettings {

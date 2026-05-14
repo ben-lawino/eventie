@@ -1,6 +1,5 @@
-import 'package:eventie/common/auth/screens/splash_screen.dart';
-import 'package:eventie/customer/navigation.dart';
-import 'package:eventie/customer/screens/details.dart';
+import 'package:eventie/common/auth/screens/welcome_screen.dart';
+import 'package:eventie/organizer/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,7 +17,6 @@ void main() async {
   );
   await dotenv.load();
   WidgetsFlutterBinding.ensureInitialized();
-
   await NotificationService.initialize();
   runApp(const ProviderScope(child: MyApp()));
 }
@@ -36,7 +34,7 @@ class MyApp extends ConsumerWidget {
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: themeMode,
-      home: NavigationMenu(),
+      home: BottomNav(),
     );
   }
 }

@@ -21,7 +21,7 @@ class PopularEventsPAge extends StatelessWidget {
               ),
             );
           },
-          icon: Icon(Icons.arrow_back_rounded),
+          icon: const Icon(Icons.arrow_back_rounded),
           color: Colors.grey[700],
         ),
         title: Text(
@@ -44,7 +44,7 @@ class PopularEventsPAge extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             SmallEventList(dummyEvents: dummyEvents),
           ],
         ),

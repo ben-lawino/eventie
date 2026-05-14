@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+
 enum ScanStatus { idle, loading, success, failure }
 
 class ScannerState {

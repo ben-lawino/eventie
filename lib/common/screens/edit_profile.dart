@@ -3,6 +3,7 @@ import 'package:eventie/widgets/custom_app_bar.dart';
 import 'package:eventie/widgets/profile_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
@@ -143,7 +144,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     final primary = Theme.of(context).colorScheme.primary;
 
     return Scaffold(
-      appBar: CustomAppBar(title: 'Edit Profile'),
+      appBar: const CustomAppBar(title: 'Edit Profile'),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -202,7 +203,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
 
               // ── Gender dropdown
               DropdownButtonFormField<String>(
-                value: _selectedGender,
+                initialValue: _selectedGender,
                 decoration: _dropdownDecoration('Gender'),
                 items: _genders
                     .map((g) => DropdownMenuItem(value: g, child: Text(g)))
@@ -234,7 +235,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
 
               // ── Country dropdown
               DropdownButtonFormField<String>(
-                value: _selectedCountry,
+                initialValue: _selectedCountry,
                 decoration: _dropdownDecoration('Country'),
                 items: _countries
                     .map((c) => DropdownMenuItem(value: c, child: Text(c)))

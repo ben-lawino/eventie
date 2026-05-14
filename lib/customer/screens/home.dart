@@ -1,7 +1,6 @@
 import 'package:eventie/customer/screens/mini_screens/explore.dart';
 import 'package:eventie/customer/screens/mini_screens/notification.dart';
 import 'package:eventie/customer/screens/mini_screens/popular.dart';
-import 'package:eventie/widgets/filter_button.dart';
 import 'package:flutter/material.dart';
 import '../../data/dummy_data.dart';
 import '../../data/models/category_model.dart';
@@ -24,11 +23,11 @@ class HomePage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 18.0),
+        leading: const Padding(
+          padding: EdgeInsets.only(left: 18.0),
           child: CircleAvatar(
             radius: 24,
-            backgroundImage: const AssetImage('assets/images/hacker.png'),
+            backgroundImage: AssetImage('assets/images/hacker.png'),
           ),
         ),
         title: Column(
@@ -53,7 +52,7 @@ class HomePage extends ConsumerWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => NotificationPage()),
+                  MaterialPageRoute(builder: (context) => const NotificationPage()),
                 );
               },
               icon: Image.asset(
@@ -137,7 +136,7 @@ class HomePage extends ConsumerWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => PopularEventsPAge(),
+                            builder: (context) => const PopularEventsPAge(),
                           ),
                         );
                       },
@@ -146,7 +145,7 @@ class HomePage extends ConsumerWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => PopularEventsPAge()
+                              builder: (context) => const PopularEventsPAge()
                             ),
                           );
                         },
@@ -197,7 +196,7 @@ class HomePage extends ConsumerWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               SmallEventList(dummyEvents: dummyEvents),
               const SizedBox(height: 24),
             ],

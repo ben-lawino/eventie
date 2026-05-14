@@ -19,10 +19,10 @@ class DetailsScreen extends StatelessWidget {
         onPressed: () {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => NavigationMenu()),
+            MaterialPageRoute(builder: (context) => const NavigationMenu()),
           );
         },
-        icon: Icon(Icons.arrow_back_rounded),
+        icon: const Icon(Icons.arrow_back_rounded),
       ),),
       body: SingleChildScrollView(
         child: Padding(
@@ -43,7 +43,7 @@ class DetailsScreen extends StatelessWidget {
                     BoxShadow(
                       color: Colors.black.withOpacity(0.1),
                       blurRadius: 20,
-                      offset: Offset(0, 10),
+                      offset: const Offset(0, 10),
                     ),
                   ],
                 ),
@@ -70,7 +70,7 @@ class DetailsScreen extends StatelessWidget {
                     BoxShadow(
                       color: Colors.black.withOpacity(0.1),
                       blurRadius: 20,
-                      offset: Offset(0, 10),
+                      offset: const Offset(0, 10),
                       spreadRadius: 0,
                     ),
                   ],
@@ -86,12 +86,12 @@ class DetailsScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       // Location and time row
                       Row(
                         children: [
                           Icon(Icons.place_rounded, size: 16, color: Theme.of(context).colorScheme.primary),
-                          SizedBox(width: 6),
+                          const SizedBox(width: 6),
                           Flexible(
                             child: Text(
                               event.location,
@@ -107,7 +107,7 @@ class DetailsScreen extends StatelessWidget {
                             child: Text('|', style: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.35))),
                           ),
                           Icon(Icons.access_time_filled_rounded, size: 16, color: Theme.of(context).colorScheme.primary),
-                          SizedBox(width: 6),
+                          const SizedBox(width: 6),
                           Text(
                             DateFormat('EEE, MMM d • HH:mm').format(event.eventDate),
                             overflow: TextOverflow.ellipsis,
@@ -118,16 +118,16 @@ class DetailsScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Text(
                         'About Event',
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 6),
+                      const SizedBox(height: 6),
                       _ExpandableDescription(description: event.description),
-                      SizedBox(height: 14),
+                      const SizedBox(height: 14),
                       Button(
                         onPressed: () {
                           Navigator.push(

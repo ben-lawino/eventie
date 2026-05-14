@@ -23,17 +23,17 @@ class ContactUsScreen extends StatelessWidget {
                 BoxShadow(
                   color: Colors.black.withOpacity(0.1),
                   blurRadius: 20,
-                  offset: Offset(0, 10),
+                  offset: const Offset(0, 10),
                   spreadRadius: 0,
                 ),
               ],
             ),
             child: Row(
               children: [
-                SizedBox(width: 18),
+                const SizedBox(width: 18),
                 Image.asset('assets/icons/support.png',
                     scale: 18, color: primaryColor),
-                SizedBox(width: 24),
+                const SizedBox(width: 24),
                 Text(
                   'Customer Service',
                   style: Theme.of(context)
@@ -44,7 +44,7 @@ class ContactUsScreen extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
 
@@ -59,17 +59,17 @@ class ContactUsScreen extends StatelessWidget {
                 BoxShadow(
                   color: Colors.black.withOpacity(0.1),
                   blurRadius: 20,
-                  offset: Offset(0, 10),
+                  offset: const Offset(0, 10),
                   spreadRadius: 0,
                 ),
               ],
             ),
             child: Row(
               children: [
-                SizedBox(width: 18),
+                const SizedBox(width: 18),
                 Image.asset('assets/icons/whatsapp.png',
                     scale: 18, color: primaryColor),
-                SizedBox(width: 24),
+                const SizedBox(width: 24),
                 Text(
                   'Whatsapp',
                   style: Theme.of(context)
@@ -81,7 +81,7 @@ class ContactUsScreen extends StatelessWidget {
             ),
           ),
 
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
 
@@ -96,17 +96,17 @@ class ContactUsScreen extends StatelessWidget {
                 BoxShadow(
                   color: Colors.black.withOpacity(0.1),
                   blurRadius: 20,
-                  offset: Offset(0, 10),
+                  offset: const Offset(0, 10),
                   spreadRadius: 0,
                 ),
               ],
             ),
             child: Row(
               children: [
-                SizedBox(width: 18),
+                const SizedBox(width: 18),
                 Image.asset('assets/icons/facebook.png',
                     scale: 18, color: primaryColor),
-                SizedBox(width: 24),
+                const SizedBox(width: 24),
                 Text(
                   'Facebook',
                   style: Theme.of(context)
@@ -118,7 +118,7 @@ class ContactUsScreen extends StatelessWidget {
             ),
           ),
 
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
 
@@ -133,17 +133,17 @@ class ContactUsScreen extends StatelessWidget {
                 BoxShadow(
                   color: Colors.black.withOpacity(0.1),
                   blurRadius: 20,
-                  offset: Offset(0, 10),
+                  offset: const Offset(0, 10),
                   spreadRadius: 0,
                 ),
               ],
             ),
             child: Row(
               children: [
-                SizedBox(width: 18),
+                const SizedBox(width: 18),
                 Image.asset('assets/icons/instagram.png',
                     scale: 18, color: primaryColor),
-                SizedBox(width: 24),
+                const SizedBox(width: 24),
                 Text(
                   'Instagram',
                   style: Theme.of(context)
@@ -155,7 +155,7 @@ class ContactUsScreen extends StatelessWidget {
             ),
           ),
 
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
 
@@ -170,17 +170,17 @@ class ContactUsScreen extends StatelessWidget {
                 BoxShadow(
                   color: Colors.black.withOpacity(0.1),
                   blurRadius: 20,
-                  offset: Offset(0, 10),
+                  offset: const Offset(0, 10),
                   spreadRadius: 0,
                 ),
               ],
             ),
             child: Row(
               children: [
-                SizedBox(width: 18),
+                const SizedBox(width: 18),
                 Image.asset('assets/icons/twitter.png',
                     scale: 18, color: primaryColor),
-                SizedBox(width: 24),
+                const SizedBox(width: 24),
                 Text(
                   'Twitter',
                   style: Theme.of(context)
@@ -193,7 +193,7 @@ class ContactUsScreen extends StatelessWidget {
           ),
 
 
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
 
@@ -208,17 +208,17 @@ class ContactUsScreen extends StatelessWidget {
                 BoxShadow(
                   color: Colors.black.withOpacity(0.1),
                   blurRadius: 20,
-                  offset: Offset(0, 10),
+                  offset: const Offset(0, 10),
                   spreadRadius: 0,
                 ),
               ],
             ),
             child: Row(
               children: [
-                SizedBox(width: 18),
+                const SizedBox(width: 18),
                 Image.asset('assets/icons/web.png',
                     scale: 18, color: primaryColor),
-                SizedBox(width: 24),
+                const SizedBox(width: 24),
                 Text(
                   'Website',
                   style: Theme.of(context)

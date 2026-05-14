@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod/legacy.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const _roleKey = 'user_role';

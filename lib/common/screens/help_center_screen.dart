@@ -1,7 +1,5 @@
 import 'package:eventie/customer/screens/profile.dart';
 import 'package:flutter/material.dart';
-
-import '../../customer/navigation.dart';
 import 'mini_screens/contact_us_screen.dart';
 import 'mini_screens/faq_screen.dart';
 
@@ -20,10 +18,10 @@ class HelpCenterScreen extends StatelessWidget {
             onPressed: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => ProfilePage()),
+                MaterialPageRoute(builder: (context) => const ProfilePage()),
               );
             },
-            icon: Icon(Icons.arrow_back_rounded),
+            icon: const Icon(Icons.arrow_back_rounded),
             color: Colors.grey[700],
           ),
           title: Text(
@@ -42,9 +40,8 @@ class HelpCenterScreen extends StatelessWidget {
             ],
           ),
         ),
-        body: TabBarView(children: [FaqScreen(), ContactUsScreen()]),
+        body: const TabBarView(children: [FaqScreen(), ContactUsScreen()]),
       ),
     );
-    ;
   }
 }

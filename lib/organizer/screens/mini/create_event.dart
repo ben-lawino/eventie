@@ -4,9 +4,10 @@ import 'package:eventie/organizer/providers/event_provider.dart';
 import 'package:eventie/widgets/button.dart';
 import 'package:eventie/widgets/custom_app_bar.dart';
 import 'package:eventie/widgets/custom_text_field.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:uuid/uuid.dart';
 import '../../../data/categories.dart';
 import '../../../data/models/category_model.dart';
@@ -128,7 +129,7 @@ class _CreateEventScreenState extends ConsumerState<CreateEventScreen> {
           Navigator.pop(context);
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (_) => BottomNav()),
+            MaterialPageRoute(builder: (_) => const BottomNav()),
           );
         });
 
@@ -237,7 +238,7 @@ class _CreateEventScreenState extends ConsumerState<CreateEventScreen> {
 
               // Category dropdown
               DropdownButtonFormField<CategoryModel>(
-                value: selectedCategory,
+                initialValue: selectedCategory,
                 hint: const Text('Select Category'),
                 items: eventCategories.map((c) {
                   return DropdownMenuItem(

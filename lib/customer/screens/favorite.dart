@@ -21,7 +21,7 @@ class FavoritePage extends ConsumerWidget {
         .toList();
 
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: const CustomAppBar(
         title: 'Favorites',
         backDestination: NavigationMenu(),
       ),

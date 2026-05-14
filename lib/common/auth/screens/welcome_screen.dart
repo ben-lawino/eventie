@@ -3,7 +3,6 @@ import 'package:eventie/customer/navigation.dart';
 import 'package:eventie/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../providers/role_provider.dart';
 
 class WelcomeScreen extends ConsumerWidget {
@@ -27,7 +26,7 @@ class WelcomeScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(18),
           child: Column(
             children: [
-              SizedBox(height: 50,),
+              const SizedBox(height: 50,),
               // ── Logo
               Image.asset('assets/icons/applogo.png', scale: 4),
 
@@ -108,7 +107,7 @@ class WelcomeScreen extends ConsumerWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => NavigationMenu()),
+                    MaterialPageRoute(builder: (_) => const NavigationMenu()),
                   );
                 },
                 text: 'Continue as Guest',

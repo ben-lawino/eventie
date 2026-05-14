@@ -39,8 +39,8 @@ class ExplorePage extends ConsumerWidget {
             return AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
               child: isSearching
-                  ? TextField(
-                key: const ValueKey("searchField"),
+                  ? const TextField(
+                key: ValueKey("searchField"),
                 autofocus: true,
                 decoration: InputDecoration(
                   hintText: 'Search events...',

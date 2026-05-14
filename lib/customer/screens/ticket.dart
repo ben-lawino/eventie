@@ -19,10 +19,10 @@ class TicketPage extends StatelessWidget {
             onPressed: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => NavigationMenu()),
+                MaterialPageRoute(builder: (context) => const NavigationMenu()),
               );
             },
-            icon: Icon(Icons.arrow_back_rounded),
+            icon: const Icon(Icons.arrow_back_rounded),
           ),
           title: Text(
             'Tickets',
@@ -41,7 +41,7 @@ class TicketPage extends StatelessWidget {
             ],
           ),
         ),
-        body: TabBarView(children: [Upcoming(), Completed(), Cancelled()]),
+        body: const TabBarView(children: [Upcoming(), Completed(), Cancelled()]),
       ),
     );
   }

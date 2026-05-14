@@ -21,10 +21,10 @@ class EventsScreen extends StatelessWidget {
             onPressed: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => BottomNav()),
+                MaterialPageRoute(builder: (context) => const BottomNav()),
               );
             },
-            icon: Icon(Icons.arrow_back_rounded),
+            icon: const Icon(Icons.arrow_back_rounded),
             color: Colors.grey[700],
           ),
           title: Text(
@@ -34,7 +34,7 @@ class EventsScreen extends StatelessWidget {
             ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
           ),
           bottom: TabBar(
-            padding: EdgeInsets.symmetric(horizontal: 18),
+            padding: const EdgeInsets.symmetric(horizontal: 18),
             indicatorWeight: 3.0,
             indicatorSize: TabBarIndicatorSize.tab,
             tabs: [
@@ -57,7 +57,7 @@ class EventsScreen extends StatelessWidget {
             ],
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
             PendingEventsScreen(),
             UpcomingEventScreen(),

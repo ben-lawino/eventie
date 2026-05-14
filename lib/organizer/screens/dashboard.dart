@@ -1,7 +1,8 @@
 import 'package:eventie/organizer/providers/dashboard_provider.dart';
 import 'package:flutter/material.dart';
-import '../../customer/screens/mini_screens/notification.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../customer/screens/mini_screens/notification.dart';
+import 'package:flutter_riverpod/legacy.dart';
 
 
 class DashboardScreen extends ConsumerStatefulWidget {
@@ -13,6 +14,7 @@ class DashboardScreen extends ConsumerStatefulWidget {
 
 class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
+  @override
   void initState() {
     super.initState();
     Future.microtask(() {
@@ -27,11 +29,11 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
     return Scaffold(
         appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 18.0),
+        leading: const Padding(
+          padding: EdgeInsets.only(left: 18.0),
           child: CircleAvatar(
             radius: 24,
-            backgroundImage: const AssetImage('assets/images/hacker.png'),
+            backgroundImage: AssetImage('assets/images/hacker.png'),
           ),
         ),
         title: Column(
@@ -58,7 +60,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => NotificationPage()),
+                  MaterialPageRoute(builder: (context) => const NotificationPage()),
                 );
               },
               icon: Image.asset(
@@ -76,39 +78,51 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         child: Column(
           children: [
             SizedBox(
-              height: 200,
-              child: GridView.count(
-                crossAxisCount: 2,
-                shrinkWrap: true,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                physics: NeverScrollableScrollPhysics(),
-                childAspectRatio: 2,
+              child: Column(
                 children: [
-                  dashboardItem(
-                    context: context,
-                    title: "Total Events",
-                    value: dashboard.totalEvents.toString(),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: dashboardItem(
+                          context: context,
+                          title: "Total Events",
+                          value: dashboard.totalEvents.toString(),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: dashboardItem(
+                          context: context,
+                          title: "Tickets Sold",
+                          value: dashboard.ticketsSold.toString(),
+                        ),
+                      ),
+                    ],
                   ),
-                  dashboardItem(
-                    context: context,
-                    title: "Tickets Sold",
-                    value: dashboard.ticketsSold.toString(),
-                  ),
-                  dashboardItem(
-                    context: context,
-                    title: "Approved",
-                    value: dashboard.approved.toString(),
-                  ),
-                  dashboardItem(
-                    context: context,
-                    title: "Completed",
-                    value: dashboard.completed.toString(),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: dashboardItem(
+                          context: context,
+                          title: "Approved",
+                          value: dashboard.approved.toString(),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: dashboardItem(
+                          context: context,
+                          title: "Completed",
+                          value: dashboard.completed.toString(),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
-
+            SizedBox(height: 10,),
             // Revenue container
             Container(
               padding: const EdgeInsets.all(20),
@@ -120,7 +134,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                   BoxShadow(
                     color: Colors.black.withOpacity(0.1),
                     blurRadius: 20,
-                    offset: Offset(0, 10),
+                    offset: const Offset(0, 10),
                     spreadRadius: 0,
                   ),
                 ],
@@ -295,7 +309,7 @@ Widget dashboardItem({
         BoxShadow(
           color: Colors.black.withOpacity(0.1),
           blurRadius: 20,
-          offset: Offset(0, 10),
+          offset: const Offset(0, 10),
           spreadRadius: 0,
         ),
       ],

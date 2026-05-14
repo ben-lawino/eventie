@@ -87,7 +87,7 @@ final ThemeData appDarkTheme = ThemeData(
   ),
 
   // Adding CardTheme to ensure consistent elevation across the app
-  cardTheme: CardTheme(
+  cardTheme: CardThemeData(
     color: const Color(0xFF1E293B),
     elevation: 0,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

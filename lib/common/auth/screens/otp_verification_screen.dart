@@ -38,31 +38,25 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
             const SizedBox(height: 40),
 
             // Pin Code Field Section
-            PinCodeTextField(
-              appContext: context,
+            MaterialPinField(
               length: 4,
               keyboardType: TextInputType.number,
               onChanged: (value) {},
               onCompleted: (pin) => print('PIN: $pin'),
-              pinTheme: PinTheme(
-                shape: PinCodeFieldShape.box,
+              theme: MaterialPinTheme(
+                shape: MaterialPinShape.outlined,
                 borderRadius: BorderRadius.circular(12),
-                fieldHeight: 58,
-                fieldWidth: 72,
-                activeFillColor: primaryColor,
-                selectedFillColor: primaryColor,
-                inactiveFillColor: primaryColor.withOpacity(0.15),
-                inactiveColor: Colors.transparent,
-                selectedColor: Colors.transparent,
-                activeColor: Colors.transparent,
-              ),
-              enableActiveFill: true,
-              textStyle: TextStyle(
-                fontSize: 24,
-                color: Colors.white,
+                cellSize: Size(72, 58),
+                fillColor: primaryColor.withOpacity(0.15),
+                focusedFillColor: primaryColor,
+                borderColor: Colors.transparent,
+                focusedBorderColor: Colors.transparent,
+                textStyle: const TextStyle(
+                  fontSize: 24,
+                  color: Colors.white,
+                ),
               ),
             ),
-
             const SizedBox(height: 80),
             RichText(
               text: TextSpan(

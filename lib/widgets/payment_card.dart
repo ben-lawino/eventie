@@ -41,7 +41,7 @@ class PaymentCard extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,7 +80,7 @@ class PaymentCard extends StatelessWidget {
                                   size: 15,
                                   color: AppColors.primary,
                                 ),
-                                SizedBox(width: 4),
+                                const SizedBox(width: 4),
                                 Text(
                                   location,
                                   style: Theme.of(context).textTheme.bodySmall!

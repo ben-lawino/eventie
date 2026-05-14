@@ -2,6 +2,7 @@ import 'package:eventie/customer/screens/profile.dart';
 import 'package:eventie/widgets/setting_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../providers/notifications_settings_provider.dart';
 

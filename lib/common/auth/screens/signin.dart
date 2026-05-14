@@ -236,15 +236,15 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                     const SizedBox(height: 25),
 
                     // ── Or continue with
-                    Row(
+                    const Row(
                       children: [
-                        const Expanded(
+                        Expanded(
                             child: Divider(
                                 color: Color(0xFFE0E0E0), thickness: 1)),
-                        const SizedBox(width: 6),
-                        const Text('or continue with'),
-                        const SizedBox(width: 6),
-                        const Expanded(
+                        SizedBox(width: 6),
+                        Text('or continue with'),
+                        SizedBox(width: 6),
+                        Expanded(
                             child: Divider(
                                 color: Color(0xFFE0E0E0), thickness: 1)),
                       ],

@@ -10,7 +10,7 @@ class ForgotPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: const CustomAppBar(
         backDestination: SignInScreen(),
         title: 'Forgot Password',
       ),
@@ -29,9 +29,9 @@ class ForgotPasswordScreen extends StatelessWidget {
                       .bodyMedium!
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 30),
-                LoginTextField(hintText: 'email', icon: Icons.email_rounded),
-                SizedBox(height: 170),
+                const SizedBox(height: 30),
+                const LoginTextField(hintText: 'email', icon: Icons.email_rounded),
+                const SizedBox(height: 170),
                 Button(
                     width: double.infinity,
                     onPressed: () {},

@@ -54,7 +54,7 @@ class _EconomyState extends State<Economy> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -74,7 +74,7 @@ class _EconomyState extends State<Economy> {
                     ),
                   ),
                 ),
-                SizedBox(width: 30),
+                const SizedBox(width: 30),
                 Text(
                  '$_counter',
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
@@ -82,7 +82,7 @@ class _EconomyState extends State<Economy> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(width: 30),
+                const SizedBox(width: 30),
                 GestureDetector(
                   onTap: _incrementCounter,
                   child: Container(
@@ -101,7 +101,7 @@ class _EconomyState extends State<Economy> {
                 ),
               ],
             ),
-            Spacer(),
+            const Spacer(),
             Button(
               onPressed: () {
                 Navigator.push(

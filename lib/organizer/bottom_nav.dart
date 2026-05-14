@@ -1,8 +1,3 @@
-import 'package:eventie/customer/screens/favorite.dart';
-import 'package:eventie/customer/screens/home.dart';
-import 'package:eventie/customer/screens/profile.dart';
-import 'package:eventie/customer/screens/ticket.dart';
-import 'package:eventie/data/categories.dart';
 import 'package:eventie/organizer/screens/dashboard.dart';
 import 'package:eventie/organizer/screens/events.dart';
 import 'package:eventie/organizer/screens/mini/create_event.dart';
@@ -22,11 +17,11 @@ class _BottomNavState extends State<BottomNav> {
   int _currentIndex = 0;
 
   final List _screens = [
-    DashboardScreen(),
-    ScannerScreen(),
-    EventsScreen(),
-    WalletScreen(),
-    ProfileScreen(),
+    const DashboardScreen(),
+    const ScannerScreen(),
+    const EventsScreen(),
+    const WalletScreen(),
+    const ProfileScreen(),
   ];
 
   @override
@@ -42,7 +37,7 @@ class _BottomNavState extends State<BottomNav> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => CreateEventScreen()),
+            MaterialPageRoute(builder: (context) => const CreateEventScreen()),
           );
         },
         elevation: 4,
@@ -56,7 +51,7 @@ class _BottomNavState extends State<BottomNav> {
         height: 100,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primaryContainer,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(36),
             topRight: Radius.circular(26),
           ),

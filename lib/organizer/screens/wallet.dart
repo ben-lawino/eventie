@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/models/wallet_model.dart';
@@ -38,7 +39,7 @@ class WalletScreen extends ConsumerWidget {
     final wallet = ref.watch(walletProvider);
 
     return Scaffold(
-      appBar: CustomAppBar(title: 'Wallet', backDestination: BottomNav()),
+      appBar: const CustomAppBar(title: 'Wallet', backDestination: BottomNav()),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 4),
         child: Column(
