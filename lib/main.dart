@@ -1,3 +1,4 @@
+import 'package:eventie/common/auth/screens/splash_screen.dart';
 import 'package:eventie/common/auth/screens/welcome_screen.dart';
 import 'package:eventie/organizer/bottom_nav.dart';
 import 'package:flutter/material.dart';

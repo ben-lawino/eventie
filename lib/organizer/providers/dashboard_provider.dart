@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/legacy.dart';
-
+import '../../data/dummy_data.dart';
 import '../../data/models/dashboard_data.dart';
+import '../../data/models/event_model.dart';
 
 class DashboardNotifier extends StateNotifier<DashboardData> {
   DashboardNotifier()
@@ -16,17 +17,44 @@ class DashboardNotifier extends StateNotifier<DashboardData> {
   );
 
   void loadDashboard() {
-    // TODO: replace with API call
+    final events = dummyEvents;
+
+    // Total events
+    final totalEvents = events.length;
+
+    // Approved events
+    final approved = events
+        .where((e) => e.status == EventStatus.approved)
+        .length;
+
+    // Completed events (past events)
+    final completed = events
+        .where((e) => e.eventDate.isBefore(DateTime.now()))
+        .length;
+
+    // Tickets sold
+    int ticketsSold = 0;
+
+    // Revenue
+    double revenue = 0;
+
+    for (final event in events) {
+      for (final ticket in event.tickets) {
+        ticketsSold += ticket.sold;
+        revenue += ticket.price * ticket.sold;
+      }
+    }
+
     state = DashboardData(
-      totalEvents: 13,
-      ticketsSold: 1667,
-      approved: 5,
-      completed: 1,
-      revenue: 230000,
+      totalEvents: totalEvents,
+      ticketsSold: ticketsSold,
+      approved: approved,
+      completed: completed,
+      revenue: revenue,
       activities: [
-        '20 new tickets sold',
-        'Events approved',
-        'Payout of Ksh 5,000 processed',
+        '$ticketsSold tickets sold across all events',
+        '$approved events approved',
+        'Revenue generated: Ksh ${revenue.toStringAsFixed(0)}',
       ],
     );
   }
