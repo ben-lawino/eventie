@@ -335,7 +335,6 @@ class _HeroHeader extends StatelessWidget {
 }
 
 //Stat Card
-
 class _StatCard extends StatelessWidget {
   final String title;
   final String value;

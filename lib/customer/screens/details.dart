@@ -30,34 +30,65 @@ class DetailsScreen extends StatelessWidget {
           child: Column(
             children: [
               //event image
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.width - 36,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  image: DecorationImage(
-                    image: NetworkImage(event.imageUrl ?? 'https://via.placeholder.com/150'),
-                    fit: BoxFit.cover,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 20,
-                      offset: const Offset(0, 10),
+              Stack(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.width - 36,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          event.imageUrl ?? 'https://via.placeholder.com/150',
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 20,
+                          offset: const Offset(0, 10),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                foregroundDecoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.transparent,
-                      Colors.black.withOpacity(0.35),
-                    ],
+                    foregroundDecoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.transparent,
+                          Colors.black.withOpacity(0.35),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
+
+                  // SOLD OUT BADGE
+                  if (event.isSoldOut)
+                    Positioned(
+                      top: 18,
+                      right: 18,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 14,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: const Text(
+                          'SOLD OUT',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 0.5,
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
               ),
               const SizedBox(height: 20),
         
@@ -129,16 +160,22 @@ class DetailsScreen extends StatelessWidget {
                       _ExpandableDescription(description: event.description),
                       const SizedBox(height: 14),
                       Button(
-                        onPressed: () {
+                        onPressed: event.isSoldOut
+                            ? null
+                            : () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => BookEvent(event: event)),
+                            MaterialPageRoute(
+                              builder: (context) => BookEvent(event: event),
+                            ),
                           );
                         },
-                        text: 'Buy Tickets',
+                        text: event.isSoldOut
+                            ? 'Sold Out'
+                            : 'Buy Tickets',
                         width: double.infinity,
                         height: 50,
-                      ),
+                      )
                     ],
                   ),
                 ),

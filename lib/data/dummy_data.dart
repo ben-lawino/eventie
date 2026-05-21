@@ -54,8 +54,6 @@ final List<EventModel> dummyEvents = [
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
     tickets: [
-      TicketModel(id: 'ticket005', name: 'Regular', price: 800.0,  quantity: 250, sold: 180),
-      TicketModel(id: 'ticket006', name: 'VVIP',    price: 3000.0, quantity: 30,  sold: 25),
     ],
   ),
 
