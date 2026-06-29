@@ -48,11 +48,15 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               children: [
                 CircleAvatar(
                   radius: 40,
+                  backgroundColor: primaryColor.withOpacity(0.1),
                   backgroundImage: profile.avatarUrl != null
                       ? (profile.avatarUrl!.startsWith('http')
                           ? NetworkImage(profile.avatarUrl!)
                           : FileImage(File(profile.avatarUrl!))) as ImageProvider
-                      : const AssetImage('assets/images/profilepic.png'),
+                      : null,
+                  child: profile.avatarUrl == null
+                      ? Icon(Icons.person, size: 40, color: primaryColor)
+                      : null,
                 ),
                 const SizedBox(width: 20),
                 Column(

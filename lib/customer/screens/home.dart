@@ -1,3 +1,4 @@
+import 'package:eventie/common/providers/profile_provider.dart';
 import 'package:eventie/customer/screens/mini_screens/explore.dart';
 import 'package:eventie/customer/screens/mini_screens/notification.dart';
 import 'package:eventie/customer/screens/mini_screens/popular.dart';
@@ -12,34 +13,41 @@ import '../providers/category_filter_provider.dart';
 
 class HomePage extends ConsumerWidget {
   final List<CategoryModel> categories;
-  final String? userName; // nullable — null means not logged in
 
-  const HomePage({super.key, required this.categories, this.userName});
+  const HomePage({super.key, required this.categories});
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final selectedCategory = ref.watch(categoryProvider);
+    final profile = ref.watch(profileProvider);
+    final userName = profile.fullName;
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        leading: const Padding(
-          padding: EdgeInsets.only(left: 18.0),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 18.0),
           child: CircleAvatar(
             radius: 24,
-            backgroundImage: AssetImage('assets/images/hacker.png'),
+            backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+            backgroundImage: profile.avatarUrl != null
+                ? NetworkImage(profile.avatarUrl!)
+                : null,
+            child: profile.avatarUrl == null
+                ? Icon(Icons.person, color: Theme.of(context).colorScheme.primary)
+                : null,
           ),
         ),
         title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            userName != null ? 'Good Morning,' : 'Good Morning',
+            userName.isNotEmpty ? 'Good Morning,' : 'Good Morning',
             style: Theme.of(context).textTheme.labelMedium!
                 .copyWith(color: Colors.grey),
           ),
           Text(
-            userName?.split(' ').first ?? 'Sign in to get started',
+            userName.isNotEmpty ? userName.split(' ').first : 'Sign in to get started',
             style: Theme.of(context).textTheme.bodyMedium!
                 .copyWith(fontWeight: FontWeight.bold),
           ),

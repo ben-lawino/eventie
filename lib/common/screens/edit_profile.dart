@@ -156,11 +156,15 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                 children: [
                   CircleAvatar(
                     radius: 60,
+                    backgroundColor: primary.withOpacity(0.1),
                     backgroundImage: _avatarUrl != null
                         ? (_avatarUrl!.startsWith('http')
                             ? NetworkImage(_avatarUrl!)
                             : FileImage(File(_avatarUrl!))) as ImageProvider
-                        : const AssetImage('assets/images/profilepic.png'),
+                        : null,
+                    child: _avatarUrl == null
+                        ? Icon(Icons.person, size: 60, color: primary)
+                        : null,
                   ),
                   Positioned(
                     bottom: 0,

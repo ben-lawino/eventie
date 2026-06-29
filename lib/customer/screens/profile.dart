@@ -167,11 +167,11 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     final primaryColor = Theme.of(context).colorScheme.primary;
     final profile = ref.watch(profileProvider);
 
-    final ImageProvider avatarImage = _avatarUrl != null
+    final ImageProvider? avatarImage = _avatarUrl != null
         ? (_avatarUrl!.startsWith('http')
             ? NetworkImage(_avatarUrl!)
             : FileImage(File(_avatarUrl!))) as ImageProvider
-        : const AssetImage('assets/images/profilepic.png');
+        : null;
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -214,7 +214,14 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           Center(
             child: Stack(
               children: [
-                CircleAvatar(radius: 60, backgroundImage: avatarImage),
+                CircleAvatar(
+                  radius: 60,
+                  backgroundColor: primaryColor.withOpacity(0.1),
+                  backgroundImage: avatarImage,
+                  child: avatarImage == null
+                      ? Icon(Icons.person, size: 60, color: primaryColor)
+                      : null,
+                ),
                 if (_isEditing)
                   Positioned(
                     bottom: 0,
