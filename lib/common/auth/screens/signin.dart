@@ -1,10 +1,13 @@
 import 'package:eventie/common/auth/screens/pending_approval.dart';
 import 'package:eventie/common/auth/screens/sign_up.dart';
 import 'package:eventie/common/providers/profile_provider.dart';
+import 'package:eventie/common/services/auth_service.dart';
+import 'package:eventie/common/services/database_service.dart';
 import 'package:eventie/customer/navigation.dart';
 import 'package:eventie/organizer/bottom_nav.dart';
 import 'package:eventie/widgets/button.dart';
 import 'package:eventie/widgets/login_text_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -43,17 +46,44 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
       _errorMessage = null;
     });
 
-    // Simulate async auth — swap for Firebase later
-    await Future.delayed(const Duration(milliseconds: 800));
+    try {
+      // 1. Firebase Auth Sign In
+      final userCredential = await ref.read(authServiceProvider).signIn(
+        _emailController.text.trim(),
+        _passwordController.text.trim(),
+      );
 
-    // Read saved role from SharedPreferences via provider
-    // (already loaded in RoleNotifier._loadSavedRole on app start)
-    final role = ref.read(roleProvider);
+      if (userCredential?.user != null) {
+        final String uid = userCredential!.user!.uid;
 
-    setState(() => _isLoading = false);
+        // 2. Fetch Profile from Firestore
+        final profile = await ref.read(databaseServiceProvider).getProfile(uid);
 
-    if (!mounted) return;
-    _routeByRole(role);
+        if (profile != null) {
+          // 3. Update local state
+          ref.read(profileProvider.notifier).update(profile);
+
+          // 4. Determine role (based on businessName presence or other flag)
+          // For now, we trust the roleProvider if it was set, 
+          // but better to rely on profile data in a real app
+          final savedRole = ref.read(roleProvider) ?? 
+              (profile.businessName != null ? 'organizer' : 'customer');
+          
+          await ref.read(roleProvider.notifier).saveRole(savedRole);
+
+          if (!mounted) return;
+          _routeByRole(savedRole);
+        } else {
+          setState(() => _errorMessage = 'Profile not found.');
+        }
+      }
+    } on FirebaseAuthException catch (e) {
+      setState(() => _errorMessage = e.message);
+    } catch (e) {
+      setState(() => _errorMessage = 'An unexpected error occurred.');
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
+    }
   }
 
   // Route after sign in

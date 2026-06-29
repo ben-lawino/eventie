@@ -26,7 +26,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
   late TextEditingController _nameController;
   late TextEditingController _emailController;
   late TextEditingController _phoneController;
-  String? _localAvatarPath;
+  String? _avatarUrl;
 
   @override
   void initState() {
@@ -35,7 +35,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     _nameController  = TextEditingController(text: p.fullName);
     _emailController = TextEditingController(text: p.email);
     _phoneController = TextEditingController(text: p.phone);
-    _localAvatarPath = p.avatarPath;
+    _avatarUrl = p.avatarUrl;
   }
 
   @override
@@ -53,7 +53,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
       source: ImageSource.gallery,
       imageQuality: 80,
     );
-    if (picked != null) setState(() => _localAvatarPath = picked.path);
+    if (picked != null) setState(() => _avatarUrl = picked.path);
   }
 
   // ── Cancel ────────────────────────────────────────────────────────────────
@@ -64,7 +64,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     _emailController.text = p.email;
     _phoneController.text = p.phone;
     setState(() {
-      _localAvatarPath = p.avatarPath;
+      _avatarUrl = p.avatarUrl;
       _isEditing = false;
     });
   }
@@ -81,7 +81,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
         fullName: _nameController.text.trim(),
         email: _emailController.text.trim(),
         phone: _phoneController.text.trim(),
-        avatarPath: _localAvatarPath,
+        avatarUrl: _avatarUrl,
       ),
     );
 
@@ -167,8 +167,10 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     final primaryColor = Theme.of(context).colorScheme.primary;
     final profile = ref.watch(profileProvider);
 
-    final ImageProvider avatarImage = _localAvatarPath != null
-        ? FileImage(File(_localAvatarPath!))
+    final ImageProvider avatarImage = _avatarUrl != null
+        ? (_avatarUrl!.startsWith('http')
+            ? NetworkImage(_avatarUrl!)
+            : FileImage(File(_avatarUrl!))) as ImageProvider
         : const AssetImage('assets/images/profilepic.png');
 
     return Scaffold(

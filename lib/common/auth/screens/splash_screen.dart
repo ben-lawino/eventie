@@ -1,8 +1,11 @@
 import 'package:eventie/common/auth/screens/pending_approval.dart';
 import 'package:eventie/common/auth/screens/welcome_screen.dart';
 import 'package:eventie/common/providers/profile_provider.dart';
+import 'package:eventie/common/services/auth_service.dart';
+import 'package:eventie/common/services/database_service.dart';
 import 'package:eventie/customer/navigation.dart';
 import 'package:eventie/organizer/bottom_nav.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -58,34 +61,43 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   // ── Check role and navigate
   final _onboardingKey = 'has_seen_onboarding';
   Future<void> _navigate() async {
-    await Future.wait([
-      Future.delayed(const Duration(seconds: 2)),
-      ref.read(roleProvider.notifier).loadRole(),
-    ]);
+    // 1. Initial wait for animation/loading
+    await Future.delayed(const Duration(seconds: 2));
 
     if (!mounted) return;
 
+    // 2. Load basic local data
     final prefs = await SharedPreferences.getInstance();
     final hasSeenOnboarding = prefs.getBool(_onboardingKey) ?? false;
+    await ref.read(roleProvider.notifier).loadRole();
+
+    // 3. Firebase Auth Check & Profile Sync
+    final currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      final profile = await ref.read(databaseServiceProvider).getProfile(currentUser.uid);
+      if (profile != null) {
+        ref.read(profileProvider.notifier).update(profile);
+      }
+    }
+
     final role = ref.read(roleProvider);
+    final profile = ref.read(profileProvider);
 
     Widget destination;
 
     if (!hasSeenOnboarding) {
-      // First time ever — show onboarding
       destination = const OnboardingScreen();
+    } else if (currentUser == null) {
+      destination = const WelcomeScreen();
     } else if (role == 'organizer') {
-      final profile = ref.read(profileProvider);
       destination = profile.isApproved
           ? const BottomNav()
           : const PendingApprovalScreen();
-    } else if (role == 'customer') {
-      destination = const NavigationMenu();
     } else {
-      // Seen onboarding but not signed up yet
-      destination = const WelcomeScreen();
+      destination = const NavigationMenu();
     }
 
+    if (!mounted) return;
     Navigator.pushReplacement(
       context,
       PageRouteBuilder(

@@ -1,8 +1,12 @@
 import 'package:eventie/common/auth/screens/pending_approval.dart';
+import 'package:eventie/common/services/auth_service.dart';
+import 'package:eventie/common/services/database_service.dart';
 import 'package:eventie/customer/navigation.dart';
+import 'package:eventie/data/models/profile_model.dart';
 import 'package:eventie/organizer/bottom_nav.dart';
 import 'package:eventie/widgets/button.dart';
 import 'package:eventie/widgets/login_text_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/role_provider.dart';
@@ -53,29 +57,49 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       _errorMessage = null;
     });
 
-    // Simulate async auth — swap for Firebase later
-    await Future.delayed(const Duration(milliseconds: 800));
+    try {
+      // 1. Firebase Auth Sign Up
+      final userCredential = await ref.read(authServiceProvider).signUp(
+        _emailController.text.trim(),
+        _passwordController.text.trim(),
+      );
 
-    // Role was set when they tapped a card on the welcome screen
-    // Now we persist it to SharedPreferences
-    final role = ref.read(roleProvider) ?? 'customer';
-    await ref.read(roleProvider.notifier).saveRole(role);
+      if (userCredential?.user != null) {
+        final String uid = userCredential!.user!.uid;
+        final String role = ref.read(roleProvider) ?? 'customer';
 
-    // Update profile state with newly created user info
-    final currentProfile = ref.read(profileProvider);
-    ref.read(profileProvider.notifier).update(
-          currentProfile.copyWith(
-            email: _emailController.text,
-            isApproved: role != 'organizer',
-            businessName: role == 'organizer' ? _businessNameController.text : null,
-            idNumber: role == 'organizer' ? _idNumberController.text : null,
-          ),
+        // 2. Create Profile Object
+        final newProfile = ProfileModel(
+          fullName: 'New User', // Can be updated later in Edit Profile
+          dateOfBirth: '',
+          gender: '',
+          email: _emailController.text.trim(),
+          phone: '',
+          country: '',
+          isApproved: role != 'organizer',
+          businessName: role == 'organizer' ? _businessNameController.text.trim() : null,
+          idNumber: role == 'organizer' ? _idNumberController.text.trim() : null,
         );
 
-    setState(() => _isLoading = false);
+        // 3. Save to Firestore
+        await ref.read(databaseServiceProvider).saveProfile(uid, newProfile);
 
-    if (!mounted) return;
-    _routeByRole(role);
+        // 4. Save role locally
+        await ref.read(roleProvider.notifier).saveRole(role);
+
+        // 5. Update local state
+        ref.read(profileProvider.notifier).update(newProfile);
+
+        if (!mounted) return;
+        _routeByRole(role);
+      }
+    } on FirebaseAuthException catch (e) {
+      setState(() => _errorMessage = e.message);
+    } catch (e) {
+      setState(() => _errorMessage = 'An unexpected error occurred. Please try again.');
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
+    }
   }
 
   // ── Route after sign up ───────────────────────────────────────────────────

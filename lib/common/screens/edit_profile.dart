@@ -26,7 +26,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
 
   String? _selectedGender;
   String? _selectedCountry;
-  String? _avatarPath;
+  String? _avatarUrl;
 
   final List<String> _genders = ['Male', 'Female', 'Other'];
   final List<String> _countries = ['Kenya', 'Uganda', 'Tanzania', 'Nigeria', 'South Africa'];
@@ -43,7 +43,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     _phoneCtrl = TextEditingController(text: profile.phone);
     _selectedGender = profile.gender;
     _selectedCountry = profile.country;
-    _avatarPath = profile.avatarPath;
+    _avatarUrl = profile.avatarUrl;
   }
 
   @override
@@ -63,7 +63,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
       source: ImageSource.gallery,
       imageQuality: 80,
     );
-    if (picked != null) setState(() => _avatarPath = picked.path);
+    if (picked != null) setState(() => _avatarUrl = picked.path);
   }
 
   // ── Date picker
@@ -107,7 +107,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
         email: _emailCtrl.text.trim(),
         phone: _phoneCtrl.text.trim(),
         country: _selectedCountry,
-        avatarPath: _avatarPath,
+        avatarUrl: _avatarUrl,
       ),
     );
 
@@ -156,8 +156,10 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                 children: [
                   CircleAvatar(
                     radius: 60,
-                    backgroundImage: _avatarPath != null
-                        ? FileImage(File(_avatarPath!)) as ImageProvider
+                    backgroundImage: _avatarUrl != null
+                        ? (_avatarUrl!.startsWith('http')
+                            ? NetworkImage(_avatarUrl!)
+                            : FileImage(File(_avatarUrl!))) as ImageProvider
                         : const AssetImage('assets/images/profilepic.png'),
                   ),
                   Positioned(

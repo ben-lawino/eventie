@@ -1,5 +1,4 @@
 import 'package:riverpod/legacy.dart';
-import 'package:riverpod/legacy.dart';
 import '../../data/models/profile_model.dart';
 
 
