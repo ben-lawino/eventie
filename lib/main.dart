@@ -2,6 +2,7 @@ import 'package:eventie/common/auth/screens/splash_screen.dart';
 import 'package:eventie/common/auth/screens/welcome_screen.dart';
 import 'package:eventie/customer/navigation.dart';
 import 'package:eventie/organizer/bottom_nav.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,8 +10,13 @@ import 'common/providers/theme_provider.dart';
 import 'common/services/notification_service.dart';
 import 'common/theme/app_theme.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'firebase_options.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -18,7 +24,6 @@ void main() async {
     ),
   );
   await dotenv.load();
-  WidgetsFlutterBinding.ensureInitialized();
   await NotificationService.initialize();
   runApp(const ProviderScope(child: MyApp()));
 }

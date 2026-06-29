@@ -5,7 +5,7 @@ class ProfileModel {
   final String email;
   final String phone;
   final String country;
-  final String? avatarPath;
+  final String? avatarUrl;
   final bool isApproved;
   // KYC Fields
   final String? businessName;
@@ -19,7 +19,7 @@ class ProfileModel {
     required this.email,
     required this.phone,
     required this.country,
-    this.avatarPath,
+    this.avatarUrl,
     this.isApproved = true,
     this.businessName,
     this.idNumber,
@@ -33,7 +33,7 @@ class ProfileModel {
     String? email,
     String? phone,
     String? country,
-    String? avatarPath,
+    String? avatarUrl,
     bool? isApproved,
     String? businessName,
     String? idNumber,
@@ -46,11 +46,43 @@ class ProfileModel {
       email: email ?? this.email,
       phone: phone ?? this.phone,
       country: country ?? this.country,
-      avatarPath: avatarPath ?? this.avatarPath,
+      avatarUrl: avatarUrl ?? this.avatarUrl,
       isApproved: isApproved ?? this.isApproved,
       businessName: businessName ?? this.businessName,
       idNumber: idNumber ?? this.idNumber,
       website: website ?? this.website,
     );
+  }
+
+  factory ProfileModel.fromJson(Map<String, dynamic> json) {
+    return ProfileModel(
+      fullName: json['fullName'] ?? '',
+      dateOfBirth: json['dateOfBirth'] ?? '',
+      gender: json['gender'] ?? '',
+      email: json['email'] ?? '',
+      phone: json['phone'] ?? '',
+      country: json['country'] ?? '',
+      avatarUrl: json['avatarUrl'],
+      isApproved: json['isApproved'] ?? true,
+      businessName: json['businessName'],
+      idNumber: json['idNumber'],
+      website: json['website'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'fullName': fullName,
+      'dateOfBirth': dateOfBirth,
+      'gender': gender,
+      'email': email,
+      'phone': phone,
+      'country': country,
+      'avatarUrl': avatarUrl,
+      'isApproved': isApproved,
+      'businessName': businessName,
+      'idNumber': idNumber,
+      'website': website,
+    };
   }
 }

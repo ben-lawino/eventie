@@ -12,7 +12,7 @@ class ProfileNotifier extends StateNotifier<ProfileModel> {
     email: 'lawinwes@gmail.com',
     phone: '+254 700628088',
     country: 'Kenya',
-    avatarPath: null,
+    avatarUrl: null,
     isApproved: true,
   ));
 
