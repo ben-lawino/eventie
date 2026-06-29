@@ -24,15 +24,31 @@ class DatabaseService {
     return null;
   }
 
+  // Stream of a single profile
+  Stream<ProfileModel?> getProfileStream(String uid) {
+    return _db.collection('profiles').doc(uid).snapshots().map((snapshot) {
+      if (snapshot.exists && snapshot.data() != null) {
+        return ProfileModel.fromJson(snapshot.data()!);
+      }
+      return null;
+    });
+  }
+
   // Stream of profiles for admin
-  Stream<List<ProfileModel>> getPendingOrganizers() {
+  Stream<List<Map<String, dynamic>>> getPendingOrganizers() {
     return _db
         .collection('profiles')
         .where('isApproved', isEqualTo: false)
+        .where('businessName', isNotEqualTo: null)
         .snapshots()
         .map((snapshot) => snapshot.docs
-            .map((doc) => ProfileModel.fromJson(doc.data()))
+            .map((doc) => {...doc.data(), 'uid': doc.id})
             .toList());
+  }
+
+  // Approve an organizer
+  Future<void> approveOrganizer(String uid) async {
+    await _db.collection('profiles').doc(uid).update({'isApproved': true});
   }
 }
 

@@ -1,6 +1,7 @@
 import 'package:eventie/organizer/providers/dashboard_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../common/providers/profile_provider.dart';
 import '../../customer/screens/mini_screens/notification.dart';
 
 class DashboardScreen extends ConsumerStatefulWidget {
@@ -42,9 +43,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
   Widget build(BuildContext context) {
     final dashboard = ref.watch(dashboardProvider);
     final primaryColor = Theme.of(context).colorScheme.primary;
+    final profile = ref.watch(profileProvider);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF4F3FA),
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: FadeTransition(
         opacity: _fadeAnim,
         child: CustomScrollView(
@@ -53,6 +55,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
             SliverToBoxAdapter(
               child: _HeroHeader(
                 primaryColor: primaryColor,
+                userName: profile.fullName.isNotEmpty ? profile.fullName : 'Ben lawin',
+                avatarUrl: profile.avatarUrl,
                 revenue: 'Ksh ${_formatCurrency(dashboard.revenue)}',
                 onNotificationTap: () => Navigator.push(
                   context,
@@ -189,11 +193,15 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen>
 class _HeroHeader extends StatelessWidget {
   final Color primaryColor;
   final String revenue;
+  final String userName;
+  final String? avatarUrl;
   final VoidCallback onNotificationTap;
 
   const _HeroHeader({
     required this.primaryColor,
     required this.revenue,
+    required this.userName,
+    this.avatarUrl,
     required this.onNotificationTap,
   });
 
@@ -229,13 +237,16 @@ class _HeroHeader extends StatelessWidget {
               CircleAvatar(
                 radius: 22,
                 backgroundColor: Colors.white.withOpacity(0.25),
-                backgroundImage: const AssetImage('assets/images/hacker.png'),
+                backgroundImage: avatarUrl != null ? NetworkImage(avatarUrl!) : null,
+                child: avatarUrl == null 
+                    ? const Icon(Icons.person, color: Colors.white, size: 24)
+                    : null,
               ),
               const SizedBox(width: 12),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
+                children: [
+                  const Text(
                     'Good Morning',
                     style: TextStyle(
                       color: Colors.white70,
@@ -243,8 +254,8 @@ class _HeroHeader extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Ben lawin',
-                    style: TextStyle(
+                    userName,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
@@ -356,7 +367,7 @@ class _StatCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardTheme.color ?? Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(18),
         border: Border(
           left: BorderSide(color: accentColor, width: 4),
@@ -381,9 +392,9 @@ class _StatCard extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 11,
-                  color: Color(0xFF888888),
+                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                   fontWeight: FontWeight.w500,
                   letterSpacing: 0.3,
                 ),
@@ -433,7 +444,7 @@ class _ProgressCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardTheme.color ?? Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(18),
       ),
       child: Column(
@@ -442,11 +453,11 @@ class _ProgressCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'Ticket Goal Progress',
                 style: TextStyle(
                   fontSize: 13,
-                  color: Color(0xFF888888),
+                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -549,7 +560,7 @@ class _ActivityCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardTheme.color ?? Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(18),
       ),
       child: Column(

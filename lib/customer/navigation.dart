@@ -1,19 +1,42 @@
+import 'package:eventie/common/services/database_service.dart';
+import 'package:eventie/common/providers/profile_provider.dart';
 import 'package:eventie/customer/screens/favorite.dart';
 import 'package:eventie/customer/screens/home.dart';
 import 'package:eventie/customer/screens/profile.dart';
 import 'package:eventie/customer/screens/ticket.dart';
 import 'package:eventie/data/categories.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class NavigationMenu extends StatefulWidget {
+class NavigationMenu extends ConsumerStatefulWidget {
   const NavigationMenu({super.key});
 
   @override
-  State<NavigationMenu> createState() => _NavigationMenuState();
+  ConsumerState<NavigationMenu> createState() => _NavigationMenuState();
 }
 
-class _NavigationMenuState extends State<NavigationMenu> {
+class _NavigationMenuState extends ConsumerState<NavigationMenu> {
   int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkAndSyncProfile();
+  }
+
+  Future<void> _checkAndSyncProfile() async {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      final profile = ref.read(profileProvider);
+      if (profile.fullName.isEmpty) {
+        final freshProfile = await ref.read(databaseServiceProvider).getProfile(currentUser.uid);
+        if (freshProfile != null) {
+          ref.read(profileProvider.notifier).update(freshProfile);
+        }
+      }
+    }
+  }
 
   final List _screens = [
     HomePage(categories: eventCategories),

@@ -1,4 +1,5 @@
 import 'package:eventie/common/auth/screens/signin.dart';
+import 'package:eventie/common/screens/admin_dashboard.dart';
 import 'package:eventie/customer/navigation.dart';
 import 'package:eventie/widgets/button.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,15 @@ class WelcomeScreen extends ConsumerWidget {
             children: [
               const SizedBox(height: 50,),
               // ── Logo
-              Image.asset('assets/icons/applogo.png', scale: 4),
+              GestureDetector(
+                onLongPress: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const AdminDashboard()),
+                  );
+                },
+                child: Image.asset('assets/icons/applogo.png', scale: 4),
+              ),
 
               // ── App name
               Text(

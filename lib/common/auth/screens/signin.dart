@@ -11,6 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../data/models/profile_model.dart';
 import '../providers/role_provider.dart';
 
 class SignInScreen extends ConsumerStatefulWidget {
@@ -72,7 +73,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
           await ref.read(roleProvider.notifier).saveRole(savedRole);
 
           if (!mounted) return;
-          _routeByRole(savedRole);
+          _routeByRole(savedRole, profile);
         } else {
           setState(() => _errorMessage = 'Profile not found.');
         }
@@ -88,9 +89,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
   // Route after sign in
 
-  void _routeByRole(String? role) {
-    final profile = ref.read(profileProvider);
-
+  void _routeByRole(String? role, ProfileModel profile) {
     if (role == 'organizer' && !profile.isApproved) {
       Navigator.pushAndRemoveUntil(
         context,
