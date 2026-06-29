@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "904476843791",
+    "project_id": "eventie-35a0f",
+    "storage_bucket": "eventie-35a0f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:904476843791:android:2ee4f7be335fcbab9b287a",
+        "android_client_info": {
+          "package_name": "com.tech1850.eventie"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAs7QPOgQXUxDtqhn9lwmm0nFRhNAjkm8E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,7 +5,12 @@ class ProfileModel {
   final String email;
   final String phone;
   final String country;
-  final String? avatarPath; // null = use asset default
+  final String? avatarPath;
+  final bool isApproved;
+  // KYC Fields
+  final String? businessName;
+  final String? idNumber;
+  final String? website;
 
   const ProfileModel({
     required this.fullName,
@@ -15,6 +20,10 @@ class ProfileModel {
     required this.phone,
     required this.country,
     this.avatarPath,
+    this.isApproved = true,
+    this.businessName,
+    this.idNumber,
+    this.website,
   });
 
   ProfileModel copyWith({
@@ -25,6 +34,10 @@ class ProfileModel {
     String? phone,
     String? country,
     String? avatarPath,
+    bool? isApproved,
+    String? businessName,
+    String? idNumber,
+    String? website,
   }) {
     return ProfileModel(
       fullName: fullName ?? this.fullName,
@@ -34,6 +47,10 @@ class ProfileModel {
       phone: phone ?? this.phone,
       country: country ?? this.country,
       avatarPath: avatarPath ?? this.avatarPath,
+      isApproved: isApproved ?? this.isApproved,
+      businessName: businessName ?? this.businessName,
+      idNumber: idNumber ?? this.idNumber,
+      website: website ?? this.website,
     );
   }
 }

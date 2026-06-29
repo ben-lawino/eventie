@@ -41,7 +41,7 @@ class GridCard extends StatelessWidget {
         shadowColor: Colors.black.withOpacity(0.45),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         child: SizedBox(
-          height: 220,
+          //height: 220,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -24,7 +24,7 @@ class SmallEventList extends ConsumerWidget {
           crossAxisCount: 2,
           crossAxisSpacing: 12,
           mainAxisSpacing: 12,
-          childAspectRatio: 0.75, // control card height
+          childAspectRatio: 0.85, // More compact aspect ratio to remove excess bottom space
         ),
         itemCount: dummyEvents.length,
         itemBuilder: (context, index) {

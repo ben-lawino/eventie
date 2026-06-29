@@ -1,3 +1,4 @@
+import 'package:eventie/common/auth/screens/pending_approval.dart';
 import 'package:eventie/customer/navigation.dart';
 import 'package:eventie/organizer/bottom_nav.dart';
 import 'package:eventie/widgets/button.dart';
@@ -5,6 +6,7 @@ import 'package:eventie/widgets/login_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/role_provider.dart';
+import '../../providers/profile_provider.dart';
 
 
 class SignUpScreen extends ConsumerStatefulWidget {
@@ -18,6 +20,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final _emailController           = TextEditingController();
   final _passwordController        = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  final _businessNameController    = TextEditingController();
+  final _idNumberController        = TextEditingController();
   final _formKey                   = GlobalKey<FormState>();
 
   bool _acceptTerms = false;
@@ -29,6 +33,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
+    _businessNameController.dispose();
+    _idNumberController.dispose();
     super.dispose();
   }
 
@@ -55,6 +61,17 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     final role = ref.read(roleProvider) ?? 'customer';
     await ref.read(roleProvider.notifier).saveRole(role);
 
+    // Update profile state with newly created user info
+    final currentProfile = ref.read(profileProvider);
+    ref.read(profileProvider.notifier).update(
+          currentProfile.copyWith(
+            email: _emailController.text,
+            isApproved: role != 'organizer',
+            businessName: role == 'organizer' ? _businessNameController.text : null,
+            idNumber: role == 'organizer' ? _idNumberController.text : null,
+          ),
+        );
+
     setState(() => _isLoading = false);
 
     if (!mounted) return;
@@ -64,15 +81,19 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   // ── Route after sign up ───────────────────────────────────────────────────
 
   void _routeByRole(String role) {
-    final destination = role == 'organizer'
-        ? const BottomNav()
-        : const NavigationMenu();
-
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (_) => destination),
-          (route) => false,
-    );
+    if (role == 'organizer') {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => const PendingApprovalScreen()),
+        (route) => false,
+      );
+    } else {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => const NavigationMenu()),
+        (route) => false,
+      );
+    }
   }
 
   // ── Validators ────────────────────────────────────────────────────────────
@@ -114,6 +135,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
               padding: const EdgeInsets.all(18.0),
               child: Form(
                 key: _formKey,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Column(
                   children: [
                     Image.asset('assets/icons/applogo.png', scale: 5),
@@ -174,6 +196,24 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
 
                     const SizedBox(height: 20),
 
+                    // ── Organizer KYC Fields ──────────────────────────────
+                    if (selectedRole == 'organizer') ...[
+                      LoginTextField(
+                        hintText: 'Business/Organization Name',
+                        icon: Icons.business_rounded,
+                        controller: _businessNameController,
+                        validator: (v) => v == null || v.isEmpty ? 'Business name is required' : null,
+                      ),
+                      const SizedBox(height: 20),
+                      LoginTextField(
+                        hintText: 'ID / Registration Number',
+                        icon: Icons.badge_rounded,
+                        controller: _idNumberController,
+                        validator: (v) => v == null || v.isEmpty ? 'Verification number is required' : null,
+                      ),
+                      const SizedBox(height: 20),
+                    ],
+
                     // ── Password ───────────────────────────────────────────
                     LoginTextField(
                       hintText: 'Password',
@@ -208,35 +248,47 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                       ),
 
                     // ── Terms ──────────────────────────────────────────────
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Checkbox(
-                          value: _acceptTerms,
-                          onChanged: (value) {
-                            setState(() {
-                              _acceptTerms  = value!;
-                              _errorMessage = null;
-                            });
-                          },
-                          activeColor: primaryColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          _acceptTerms = !_acceptTerms;
+                          _errorMessage = null;
+                        });
+                      },
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: Checkbox(
+                              value: _acceptTerms,
+                              onChanged: (value) {
+                                setState(() {
+                                  _acceptTerms = value!;
+                                  _errorMessage = null;
+                                });
+                              },
+                              activeColor: primaryColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 12),
+                          const SizedBox(width: 12),
+                          Expanded(
                             child: RichText(
                               text: TextSpan(
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall!
                                     .copyWith(
-                                  fontSize: 13,
-                                  color: Colors.black87,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                      fontSize: 13,
+                                      color: Theme.of(context).colorScheme.onSurface,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                 children: [
                                   const TextSpan(text: 'I accept the Eventie '),
                                   TextSpan(
@@ -264,14 +316,13 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                   ),
                                   const TextSpan(
                                     text: ' (Required)',
-                                    style: TextStyle(color: Colors.black87),
                                   ),
                                 ],
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
 
                     const SizedBox(height: 25),

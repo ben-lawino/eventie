@@ -13,7 +13,20 @@ class CreateNewPasswordScreen extends StatefulWidget {
 }
 
 class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
+
   void _onCreateNewPassword() {
+    if (!_formKey.currentState!.validate()) return;
+
     showDialog(
       barrierDismissible: true,
       context: context,
@@ -114,31 +127,57 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
         backDestination: SignInScreen(),
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: Column(
-            children: [
-              Image.asset('assets/images/newpassword.png'),
-              const SizedBox(height: 20),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text('Create Your New Password',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium!
-                        .copyWith(fontWeight: FontWeight.w600)),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Form(
+              key: _formKey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              child: Column(
+                children: [
+                  Image.asset('assets/images/newpassword.png'),
+                  const SizedBox(height: 20),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text('Create Your New Password',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .copyWith(fontWeight: FontWeight.w600)),
+                  ),
+                  const SizedBox(height: 20),
+                  LoginTextField(
+                    hintText: 'Enter Password',
+                    icon: Icons.lock,
+                    isPassword: true,
+                    controller: _passwordController,
+                    validator: (v) {
+                      if (v == null || v.isEmpty) return 'Password is required';
+                      if (v.length < 6) return 'Password must be at least 6 characters';
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  LoginTextField(
+                    hintText: 'Confirm Password',
+                    icon: Icons.lock,
+                    isPassword: true,
+                    controller: _confirmPasswordController,
+                    validator: (v) {
+                      if (v == null || v.isEmpty) return 'Please confirm your password';
+                      if (v != _passwordController.text) return 'Passwords do not match';
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 40),
+                  Button(
+                    width: double.infinity,
+                    onPressed: _onCreateNewPassword,
+                    text: 'Continue',
+                  )
+                ],
               ),
-              const SizedBox(height: 20),
-              const LoginTextField(hintText: 'Enter Password', icon: Icons.lock, isPassword: true,),
-              const SizedBox(height: 20),
-              const LoginTextField(hintText: 'Confirm Password', icon: Icons.lock, isPassword: true),
-              const Spacer(),
-              Button(
-                width: double.infinity,
-                onPressed: _onCreateNewPassword,
-                text: 'Continue',
-              )
-            ],
+            ),
           ),
         ),
       ),

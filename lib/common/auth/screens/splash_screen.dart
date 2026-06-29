@@ -1,4 +1,6 @@
+import 'package:eventie/common/auth/screens/pending_approval.dart';
 import 'package:eventie/common/auth/screens/welcome_screen.dart';
+import 'package:eventie/common/providers/profile_provider.dart';
 import 'package:eventie/customer/navigation.dart';
 import 'package:eventie/organizer/bottom_nav.dart';
 import 'package:flutter/material.dart';
@@ -73,7 +75,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
       // First time ever — show onboarding
       destination = const OnboardingScreen();
     } else if (role == 'organizer') {
-      destination = const BottomNav();
+      final profile = ref.read(profileProvider);
+      destination = profile.isApproved
+          ? const BottomNav()
+          : const PendingApprovalScreen();
     } else if (role == 'customer') {
       destination = const NavigationMenu();
     } else {

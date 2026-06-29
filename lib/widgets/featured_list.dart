@@ -17,7 +17,7 @@ class EventsList extends ConsumerWidget {
     final favorites = ref.watch(favoritesProvider);
 
     return SizedBox(
-      height: 380,
+      height: 360, // Reduced from 380 to minimize empty space at bottom
       child: ListView.separated(
         separatorBuilder: (context, index) => const SizedBox(width: 12),
         scrollDirection: Axis.horizontal,

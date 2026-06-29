@@ -13,6 +13,7 @@ class ProfileNotifier extends StateNotifier<ProfileModel> {
     phone: '+254 700628088',
     country: 'Kenya',
     avatarPath: null,
+    isApproved: true,
   ));
 
   void update(ProfileModel updated) => state = updated;

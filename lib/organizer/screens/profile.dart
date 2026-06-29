@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../common/providers/profile_provider.dart';
 import '../../common/providers/theme_provider.dart';
 import '../../common/screens/edit_profile.dart';
-import 'package:flutter_riverpod/legacy.dart';
+import '../../widgets/log_out.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
@@ -16,6 +16,23 @@ class ProfileScreen extends ConsumerStatefulWidget {
 }
 
 class _ProfileScreenState extends ConsumerState<ProfileScreen> {
+  // ── Logout overlay ────────────────────────────────────────────────────────
+
+  void _logOutOverlay() {
+    showModalBottomSheet(
+      useSafeArea: true,
+      isDismissible: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(36)),
+      ),
+      context: context,
+      builder: (ctx) => SizedBox(
+        height: MediaQuery.of(context).size.height * 0.28,
+        child: const LogOut(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).colorScheme.primary;
@@ -157,18 +174,21 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               trailing: Image.asset('assets/icons/arrowright.png', scale: 24),
             ),
             Divider(color: Colors.grey[400], thickness: 1, height: 20),
-            ListTile(
-              leading: Image.asset(
-                'assets/icons/exit.png',
-                scale: 24,
-                color: Colors.red,
-              ),
-              title: Text(
-                'Logout',
-                style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      fontWeight: FontWeight.w500,
-                      color: Colors.red,
-                    ),
+            GestureDetector(
+              onTap: _logOutOverlay,
+              child: ListTile(
+                leading: Image.asset(
+                  'assets/icons/exit.png',
+                  scale: 24,
+                  color: Colors.red,
+                ),
+                title: Text(
+                  'Logout',
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        fontWeight: FontWeight.w500,
+                        color: Colors.red,
+                      ),
+                ),
               ),
             ),
           ],

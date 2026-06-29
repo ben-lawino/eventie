@@ -1,4 +1,6 @@
+import 'package:eventie/common/auth/screens/pending_approval.dart';
 import 'package:eventie/common/auth/screens/sign_up.dart';
+import 'package:eventie/common/providers/profile_provider.dart';
 import 'package:eventie/customer/navigation.dart';
 import 'package:eventie/organizer/bottom_nav.dart';
 import 'package:eventie/widgets/button.dart';
@@ -57,6 +59,17 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
   // Route after sign in
 
   void _routeByRole(String? role) {
+    final profile = ref.read(profileProvider);
+
+    if (role == 'organizer' && !profile.isApproved) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => const PendingApprovalScreen()),
+        (route) => false,
+      );
+      return;
+    }
+
     final destination = role == 'organizer'
         ? const BottomNav()
         : const NavigationMenu(); // default to customer for null or 'customer'
@@ -64,7 +77,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (_) => destination),
-          (route) => false, // clears the entire back stack
+      (route) => false, // clears the entire back stack
     );
   }
 
