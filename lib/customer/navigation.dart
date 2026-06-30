@@ -1,3 +1,4 @@
+import 'package:eventie/common/auth/screens/welcome_screen.dart';
 import 'package:eventie/common/services/database_service.dart';
 import 'package:eventie/common/providers/profile_provider.dart';
 import 'package:eventie/customer/screens/favorite.dart';
@@ -36,6 +37,22 @@ class _NavigationMenuState extends ConsumerState<NavigationMenu> {
         }
       }
     }
+  }
+
+  void _onTabTapped(int index) {
+    final currentUser = FirebaseAuth.instance.currentUser;
+
+    // Check if user is guest (not logged in) and trying to access restricted tabs
+    if (currentUser == null && (index == 1 || index == 2 || index == 3)) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => const WelcomeScreen()),
+        (route) => false,
+      );
+      return;
+    }
+
+    setState(() => _currentIndex = index);
   }
 
   final List _screens = [
@@ -91,7 +108,7 @@ class _NavigationMenuState extends ConsumerState<NavigationMenu> {
       Color primaryColor) {
     final bool isSelected = _currentIndex == index;
     return GestureDetector(
-      onTap: () => setState(() => _currentIndex = index),
+      onTap: () => _onTabTapped(index),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
         curve: Curves.easeInOut,

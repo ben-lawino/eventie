@@ -48,7 +48,7 @@ dependencies:
   firebase_storage: ^12.3.2
   cloudinary_url_gen: ^1.1.0
   http: ^1.2.2
-  flutter_riverpod: ^3.2.1
+  flutter_riverpod: ^2.6.1
 
 dev_dependencies:
   flutter_test:

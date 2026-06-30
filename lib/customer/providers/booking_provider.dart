@@ -1,4 +1,5 @@
-import 'package:flutter_riverpod/legacy.dart';
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/models/booking_model.dart';
 
 class BookingNotifier extends StateNotifier<List<BookingModel>> {

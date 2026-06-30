@@ -1,4 +1,5 @@
-import 'package:eventie/data/dummy_data.dart';
+import 'package:eventie/customer/providers/filtered_events_provider.dart';
+import 'package:eventie/customer/providers/search_provider.dart';
 import 'package:eventie/data/models/category_model.dart';
 import 'package:eventie/widgets/filter_button.dart';
 import 'package:eventie/widgets/small_event_list.dart';
@@ -6,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../providers/category_filter_provider.dart';
-import '../../providers/search_provider.dart';
 
 class ExplorePage extends ConsumerWidget {
   final List<CategoryModel> categories;
@@ -16,13 +16,8 @@ class ExplorePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedCategory = ref.watch(categoryProvider);
-
-    // filter logic
-    final filteredEvents = selectedCategory == null
-        ? dummyEvents
-        : dummyEvents
-            .where((event) => event.category == selectedCategory)
-            .toList();
+    final filteredEvents = ref.watch(exploreEventsProvider);
+    final isSearching = ref.watch(searchOpenProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -32,45 +27,37 @@ class ExplorePage extends ConsumerWidget {
           },
           icon: const Icon(Icons.arrow_back_rounded),
         ),
-        title: Consumer(
-          builder: (context, ref, _) {
-            final isSearching = ref.watch(searchOpenProvider);
-
-            return AnimatedSwitcher(
-              duration: const Duration(milliseconds: 300),
-              child: isSearching
-                  ? const TextField(
-                key: ValueKey("searchField"),
-                autofocus: true,
-                decoration: InputDecoration(
-                  hintText: 'Search events...',
-                  border: InputBorder.none,
+        title: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 300),
+          child: isSearching
+              ? TextField(
+                  key: const ValueKey("searchField"),
+                  autofocus: true,
+                  onChanged: (value) {
+                    ref.read(searchQueryProvider.notifier).state = value;
+                  },
+                  decoration: const InputDecoration(
+                    hintText: 'Search events...',
+                    border: InputBorder.none,
+                  ),
+                )
+              : Text(
+                  "Explore Events",
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                  key: const ValueKey("title"),
                 ),
-              )
-                  : Text(
-                "Explore Events",
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(fontWeight: FontWeight.bold),
-                key: const ValueKey("title"),
-              ),
-            );
-          },
         ),
-
         actions: [
-          Consumer(
-            builder: (context, ref, _) {
-              final isSearching = ref.watch(searchOpenProvider);
-
-              return IconButton(
-                icon: Icon(isSearching ? Icons.close : Icons.search),
-                onPressed: () {
-                  ref.read(searchOpenProvider.notifier).state =
-                  !isSearching;
-                },
-              );
+          IconButton(
+            icon: Icon(isSearching ? Icons.close : Icons.search),
+            onPressed: () {
+              ref.read(searchOpenProvider.notifier).state = !isSearching;
+              if (isSearching) {
+                ref.read(searchQueryProvider.notifier).state = '';
+              }
             },
           ),
         ],
@@ -86,7 +73,7 @@ class ExplorePage extends ConsumerWidget {
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 18),
-              itemCount: categories.length,
+              itemCount: categories.length + 1,
               itemBuilder: (context, index) {
                 if (index == 0) {
                   return FilterButton(
